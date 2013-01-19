@@ -34,11 +34,12 @@ def find_biased_max(numseq, origin_index, dest_index):
     updater = (lambda x: x + 1) if origin_index < dest_index else (lambda x: x - 1)
 
     i = origin_index
+    limit = updater(dest_index)
     max_end_index = i - 1 if origin_index < dest_index else i + 1
     max_sum = float("-inf")
     run_sum = 0
 
-    while i != dest_index:
+    while i != limit:
         run_sum += numseq[i]
         
         if run_sum > max_sum:
@@ -116,8 +117,21 @@ def max_subarray(numseq):
 
 class FunctionsTest(unittest.TestCase):
     
+    def test_find_biased_max(self):
+        self.assertEqual((6, 45), find_biased_max((5, 15, -30, 10, -5, 40, 10), 4, 6))
+
     def test_max_subarray(self):
         self.assertEqual((0, 1, 20), max_subarray((5, 15, -30, 10)))
+        # The example from the book
+        stocks = [13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7]
+        self.assertEqual((7, 10, 43), max_subarray(stocks))
+        self.assertEqual((0, 1, 10), max_subarray((7, 3)))
+        self.assertEqual((1, 1, 10), max_subarray((-10, 10)))
+        self.assertEqual((0, 0, 10), max_subarray((10, -10)))
+        self.assertEqual((0, 0, 10), max_subarray([10]))
+        self.assertEqual((1, 2, 50), max_subarray((-5, 40, 10)))
+        self.assertEqual((0, 0, -10), max_subarray([-10]))
+        self.assertEqual((3, 6, 55), max_subarray((5, 15, -30, 10, -5, 40, 10)))
 
 if __name__ == "__main__":
     unittest.main()
