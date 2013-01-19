@@ -18,20 +18,20 @@ def find_max_crossing_subarray(numseq, low, mid, high):
     over that subarray.
     """
     left_side = find_biased_max(numseq, mid, low)
-    right_side = find_biased_max(numseq, mid, high)
+    right_side = find_biased_max(numseq, mid + 1, high)
 
     return (left_side[0], right_side[0], left_side[1] + right_side[1])
 
 def find_biased_max(numseq, origin_index, dest_index):
     """
     Find the maximum subarray that starts at origin_index
-    and ends towards (but not exactly on) dest_index.
+    and ends towards (but not always exactly on) dest_index.
 
     Returns a tuple containing the index where the biased
     maximum subarray _ends_ and the total sum over that
     array, in that order.
     """
-    updater = lambda x: x + 1 if origin_index < dest_index else lambda x: x - 1
+    updater = (lambda x: x + 1) if origin_index < dest_index else (lambda x: x - 1)
 
     i = origin_index
     max_end_index = i - 1 if origin_index < dest_index else i + 1
@@ -55,16 +55,17 @@ def find_max_on(sequence, max_criteria):
     on the given criteria. max_criteria must be a function
     that gets the "comparison point" for an item in sequence.
     This comparison point must be comparable to all the other
-    comparison points in the sequence and it must always be
-    greater than None.
+    comparison points in the sequence.
     """
-    max_item = None
+    max_val = max_criteria(sequence[0])
+    max_item = sequence[0]
 
     for item in sequence:
-        item_comparator = max_criteria(item)
+        to_compare = max_criteria(item)
 
-        if item_comparator > max_item:
-            max_item = item_comparator
+        if to_compare > max_val:
+            max_val = to_compare
+            max_item = item
     
     return max_item
 
@@ -79,11 +80,20 @@ def find_max_subarray(numseq, low, high):
 
     Challenge: Write an iterative version.
     """
-    if low == (high + 1): # Base case: we need to consider only one element
+    if low == high: # Base case: we need to consider only one element
+        return (low, high, numseq[low])
+    elif low == (high - 1): # Another base case: sequence has only two elements
         # Deviation from CORMEN. Consider the case when low = 0, high = 1.
         # Left recursion will terminate with low = 0, high = 0 but right
         # recursion will loop indefinitely with low = 0, high = 1. FIXME
-        return (low, high, numseq[low])
+        possible_max = numseq[low] + numseq[high]
+
+        if possible_max < numseq[low] and numseq[low] > numseq[high]:
+            return (low, low, numseq[low])
+        elif possible_max < numseq[high] and numseq[high] > numseq[low]:
+            return (high, high, numseq[high])
+        else:
+            return (low, high, possible_max)
     else:
         # Determine the midpoint.
         midpoint = int((low + high) / 2)
@@ -92,7 +102,7 @@ def find_max_subarray(numseq, low, high):
         lmax = find_max_subarray(numseq, low, midpoint)
 
         # Get the max subaray of the right side
-        rmax = find_max_subarray(numseq, midpoint, high)
+        rmax = find_max_subarray(numseq, midpoint + 1, high)
 
         # Get the maximum crossing subarray
         cmax = find_max_crossing_subarray(numseq, low, midpoint, high)
