@@ -40,3 +40,23 @@ CREATE TABLE IF NOT EXISTS quizzes(
     FOREIGN KEY (last_updater) REFERENCES users (userid),
     FOREIGN KEY (quizcatid) REFERENCES quiz_categories (quizcatid)
 ) ENGINE = INNODB;
+
+CREATE TABLE IF NOT EXISTS tags(
+    tagid INTEGER AUTO_INCREMENT,
+    taglabel VARCHAR(20) NOT NULL,
+    last_updater INTEGER NOT NULL,
+    last_update TIMESTAMP NOT NULL,
+    PRIMARY KEY (tagid),
+    FOREIGN KEY (last_updater) REFERENCES users (userid)
+) ENGINE = INNODB;
+
+CREATE TABLE IF NOT EXISTS quiztags(
+    tagid INTEGER,
+    quizid INTEGER,
+    last_updater INTEGER NOT NULL,
+    last_update TIMESTAMP NOT NULL,
+    PRIMARY KEY (tagid, quizid),
+    FOREIGN KEY (tagid) REFERENCES tags (tagid),
+    FOREIGN KEY (quizid) REFERENCES quizid (quizzes),
+    FOREIGN KEY (last_updater) REFERENCES users (userid)
+) ENGINE = INNODB;
