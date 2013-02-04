@@ -57,6 +57,6 @@ CREATE TABLE IF NOT EXISTS quiztags(
     last_update TIMESTAMP NOT NULL,
     PRIMARY KEY (tagid, quizid),
     FOREIGN KEY (tagid) REFERENCES tags (tagid),
-    FOREIGN KEY (quizid) REFERENCES quizid (quizzes),
+    FOREIGN KEY (quizid) REFERENCES quizzes (quizid),
     FOREIGN KEY (last_updater) REFERENCES users (userid)
 ) ENGINE = INNODB;
