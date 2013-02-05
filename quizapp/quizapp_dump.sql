@@ -281,7 +281,7 @@ CREATE TABLE `main_quizcategories` (
   `last_updater_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `category_name` (`category_name`),
-  KEY `main_quizcategories_636a04de` (`last_updater_id`),
+  KEY `last_updater_id_refs_id_34e11b9d` (`last_updater_id`),
   CONSTRAINT `last_updater_id_refs_id_34e11b9d` FOREIGN KEY (`last_updater_id`) REFERENCES `main_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -303,15 +303,16 @@ DROP TABLE IF EXISTS `main_quiztags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `main_quiztags` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tagid_id` int(11) NOT NULL,
   `quizid_id` int(11) NOT NULL,
   `last_update` datetime NOT NULL,
   `last_updater_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`tagid_id`),
   KEY `main_quiztags_3b9b95e2` (`quizid_id`),
   KEY `main_quiztags_636a04de` (`last_updater_id`),
   CONSTRAINT `quizid_id_refs_id_e730c9b` FOREIGN KEY (`quizid_id`) REFERENCES `main_quizzes` (`id`),
-  CONSTRAINT `last_updater_id_refs_id_2938edc` FOREIGN KEY (`last_updater_id`) REFERENCES `main_users` (`id`)
+  CONSTRAINT `last_updater_id_refs_id_2938edc` FOREIGN KEY (`last_updater_id`) REFERENCES `main_users` (`id`),
+  CONSTRAINT `tagid_id_refs_id_d5f3fd0` FOREIGN KEY (`tagid_id`) REFERENCES `main_tags` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -339,8 +340,8 @@ CREATE TABLE `main_quizzes` (
   `last_update` datetime NOT NULL,
   `last_updater_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `main_quizzes_1e15ea75` (`quizcatid_id`),
-  KEY `main_quizzes_636a04de` (`last_updater_id`),
+  KEY `last_updater_id_refs_id_724ee63a` (`last_updater_id`),
+  KEY `quizcatid_id_refs_id_59c97938` (`quizcatid_id`),
   CONSTRAINT `quizcatid_id_refs_id_59c97938` FOREIGN KEY (`quizcatid_id`) REFERENCES `main_quizcategories` (`id`),
   CONSTRAINT `last_updater_id_refs_id_724ee63a` FOREIGN KEY (`last_updater_id`) REFERENCES `main_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -368,7 +369,7 @@ CREATE TABLE `main_tags` (
   `last_update` datetime NOT NULL,
   `last_updater_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `main_tags_636a04de` (`last_updater_id`),
+  KEY `last_updater_id_refs_id_28b5ba99` (`last_updater_id`),
   CONSTRAINT `last_updater_id_refs_id_28b5ba99` FOREIGN KEY (`last_updater_id`) REFERENCES `main_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -421,4 +422,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-02-05 13:51:50
+-- Dump completed on 2013-02-05 16:19:15
