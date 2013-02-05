@@ -84,7 +84,7 @@ CREATE TABLE `auth_permission` (
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_1bb8f392` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_728de91f` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add permission',1,'add_permission'),(2,'Can change permission',1,'change_permission'),(3,'Can delete permission',1,'delete_permission'),(4,'Can add group',2,'add_group'),(5,'Can change group',2,'change_group'),(6,'Can delete group',2,'delete_group'),(7,'Can add user',3,'add_user'),(8,'Can change user',3,'change_user'),(9,'Can delete user',3,'delete_user'),(10,'Can add content type',4,'add_contenttype'),(11,'Can change content type',4,'change_contenttype'),(12,'Can delete content type',4,'delete_contenttype'),(13,'Can add session',5,'add_session'),(14,'Can change session',5,'change_session'),(15,'Can delete session',5,'delete_session'),(16,'Can add site',6,'add_site'),(17,'Can change site',6,'change_site'),(18,'Can delete site',6,'delete_site');
+INSERT INTO `auth_permission` VALUES (1,'Can add permission',1,'add_permission'),(2,'Can change permission',1,'change_permission'),(3,'Can delete permission',1,'delete_permission'),(4,'Can add group',2,'add_group'),(5,'Can change group',2,'change_group'),(6,'Can delete group',2,'delete_group'),(7,'Can add user',3,'add_user'),(8,'Can change user',3,'change_user'),(9,'Can delete user',3,'delete_user'),(10,'Can add content type',4,'add_contenttype'),(11,'Can change content type',4,'change_contenttype'),(12,'Can delete content type',4,'delete_contenttype'),(13,'Can add session',5,'add_session'),(14,'Can change session',5,'change_session'),(15,'Can delete session',5,'delete_session'),(16,'Can add site',6,'add_site'),(17,'Can change site',6,'change_site'),(18,'Can delete site',6,'delete_site'),(19,'Can add users',7,'add_users'),(20,'Can change users',7,'change_users'),(21,'Can delete users',7,'delete_users'),(22,'Can add quiz categories',8,'add_quizcategories'),(23,'Can change quiz categories',8,'change_quizcategories'),(24,'Can delete quiz categories',8,'delete_quizcategories'),(25,'Can add quizzes',9,'add_quizzes'),(26,'Can change quizzes',9,'change_quizzes'),(27,'Can delete quizzes',9,'delete_quizzes'),(28,'Can add tags',10,'add_tags'),(29,'Can change tags',10,'change_tags'),(30,'Can delete tags',10,'delete_tags'),(31,'Can add quiz tags',11,'add_quiztags'),(32,'Can change quiz tags',11,'change_quiztags'),(33,'Can delete quiz tags',11,'delete_quiztags');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +127,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'chad','','','chadestioco@gmail.com','pbkdf2_sha256$10000$aIbMpMb1TkdB$hTjOdjX7oIKQZdxbvS3mK/nV+03634S38B2z4Gj+2bc=',1,1,1,'2013-02-04 09:52:41','2013-02-04 09:52:41');
+INSERT INTO `auth_user` VALUES (1,'chad','','','chadestioco@gmail.com','pbkdf2_sha256$10000$r3GPTNWyv4ro$3h9y1saqLtFNSDJPBVg/JpHRmxtvzeS8lrNhSaBssH0=',1,1,1,'2013-02-05 05:51:18','2013-02-05 05:51:18');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +203,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +212,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'permission','auth','permission'),(2,'group','auth','group'),(3,'user','auth','user'),(4,'content type','contenttypes','contenttype'),(5,'session','sessions','session'),(6,'site','sites','site');
+INSERT INTO `django_content_type` VALUES (1,'permission','auth','permission'),(2,'group','auth','group'),(3,'user','auth','user'),(4,'content type','contenttypes','contenttype'),(5,'session','sessions','session'),(6,'site','sites','site'),(7,'users','main','users'),(8,'quiz categories','main','quizcategories'),(9,'quizzes','main','quizzes'),(10,'tags','main','tags'),(11,'quiz tags','main','quiztags');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -267,150 +267,149 @@ INSERT INTO `django_site` VALUES (1,'example.com','example.com');
 UNLOCK TABLES;
 
 --
--- Table structure for table `quiz_categories`
+-- Table structure for table `main_quizcategories`
 --
 
-DROP TABLE IF EXISTS `quiz_categories`;
+DROP TABLE IF EXISTS `main_quizcategories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `quiz_categories` (
-  `quizcatid` int(11) NOT NULL AUTO_INCREMENT,
-  `category_name` varchar(255) NOT NULL,
-  `top_scorer` int(11) DEFAULT '0',
-  PRIMARY KEY (`quizcatid`),
-  UNIQUE KEY `category_name` (`category_name`)
+CREATE TABLE `main_quizcategories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(20) NOT NULL,
+  `top_scorer` int(11) NOT NULL,
+  `last_update` datetime NOT NULL,
+  `last_updater_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `category_name` (`category_name`),
+  KEY `main_quizcategories_636a04de` (`last_updater_id`),
+  CONSTRAINT `last_updater_id_refs_id_34e11b9d` FOREIGN KEY (`last_updater_id`) REFERENCES `main_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `quiz_categories`
+-- Dumping data for table `main_quizcategories`
 --
 
-LOCK TABLES `quiz_categories` WRITE;
-/*!40000 ALTER TABLE `quiz_categories` DISABLE KEYS */;
-/*!40000 ALTER TABLE `quiz_categories` ENABLE KEYS */;
+LOCK TABLES `main_quizcategories` WRITE;
+/*!40000 ALTER TABLE `main_quizcategories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `main_quizcategories` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `quiztags`
+-- Table structure for table `main_quiztags`
 --
 
-DROP TABLE IF EXISTS `quiztags`;
+DROP TABLE IF EXISTS `main_quiztags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `quiztags` (
-  `tagid` int(11) NOT NULL DEFAULT '0',
-  `quizid` int(11) NOT NULL DEFAULT '0',
-  `last_updater` int(11) NOT NULL,
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`tagid`,`quizid`),
-  KEY `quizid` (`quizid`),
-  KEY `last_updater` (`last_updater`),
-  CONSTRAINT `quiztags_ibfk_1` FOREIGN KEY (`tagid`) REFERENCES `tags` (`tagid`),
-  CONSTRAINT `quiztags_ibfk_2` FOREIGN KEY (`quizid`) REFERENCES `quizzes` (`quizid`),
-  CONSTRAINT `quiztags_ibfk_3` FOREIGN KEY (`last_updater`) REFERENCES `users` (`userid`)
+CREATE TABLE `main_quiztags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quizid_id` int(11) NOT NULL,
+  `last_update` datetime NOT NULL,
+  `last_updater_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `main_quiztags_3b9b95e2` (`quizid_id`),
+  KEY `main_quiztags_636a04de` (`last_updater_id`),
+  CONSTRAINT `quizid_id_refs_id_e730c9b` FOREIGN KEY (`quizid_id`) REFERENCES `main_quizzes` (`id`),
+  CONSTRAINT `last_updater_id_refs_id_2938edc` FOREIGN KEY (`last_updater_id`) REFERENCES `main_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `quiztags`
+-- Dumping data for table `main_quiztags`
 --
 
-LOCK TABLES `quiztags` WRITE;
-/*!40000 ALTER TABLE `quiztags` DISABLE KEYS */;
-/*!40000 ALTER TABLE `quiztags` ENABLE KEYS */;
+LOCK TABLES `main_quiztags` WRITE;
+/*!40000 ALTER TABLE `main_quiztags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `main_quiztags` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `quizzes`
+-- Table structure for table `main_quizzes`
 --
 
-DROP TABLE IF EXISTS `quizzes`;
+DROP TABLE IF EXISTS `main_quizzes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `quizzes` (
-  `quizid` int(11) NOT NULL AUTO_INCREMENT,
-  `quizcatid` int(11) NOT NULL,
+CREATE TABLE `main_quizzes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quizcatid_id` int(11) NOT NULL,
   `quiz_title` varchar(30) NOT NULL,
   `quiz_desc` varchar(255) NOT NULL,
-  `last_updater` int(11) NOT NULL,
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`quizid`),
-  KEY `last_updater` (`last_updater`),
-  KEY `quizcatid` (`quizcatid`),
-  CONSTRAINT `quizzes_ibfk_1` FOREIGN KEY (`last_updater`) REFERENCES `users` (`userid`),
-  CONSTRAINT `quizzes_ibfk_2` FOREIGN KEY (`quizcatid`) REFERENCES `quiz_categories` (`quizcatid`)
+  `last_update` datetime NOT NULL,
+  `last_updater_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `main_quizzes_1e15ea75` (`quizcatid_id`),
+  KEY `main_quizzes_636a04de` (`last_updater_id`),
+  CONSTRAINT `quizcatid_id_refs_id_59c97938` FOREIGN KEY (`quizcatid_id`) REFERENCES `main_quizcategories` (`id`),
+  CONSTRAINT `last_updater_id_refs_id_724ee63a` FOREIGN KEY (`last_updater_id`) REFERENCES `main_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `quizzes`
+-- Dumping data for table `main_quizzes`
 --
 
-LOCK TABLES `quizzes` WRITE;
-/*!40000 ALTER TABLE `quizzes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `quizzes` ENABLE KEYS */;
+LOCK TABLES `main_quizzes` WRITE;
+/*!40000 ALTER TABLE `main_quizzes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `main_quizzes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tags`
+-- Table structure for table `main_tags`
 --
 
-DROP TABLE IF EXISTS `tags`;
+DROP TABLE IF EXISTS `main_tags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tags` (
-  `tagid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `main_tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `taglabel` varchar(20) NOT NULL,
-  `last_updater` int(11) NOT NULL,
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`tagid`),
-  KEY `last_updater` (`last_updater`),
-  CONSTRAINT `tags_ibfk_1` FOREIGN KEY (`last_updater`) REFERENCES `users` (`userid`)
+  `last_update` datetime NOT NULL,
+  `last_updater_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `main_tags_636a04de` (`last_updater_id`),
+  CONSTRAINT `last_updater_id_refs_id_28b5ba99` FOREIGN KEY (`last_updater_id`) REFERENCES `main_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tags`
+-- Dumping data for table `main_tags`
 --
 
-LOCK TABLES `tags` WRITE;
-/*!40000 ALTER TABLE `tags` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tags` ENABLE KEYS */;
+LOCK TABLES `main_tags` WRITE;
+/*!40000 ALTER TABLE `main_tags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `main_tags` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `users`
+-- Table structure for table `main_users`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `main_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `userid` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
+CREATE TABLE `main_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `total_score` int(11) DEFAULT '0',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `last_updater` int(11) NOT NULL,
-  `last_update` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `can_read` tinyint(1) NOT NULL DEFAULT '1',
-  `can_write` tinyint(1) NOT NULL DEFAULT '1',
-  `can_exec` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`userid`),
-  UNIQUE KEY `username` (`username`),
-  KEY `last_updater` (`last_updater`),
-  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`last_updater`) REFERENCES `users` (`userid`)
+  `total_score` int(11) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `last_update` datetime NOT NULL,
+  `can_read` tinyint(1) NOT NULL,
+  `can_write` tinyint(1) NOT NULL,
+  `can_exec` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `main_users`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `main_users` WRITE;
+/*!40000 ALTER TABLE `main_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `main_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -422,4 +421,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-02-04 17:59:10
+-- Dump completed on 2013-02-05 13:51:50
