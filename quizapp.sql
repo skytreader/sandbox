@@ -22,7 +22,10 @@ CREATE TABLE IF NOT EXISTS quiz_categories(
     quizcatid INTEGER AUTO_INCREMENT,
     category_name VARCHAR(255) UNIQUE NOT NULL,
     top_scorer INTEGER DEFAULT 0,
-    PRIMARY KEY (quizcatid)
+    last_updater INTEGER NOT NULL,
+    last_update TIMESTAMP NOT NULL,
+    PRIMARY KEY (quizcatid),
+    FOREIGN KAY (last_updater) REFERENCES users (userid)
 ) ENGINE = INNODB;
 
 /**
