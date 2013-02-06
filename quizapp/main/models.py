@@ -36,7 +36,7 @@ class Quizzes(models.Model):
     def __unicode__(self):
         return str(self.id) + " " + self.quiz_title
 
-class tags(models.Model):
+class Tags(models.Model):
     taglabel = models.CharField(max_length=20)
     last_update = models.DateTimeField(auto_now=True, auto_now_add=True)
     last_updater = models.ForeignKey(Users)
@@ -45,11 +45,11 @@ class tags(models.Model):
         return str(self.id) + " " + self.taglabel
 
 class QuizTags(models.Model):
-    tagid = models.ForeignKey(tags, primary_key=True)
+    tagid = models.ForeignKey(Tags, primary_key=True)
     quizid = models.ForeignKey(Quizzes)
     last_update = models.DateTimeField(auto_now=True, auto_now_add=True)
     last_updater = models.ForeignKey(Users)
     unique_together = ("tagid", "quizid")
 
     def __unicode__(self):
-        return str(tag_id) + " " + str(quiz_id)
+        return str(tagid) + " " + str(quizid)
