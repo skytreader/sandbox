@@ -20,10 +20,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'NAME': 'monty',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'pythonph',
-        'PASSWORD': 'pythonph',
+        'USER': 'skytreader',
+        'PASSWORD': 'not my actual password!',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
@@ -108,7 +108,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # [CHAD] The following middlewares are required by Django CMS
-    'cms.middleware.multilingual.MultilinugalURLMiddleware',
+    # Was supported in 
+    # 'cms.middleware.multilingual.MultilingualURLMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
@@ -130,7 +131,7 @@ TEMPLATE_DIRS = (
 CMS_TEMPLATES = (
     # Format is ("template_filename", "Descriptive Template Name")
     ("template_1.html", "Basic Page Template"),
-    #("template_2.html", "Inheritance Page Template"),
+    ("template_2.html", "Inheritance Page Template"),
 )
 
 # Possible translations. Do not confuse with LANGUAGE_CODE above.
@@ -151,6 +152,10 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     # The next line are the apps for the CMS
     'cms', 'mptt', 'menus', 'south', 'sekizai',
+    # And then plugins! We have a ton, but for now...
+    # See http://docs.django-cms.org/en/2.3.5/getting_started/tutorial.html
+    # Note that some plug-ins require additional libraries!
+    'cms.plugins.text',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

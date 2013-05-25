@@ -1,9 +1,10 @@
 {% load cms_tags sekizai_tags %}
 <html>
     <head>
-        <title>{% placeholder page_title %} - Basic Page Template</title>
     </head>
     <body>
-        {% placeholder message %}
+        {% block changeable %}
+            {% placeholder message %}
+        {% endblock %}
     </body>
 </html>
