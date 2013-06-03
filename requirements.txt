@@ -1,0 +1,6 @@
+MarkupSafe==0.18
+argparse==1.2.1
+distribute==0.6.24
+tornado==3.0.2
+torndb==0.1
+wsgiref==0.1.2
