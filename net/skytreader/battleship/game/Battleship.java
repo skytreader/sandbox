@@ -20,6 +20,9 @@ public class Battleship{
     private int row;
     private int col; // Actually expressed as letters.
     private int hitPoints;
+    
+    // If true, the ship is oriented horizontally.
+    private boolean isHorizontalOrientation;
 
     private BitSet hitAreas; // when all true, battleship is dead.
     
@@ -37,6 +40,14 @@ public class Battleship{
 
         life = w;
         hitAreas = new BitSet(w);
+    }
+
+    public boolean getIsHorizontalOrientation(){
+        return isHorizontalOrientation;
+    }
+
+    public void setIsHorizontalOrientation(boolean orientation){
+        isHorizontalOrientation = orientation;
     }
 
     public void hit(int part){
