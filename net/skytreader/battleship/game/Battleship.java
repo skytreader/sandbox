@@ -10,11 +10,11 @@ Object model for a battleship in the board.
 public class Battleship{
     
     // Common sizes for battleships.
-    private final static int AIRCRAFT_CARRIER = 5;
-    private final static int BATTLESHIP = 4;
-    private final static int SUBMARINE = 3;
-    private final static int DESTROYER = 3;
-    private final static int PATROL_BOAT = 2;
+    public final static int AIRCRAFT_CARRIER = 5;
+    public final static int BATTLESHIP = 4;
+    public final static int SUBMARINE = 3;
+    public final static int DESTROYER = 3;
+    public final static int PATROL_BOAT = 2;
     
     private int width;
     private int row;
