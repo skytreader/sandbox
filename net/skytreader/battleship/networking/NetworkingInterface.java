@@ -1,4 +1,4 @@
-package net.skytreader.battleship;
+package net.skytreader.battleship.networking;
 
 import java.io.IOException;
 
