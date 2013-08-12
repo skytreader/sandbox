@@ -16,7 +16,7 @@ public class Battleship{
     public final static int DESTROYER = 3;
     public final static int PATROL_BOAT = 2;
     
-    private int width;
+    private int span;
     private int row;
     private int col; // Actually expressed as letters.
     private int hitPoints;
@@ -27,14 +27,17 @@ public class Battleship{
     private BitSet hitAreas; // when all true, battleship is dead.
     
     /**
-    Construct a Battleship with the given width, positioned at (row, col).
+    Construct a Battleship with the given span, positioned at (row, col).
 
-    @param w the width
+    Position should be taken as the first block occupied by this battleship; if
+    it is oriented horizontally the leftmost block, otherwise the topmost block.
+
+    @param s the span
     @param r the row
     @param c the column
     */
-    public Battleship(int w, int r, int c){
-        width = w;
+    public Battleship(int s, int r, int c){
+        span = s;
         row = r;
         col = c;
 
@@ -50,11 +53,36 @@ public class Battleship{
         isHorizontalOrientation = orientation;
     }
 
+    /**
+    Damages the given area of the battleship.
+
+    @param part index of the partition of the battleship to damage. Starts at 0.
+        Hence the first block occupied by this battleship contains partition 0.
+    */
     public void hit(int part){
         if(!hitAreas.get(part)){
             // Clear first shot on this part of the battleship.
             life--;
             hitAreas.toggle(part);
+        }
+    }
+
+    /**
+    Determines whether this battleship is hit by a shot on the given board
+    coordinates. Battleship is considered hit if shot is on a block occupied by
+    this battleship.
+
+    @param row row index of the hit block.
+    @param col col index of the hit block.
+    @return True if this battleship is hit, false otherwise.
+    */
+    public boolean isHit(int row, int col){
+        if(isHorizontalOrientation && this.row == row){
+            return col <= (this.col + span);
+        } else if(!isHorizontalOrientation && this.col == col){
+            return row <= (this.row + span);
+        } else{
+            return false;
         }
     }
 
