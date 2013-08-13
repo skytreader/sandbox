@@ -8,7 +8,7 @@ Object model for a player's side of the battle board.
 public class BattleBoard{
     
     // As long as we can notate the board size with letters, we go.
-    private final static String LETTER_NOTATION = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+    public final static String LETTER_NOTATION = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 
     private int boardWidth = 10;
     private int boardHeight = 10;
