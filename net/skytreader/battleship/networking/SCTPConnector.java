@@ -18,10 +18,10 @@ public class SCTPConnector implements NetworkingInterface{
     private SctpChannel sctpChannel;
     private BattleBoard board;
 
-    public SCTPInterface(int inetAddress, int socketAddress, BattleBoard b){
+    public SCTPInterface(String host, int inetAddress, int socketAddress, BattleBoard b){
         board = b;
 
-        SocketAddress sa = new InetSocketAddress(inetAddress);
+        SocketAddress sa = new InetSocketAddress(host, inetAddress);
         sctpChannel = SctpChannel.open();
         sctpChannel.bind(new InetSocketAddress(socketAddress));
         sctpChannel.connect(sa, 1, 1);
