@@ -31,15 +31,28 @@ public class SCTPConnector implements NetworkingInterface{
         return "" + BattleBoard.LETTER_NOTATION.charAt(col) + row
     }
 
-    public boolean sendHit(int row, int col) throws Exception{
+    private void sendMessage(byte[] b) throws Exception{
         MessageInfo outgoingMessage = MessageInfo.createOutgoing(null, 0);
 
-        byte[] coords = translate(row, col).getBytes();
         ByteBuffer bb = ByteBuffer.allocate(28);
-        bb.put(coords);
+        bb.put(b);
         bb.flip();
 
         sctpChannel.send(bb, outgoingMessage);
+    }
+
+    private MessageInfo receiveMessage() throws Exception{
+        return sctpChannel.receive(ByteBuffer.allocate(28), null, null);
+    }
+
+    public boolean sendHit(int row, int col) throws Exception{
+        sendMessage(translate(row, col).getBytes());
+        receiveMessage();
+        return false;
+    }
+
+    public void receiveHit() throws Exception{
+        receiveMessage();
     }
 
 }
