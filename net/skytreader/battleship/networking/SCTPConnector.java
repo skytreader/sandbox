@@ -18,7 +18,7 @@ public class SCTPConnector implements NetworkingInterface{
     private SctpChannel sctpChannel;
     private BattleBoard board;
 
-    public SCTPInterface(String host, int inetAddress, int socketAddress, BattleBoard b){
+    public SCTPConnector(String host, int inetAddress, int socketAddress, BattleBoard b) throws IOException{
         board = b;
 
         SocketAddress sa = new InetSocketAddress(host, inetAddress);
@@ -28,10 +28,10 @@ public class SCTPConnector implements NetworkingInterface{
     }
 
     private String translate(int row, int col){
-        return "" + BattleBoard.LETTER_NOTATION.charAt(col) + row
+        return "" + BattleBoard.LETTER_NOTATION.charAt(col) + row;
     }
 
-    private void sendMessage(byte[] b) throws Exception{
+    public void sendMessage(byte[] b) throws Exception{
         MessageInfo outgoingMessage = MessageInfo.createOutgoing(null, 0);
 
         ByteBuffer bb = ByteBuffer.allocate(28);
@@ -41,7 +41,7 @@ public class SCTPConnector implements NetworkingInterface{
         sctpChannel.send(bb, outgoingMessage);
     }
 
-    private MessageInfo receiveMessage() throws Exception{
+    public MessageInfo receiveMessage() throws Exception{
         return sctpChannel.receive(ByteBuffer.allocate(28), null, null);
     }
 

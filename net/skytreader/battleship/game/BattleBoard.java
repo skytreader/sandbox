@@ -35,7 +35,8 @@ public class BattleBoard{
 
         for(int i = 0; i < limit; i++){
             if(ships[i].isHit(row, col)){
-                ships[i].hit();
+                //FIXME
+                ships[i].hit(0);
                 return true;
             }
         }

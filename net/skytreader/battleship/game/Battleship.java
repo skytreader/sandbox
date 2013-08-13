@@ -41,8 +41,8 @@ public class Battleship{
         row = r;
         col = c;
 
-        life = w;
-        hitAreas = new BitSet(w);
+        hitPoints = s;
+        hitAreas = new BitSet(s);
     }
 
     public boolean getIsHorizontalOrientation(){
@@ -62,8 +62,8 @@ public class Battleship{
     public void hit(int part){
         if(!hitAreas.get(part)){
             // Clear first shot on this part of the battleship.
-            life--;
-            hitAreas.toggle(part);
+            hitPoints--;
+            hitAreas.flip(part);
         }
     }
 
@@ -86,8 +86,8 @@ public class Battleship{
         }
     }
 
-    public void isAlive(){
-        return life > 0;
+    public boolean isAlive(){
+        return hitPoints > 0;
     }
 
 }
