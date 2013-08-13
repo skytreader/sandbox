@@ -27,4 +27,19 @@ public class SCTPConnector implements NetworkingInterface{
         sctpChannel.connect(sa, 1, 1);
     }
 
+    private String translate(int row, int col){
+        return "" + BattleBoard.LETTER_NOTATION.charAt(col) + row
+    }
+
+    public boolean sendHit(int row, int col) throws Exception{
+        MessageInfo outgoingMessage = MessageInfo.createOutgoing(null, 0);
+
+        byte[] coords = translate(row, col).getBytes();
+        ByteBuffer bb = ByteBuffer.allocate(28);
+        bb.put(coords);
+        bb.flip();
+
+        sctpChannel.send(bb, outgoingMessage);
+    }
+
 }
