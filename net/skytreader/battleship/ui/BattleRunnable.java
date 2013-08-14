@@ -40,10 +40,8 @@ public class BattleRunnable extends BattleView implements Runnable{
     */
     private void generateGrid(JPanel panel){
         for(int i = 0; i < 100; i++){
-            JLabel gridPane = new JLabel(" ");
-            //JPanel gridPane = new JPanel();
-            gridPane.setBackground(Color.LIGHT_GRAY);
-            gridPane.setOpaque(true);
+            // FIXME
+            BattleGridPane gridPane = new BattleGridPane(0, 0, Color.LIGHT_GRAY);
             gridPane.setSize(20, 20);
             panel.add(gridPane);
         }
