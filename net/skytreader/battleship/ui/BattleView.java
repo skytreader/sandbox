@@ -4,7 +4,7 @@ import java.util.Observer;
 
 import net.skytreader.battleship.game.BattleBoard;
 
-abstract class BattleView implements Observer {
+public abstract class BattleView implements Observer {
     
     private BattleBoard boardModel;
 

@@ -1,5 +1,7 @@
 package net.skytreader.battleship.game;
 
+import java.util.Observable;
+
 /**
 Object model for a player's side of the battle board.
 
