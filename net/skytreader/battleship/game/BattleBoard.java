@@ -18,6 +18,7 @@ public class BattleBoard extends Observable{
     private int boardWidth = 10;
     private int boardHeight = 10;
     private Battleship[] ships;
+    private boolean[][] trackingBoard;
     
     /**
     Construct a new board with the given ship configuration. Note that it is
@@ -25,6 +26,8 @@ public class BattleBoard extends Observable{
     */
     public BattleBoard(Battleship[] ships){
         this.ships = ships;
+        // Implicitly all false
+        trackingBoard = new boolean[boardWidth][boardHeight];
     }
     
     /**
@@ -49,6 +52,16 @@ public class BattleBoard extends Observable{
         }
 
         return false;
+    }
+
+    /**
+    Marks the given block in the tracking board (i.e., indeed, a ship was hiding
+    there).
+
+    @param row
+    @param col
+    */
+    public void makr(int row, int col){
     }
 
 }
