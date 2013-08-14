@@ -6,7 +6,7 @@ import net.skytreader.battleship.game.BattleBoard;
 
 public abstract class BattleView implements Observer {
     
-    private BattleBoard boardModel;
+    protected BattleBoard boardModel;
 
     public BattleView(BattleBoard model){
         boardModel = model;
