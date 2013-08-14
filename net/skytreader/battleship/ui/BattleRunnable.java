@@ -2,12 +2,14 @@ package net.skytreader.battleship.ui;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.Observable;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -44,12 +46,13 @@ public class BattleRunnable extends BattleView implements Runnable{
         Container frameContainer = mainFrame.getContentPane();
         frameContainer.setLayout(new BoxLayout(frameContainer, BoxLayout.Y_AXIS));
         
-        JPanel labelPanel = new JPanel();
-        labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.X_AXIS));
+        /*
+         * ######################################
+         * Grid Labels
+         * ######################################
+         */
         JLabel baseLabel = new JLabel("Base Ships:");
         JLabel trackingLabel = new JLabel("Tracking Grid:");
-        labelPanel.add(baseLabel);
-        labelPanel.add(trackingLabel);
 
         /*
          * ######################################
@@ -73,13 +76,36 @@ public class BattleRunnable extends BattleView implements Runnable{
         }
 
         JPanel trackingPanel = new JPanel();
-        trackingPanel.setLayout(new GridLayout(10, 10));
+        trackingPanel.setLayout(new GridLayout(10, 10, 3, 3));
 
-        gridsPanel.add(basePanel);
-        gridsPanel.add(trackingPanel);
+        for(int i = 0; i < 100; i++){
+            JLabel gridPane = new JLabel(" ");
+            //JPanel gridPane = new JPanel();
+            gridPane.setBackground(Color.DARK_GRAY);
+            gridPane.setOpaque(true);
+            gridPane.setSize(20, 20);
+            trackingPanel.add(gridPane);
+        }
+        /*
+         * ######################################
+         * Group grid with label
+         * ######################################
+         */
+        JPanel base = new JPanel();
+        base.setLayout(new BoxLayout(base, BoxLayout.Y_AXIS));
+        base.add(baseLabel);
+        base.add(basePanel);
+
+        JPanel tracking = new JPanel();
+        tracking.setLayout(new BoxLayout(tracking, BoxLayout.Y_AXIS));
+        tracking.add(trackingLabel);
+        tracking.add(trackingPanel);
+
+        gridsPanel.add(base);
+        gridsPanel.add(Box.createRigidArea(new Dimension(5, 0)));
+        gridsPanel.add(tracking);
 
         // Add Stuff to the frameContainer
-        frameContainer.add(labelPanel);
         frameContainer.add(gridsPanel);
 
         //mainFrame.pack();
