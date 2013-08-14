@@ -13,6 +13,7 @@ import com.sun.nio.sctp.MessageInfo;
 
 public class Main{
     public static void main(String[] args) throws Exception{
+        System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
         BattleBoard model = new BattleBoard(null);
         EventQueue.invokeLater(new BattleRunnable(model));
 
