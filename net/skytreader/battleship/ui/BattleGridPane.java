@@ -13,10 +13,24 @@ of the represented block.
 */
 public class BattleGridPane extends JLabel{
     
+    private int rowInfo;
+    private int colInfo;
+
     public BattleGridPane(int rowInfo, int colInfo, Color bg){
         super(" ");
         super.setBackground(Color.LIGHT_GRAY);
         super.setOpaque(true);
+
+        this.rowInfo = rowInfo;
+        this.colInfo = colInfo;
+    }
+
+    public int getRowInfo(){
+        return rowInfo;
+    }
+
+    public int getColInfo(){
+        return colInfo;
     }
 
 }
