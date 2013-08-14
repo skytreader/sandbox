@@ -3,9 +3,12 @@ package net.skytreader.battleship.game;
 /**
 Object model for a player's side of the battle board.
 
+Observers are notified when a ship is hit. The hit ship is passed to the
+Observers as an argument.
+
 @author Chad Estioco
 */
-public class BattleBoard{
+public class BattleBoard extends Observable{
     
     // As long as we can notate the board size with letters, we go.
     public final static String LETTER_NOTATION = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
@@ -35,8 +38,10 @@ public class BattleBoard{
 
         for(int i = 0; i < limit; i++){
             if(ships[i].isHit(row, col)){
-                //FIXME
+                //FIXME Hit the correct partition
                 ships[i].hit(0);
+                setChanged();
+                notifyObservers(ships[i]);
                 return true;
             }
         }

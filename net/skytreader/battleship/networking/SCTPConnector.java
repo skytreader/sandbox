@@ -11,15 +11,17 @@ import com.sun.nio.sctp.MessageInfo;
 import com.sun.nio.sctp.SctpChannel;
 import com.sun.nio.sctp.SctpServerChannel;
 
+import net.skytreader.battleship.ui.BattleView;
 import net.skytreader.battleship.game.BattleBoard;
 
 public class SCTPConnector implements NetworkingInterface{
     
     private SctpChannel sctpChannel;
-    private BattleBoard board;
+    private BattleView boardUi;
 
-    public SCTPConnector(String host, int inetAddress, int socketAddress, BattleBoard b) throws IOException{
-        board = b;
+    public SCTPConnector(String host, int inetAddress, int socketAddress,
+      BattleView v) throws IOException{
+        boardUi = v;
 
         SocketAddress sa = new InetSocketAddress(host, inetAddress);
         sctpChannel = SctpChannel.open();
