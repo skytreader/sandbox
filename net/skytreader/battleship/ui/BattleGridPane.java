@@ -2,7 +2,7 @@ package net.skytreader.battleship.ui;
 
 import java.awt.Color;
 
-import javax.swing.JLabel;
+import javax.swing.JButton;
 
 /**
 A Swing component to represent a block in the battle grid. Implemented
@@ -11,7 +11,7 @@ of the represented block.
 
 @author Chad Estioco
 */
-public class BattleGridPane extends JLabel{
+public class BattleGridPane extends JButton{
     
     private int rowInfo;
     private int colInfo;
@@ -19,6 +19,9 @@ public class BattleGridPane extends JLabel{
     public BattleGridPane(int rowInfo, int colInfo, Color bg){
         super(" ");
         super.setBackground(Color.LIGHT_GRAY);
+        super.setFocusPainted(false);
+        super.setContentAreaFilled(false);
+        super.setBorderPainted(false);
         super.setOpaque(true);
 
         this.rowInfo = rowInfo;

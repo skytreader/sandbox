@@ -27,6 +27,7 @@ public class BattleRunnable extends BattleView implements Runnable{
     
     private JFrame mainFrame;
     private JLabel statusLabel;
+    private GridPaneClickListener paneListener = new GridPaneClickListener();
 
     public BattleRunnable(BattleBoard boardModel){
         super(boardModel);
@@ -39,11 +40,27 @@ public class BattleRunnable extends BattleView implements Runnable{
     @param panel the JPanel to which we draw the grid.
     */
     private void generateGrid(JPanel panel){
-        for(int i = 0; i < 100; i++){
-            // FIXME
-            BattleGridPane gridPane = new BattleGridPane(0, 0, Color.LIGHT_GRAY);
-            gridPane.setSize(20, 20);
-            panel.add(gridPane);
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j < 10; j++){
+                BattleGridPane gridPane = new BattleGridPane(i, j,
+                  Color.LIGHT_GRAY);
+                gridPane.addActionListener(paneListener);
+                gridPane.setSize(20, 20);
+                panel.add(gridPane);
+            }
+        }
+    }
+
+    /**
+    Listen to clicks on GridPanes. Should send the coordinates over the network.
+    It is assumed that this listener is only attached to instances of
+    BattleGridPane.
+    */
+    private class GridPaneClickListener implements ActionListener{
+        public void actionPerformed(ActionEvent ae){
+            BattleGridPane pane = (BattleGridPane) ae.getSource();
+            System.out.println("Row: " + pane.getRowInfo());
+            System.out.println("Col: " + pane.getColInfo());
         }
     }
 
