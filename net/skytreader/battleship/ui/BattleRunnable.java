@@ -71,6 +71,16 @@ public class BattleRunnable extends BattleView implements Runnable{
             pane.setBackground(Color.BLACK);
             System.out.println("Row: " + pane.getRowInfo());
             System.out.println("Col: " + pane.getColInfo());
+            try{
+                networkInterface.sendHit(pane.getRowInfo(), pane.getColInfo());
+                System.out.println("Sent a hit.");
+            } catch(Exception e){
+                JOptionPane.showMessageDialog(mainFrame,
+                  "Unable to send hit.",
+                  "Connection warning",
+                  JOptionPane.WARNING_MESSAGE);
+                e.printStackTrace();
+            }
         }
     }
 
