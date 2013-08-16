@@ -39,14 +39,17 @@ public class ZMQConnector extends NetworkingInterface{
         System.out.println("Connected for receive.");
     }
 
-    public boolean sendHit(int row, int col) throws Exception{
+    public synchronized boolean sendHit(int row, int col) throws Exception{
         sendSocket.send(translate(row, col));
+        String s = receiveSocket.recvStr();
+        System.out.println("Reply: " + s);
         return false;
     }
 
-    public int[] receiveHit() throws Exception{
+    public synchronized int[] receiveHit() throws Exception{
         String s = receiveSocket.recvStr();
         System.out.println("Received: " + s);
+        sendSocket.send(s + " MISS");
         return translate(s);
     }
 }

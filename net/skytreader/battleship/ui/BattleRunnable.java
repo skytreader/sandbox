@@ -99,7 +99,7 @@ public class BattleRunnable extends BattleView implements Runnable{
             System.out.println("RECV thread running.");
             try{
                 while(true){
-                    if(isRecvMode){
+                    if(isRecvMode && map != null){
                         int[] coords = networkInterface.receiveHit();
                         map[coords[0]][coords[1]].setBackground(Color.RED);
                         isRecvMode = false;

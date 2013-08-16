@@ -18,8 +18,8 @@ public abstract class NetworkingInterface{
     protected int[] translate(String s){
         String substr = s.substring(1, s.length());
         int[] translation = new int[2];
-        translation[0] = NetworkingInterface.LETTER_NOTATION.indexOf(s.charAt(0));
-        translation[1] = Integer.parseInt(substr) - 1;
+        translation[1] = NetworkingInterface.LETTER_NOTATION.indexOf(s.charAt(0));
+        translation[0] = Integer.parseInt(substr) - 1;
         return translation;
     }
 
