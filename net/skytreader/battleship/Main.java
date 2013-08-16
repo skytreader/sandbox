@@ -14,12 +14,10 @@ import com.sun.nio.sctp.MessageInfo;
 public class Main{
     public static void main(String[] args) throws Exception{
         System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
+        SCTPConnector connector = new SCTPConnector("10.11.4.162", 1111, 16981);
         BattleBoard model = new BattleBoard(null);
-        EventQueue.invokeLater(new BattleRunnable(model));
-
-        SCTPConnector connector = new SCTPConnector("10.11.4.162", 1111, 16981,
-            null);
-        connector.sendMessage("Hello".getBytes());
-        MessageInfo mi = connector.receiveMessage();
+        EventQueue.invokeLater(new BattleRunnable(model, connector));
+        //connector.sendMessage("Hello".getBytes());
+        //MessageInfo mi = connector.receiveMessage();
     }
 }

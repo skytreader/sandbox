@@ -17,15 +17,22 @@ import net.skytreader.battleship.game.BattleBoard;
 public class SCTPConnector implements NetworkingInterface{
     
     private SctpChannel sctpChannel;
-    private BattleView boardUi;
-
-    public SCTPConnector(String host, int inetAddress, int socketAddress,
-      BattleView v) throws IOException{
-        boardUi = v;
-
-        SocketAddress sa = new InetSocketAddress(host, inetAddress);
+    private SocketAddress sa;
+    
+    /**
+    Creates an SCTPChannel and binds the channel.
+    */
+    public SCTPConnector(String host, int inetAddress, int socketAddress)
+      throws IOException{
+        sa = new InetSocketAddress(host, inetAddress);
         sctpChannel = SctpChannel.open();
         sctpChannel.bind(new InetSocketAddress(socketAddress));
+    }
+    
+    /**
+    Connects the SCTP channel.
+    */
+    public void connect() throws IOException{
         sctpChannel.connect(sa, 1, 1);
     }
 

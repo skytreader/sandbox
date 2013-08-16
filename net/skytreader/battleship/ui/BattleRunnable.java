@@ -7,16 +7,20 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.io.IOException;
+
 import java.util.Observable;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import net.skytreader.battleship.game.BattleBoard;
+import net.skytreader.battleship.networking.NetworkingInterface;
 
 /**
 Runnable for battles.
@@ -28,10 +32,12 @@ public class BattleRunnable extends BattleView implements Runnable{
     private JFrame mainFrame;
     private JLabel statusLabel;
     private GridPaneClickListener paneListener = new GridPaneClickListener();
+    private NetworkingInterface networkInterface;
 
-    public BattleRunnable(BattleBoard boardModel){
+    public BattleRunnable(BattleBoard boardModel, NetworkingInterface networkInterface){
         super(boardModel);
         this.boardModel.addObserver(this);
+        this.networkInterface = networkInterface;
     }
 
     /**
@@ -77,6 +83,16 @@ public class BattleRunnable extends BattleView implements Runnable{
         Container frameContainer = mainFrame.getContentPane();
         frameContainer.setLayout(new BoxLayout(frameContainer, BoxLayout.Y_AXIS));
         
+        try{
+            networkInterface.connect();
+        } catch(IOException ioe){
+            JOptionPane.showMessageDialog(mainFrame,
+              "Unable to connect to game server.",
+              "Connection warning",
+              JOptionPane.WARNING_MESSAGE);
+            ioe.printStackTrace();
+        }
+
         /*
          * ######################################
          * Grid Labels
