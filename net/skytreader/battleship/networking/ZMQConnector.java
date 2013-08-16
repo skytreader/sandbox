@@ -17,12 +17,14 @@ public class ZMQConnector implements NetworkingInterface{
     private int sendPort;
     private int receivePort;
 
-    public ZMQConnector(String host, int sendPort, int receivePort) throws Exception{
+    public ZMQConnector(String host, int sendPort, int receivePort)
+      throws Exception{
         Context c = ZMQ.context(1);
-        sendSocket = c.socket(ZMQ.NOBLOCK);
+        sendSocket = c.socket(ZMQ.PUB);
         sendSocket.setIdentity("chadsend".getBytes());
 
-        receiveSocket = c.socket(ZMQ.NOBLOCK);
+        receiveSocket = c.socket(ZMQ.SUB);
+        receiveSocket.subscribe("".getBytes());
         receiveSocket.setIdentity("chadrecv".getBytes());
 
         this.host = host;
@@ -37,8 +39,17 @@ public class ZMQConnector implements NetworkingInterface{
         System.out.println("Connected for receive.");
     }
 
+    // FIXME Change NetworkingInterface to an abstract class and implement these methods
     private String translate(int row, int col){
-        return "" + BattleBoard.LETTER_NOTATION.charAt(col) + row;
+        return "" + BattleBoard.LETTER_NOTATION.charAt(col) + (row + 1);
+    }
+
+    private int[] translate(String s){
+        String substr = s.substring(1, s.length());
+        int[] translation = new int[2];
+        translation[0] = BattleBoard.LETTER_NOTATION.indexOf(s.charAt(0));
+        translation[1] = Integer.parseInt(substr) - 1;
+        return translation;
     }
 
     public boolean sendHit(int row, int col) throws Exception{
@@ -46,8 +57,9 @@ public class ZMQConnector implements NetworkingInterface{
         return false;
     }
 
-    public void receiveHit() throws Exception{
-        String s = sendSocket.recvStr();
+    public int[] receiveHit() throws Exception{
+        String s = receiveSocket.recvStr();
         System.out.println("Received: " + s);
+        return translate(s);
     }
 }

@@ -33,6 +33,9 @@ public class BattleRunnable extends BattleView implements Runnable{
     private JLabel statusLabel;
     private GridPaneClickListener paneListener = new GridPaneClickListener();
     private NetworkingInterface networkInterface;
+    private boolean isRecvMode = true;
+    // FIXME Hack!
+    private BattleGridPane[][] map = new BattleGridPane[10][10];
 
     public BattleRunnable(BattleBoard boardModel,
       NetworkingInterface networkInterface){
@@ -53,6 +56,8 @@ public class BattleRunnable extends BattleView implements Runnable{
                 BattleGridPane gridPane = new BattleGridPane(i, j, c);
                 if(isTracking){
                     gridPane.addActionListener(paneListener);
+                } else{
+                    map[i][j] = gridPane;
                 }
                 gridPane.setSize(20, 20);
                 panel.add(gridPane);
@@ -67,6 +72,10 @@ public class BattleRunnable extends BattleView implements Runnable{
     */
     private class GridPaneClickListener implements ActionListener{
         public void actionPerformed(ActionEvent ae){
+            System.out.println("isRecvMode? " + isRecvMode);
+            if(isRecvMode){
+                return;
+            }
             BattleGridPane pane = (BattleGridPane) ae.getSource();
             pane.setBackground(Color.BLACK);
             System.out.println("Row: " + pane.getRowInfo());
@@ -74,6 +83,7 @@ public class BattleRunnable extends BattleView implements Runnable{
             try{
                 networkInterface.sendHit(pane.getRowInfo(), pane.getColInfo());
                 System.out.println("Sent a hit.");
+                isRecvMode = true;
             } catch(Exception e){
                 JOptionPane.showMessageDialog(mainFrame,
                   "Unable to send hit.",
@@ -84,12 +94,33 @@ public class BattleRunnable extends BattleView implements Runnable{
         }
     }
 
+    private class RecvThread implements Runnable{
+        public void run(){
+            System.out.println("RECV thread running.");
+            try{
+                while(true){
+                    if(isRecvMode){
+                        int[] coords = networkInterface.receiveHit();
+                        map[coords[0]][coords[1]].setBackground(Color.RED);
+                        isRecvMode = false;
+                    }
+                    Thread.sleep(1000);
+                    System.out.println("will receive? " + isRecvMode);
+                }
+             } catch(Exception e){
+                e.printStackTrace();
+             }
+        }
+    }
+
     public void run(){
         try{
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch(Exception e){
             e.printStackTrace();
         }
+
+        new Thread(new RecvThread()).start();
 
         mainFrame = new JFrame("Battleship");
         mainFrame.setSize(800, 500);

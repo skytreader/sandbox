@@ -60,8 +60,9 @@ public class SCTPConnector implements NetworkingInterface{
         return false;
     }
 
-    public void receiveHit() throws Exception{
+    public int[] receiveHit() throws Exception{
         receiveMessage();
+        return null;
     }
 
 }
