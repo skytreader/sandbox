@@ -18,7 +18,7 @@ public class BattleGridPane extends JButton{
 
     public BattleGridPane(int rowInfo, int colInfo, Color bg){
         super(" ");
-        super.setBackground(Color.LIGHT_GRAY);
+        super.setBackground(bg);
         super.setFocusPainted(false);
         super.setContentAreaFilled(false);
         super.setBorderPainted(false);

@@ -34,7 +34,8 @@ public class BattleRunnable extends BattleView implements Runnable{
     private GridPaneClickListener paneListener = new GridPaneClickListener();
     private NetworkingInterface networkInterface;
 
-    public BattleRunnable(BattleBoard boardModel, NetworkingInterface networkInterface){
+    public BattleRunnable(BattleBoard boardModel,
+      NetworkingInterface networkInterface){
         super(boardModel);
         this.boardModel.addObserver(this);
         this.networkInterface = networkInterface;
@@ -44,13 +45,15 @@ public class BattleRunnable extends BattleView implements Runnable{
     Draw a grid in the JPanel.
 
     @param panel the JPanel to which we draw the grid.
+    @param isTracking if true, add an ActionListener to the the grid panes.
     */
-    private void generateGrid(JPanel panel){
+    private void generateGrid(JPanel panel, boolean isTracking, Color c){
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
-                BattleGridPane gridPane = new BattleGridPane(i, j,
-                  Color.LIGHT_GRAY);
-                gridPane.addActionListener(paneListener);
+                BattleGridPane gridPane = new BattleGridPane(i, j, c);
+                if(isTracking){
+                    gridPane.addActionListener(paneListener);
+                }
                 gridPane.setSize(20, 20);
                 panel.add(gridPane);
             }
@@ -65,6 +68,7 @@ public class BattleRunnable extends BattleView implements Runnable{
     private class GridPaneClickListener implements ActionListener{
         public void actionPerformed(ActionEvent ae){
             BattleGridPane pane = (BattleGridPane) ae.getSource();
+            pane.setBackground(Color.BLACK);
             System.out.println("Row: " + pane.getRowInfo());
             System.out.println("Col: " + pane.getColInfo());
         }
@@ -81,7 +85,8 @@ public class BattleRunnable extends BattleView implements Runnable{
         mainFrame.setSize(800, 500);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container frameContainer = mainFrame.getContentPane();
-        frameContainer.setLayout(new BoxLayout(frameContainer, BoxLayout.Y_AXIS));
+        frameContainer.setLayout(new BoxLayout(frameContainer,
+          BoxLayout.Y_AXIS));
         
         try{
             networkInterface.connect();
@@ -113,11 +118,11 @@ public class BattleRunnable extends BattleView implements Runnable{
         basePanel.setLayout(new GridLayout(10, 10, 3, 3));
 
         // Add grid for basePanel
-        generateGrid(basePanel);
+        generateGrid(basePanel, false, Color.BLUE);
 
         JPanel trackingPanel = new JPanel();
         trackingPanel.setLayout(new GridLayout(10, 10, 3, 3));
-        generateGrid(trackingPanel);
+        generateGrid(trackingPanel, true, Color.LIGHT_GRAY);
 
         /*
          * ######################################
