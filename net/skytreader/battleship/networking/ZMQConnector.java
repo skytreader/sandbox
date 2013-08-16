@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import net.skytreader.battleship.game.BattleBoard;
 
-public class ZMQConnector implements NetworkingInterface{
+public class ZMQConnector extends NetworkingInterface{
     
     private Socket sendSocket;
     private Socket receiveSocket;
@@ -37,19 +37,6 @@ public class ZMQConnector implements NetworkingInterface{
         System.out.println("Connected for send.");
         receiveSocket.connect("tcp://" + host + ":" + receivePort);
         System.out.println("Connected for receive.");
-    }
-
-    // FIXME Change NetworkingInterface to an abstract class and implement these methods
-    private String translate(int row, int col){
-        return "" + BattleBoard.LETTER_NOTATION.charAt(col) + (row + 1);
-    }
-
-    private int[] translate(String s){
-        String substr = s.substring(1, s.length());
-        int[] translation = new int[2];
-        translation[0] = BattleBoard.LETTER_NOTATION.indexOf(s.charAt(0));
-        translation[1] = Integer.parseInt(substr) - 1;
-        return translation;
     }
 
     public boolean sendHit(int row, int col) throws Exception{

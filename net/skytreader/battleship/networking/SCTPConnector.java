@@ -14,7 +14,7 @@ import com.sun.nio.sctp.SctpServerChannel;
 import net.skytreader.battleship.ui.BattleView;
 import net.skytreader.battleship.game.BattleBoard;
 
-public class SCTPConnector implements NetworkingInterface{
+public class SCTPConnector extends NetworkingInterface{
     
     private SctpChannel sctpChannel;
     private SocketAddress sa;
@@ -34,10 +34,6 @@ public class SCTPConnector implements NetworkingInterface{
     */
     public void connect() throws IOException{
         sctpChannel.connect(sa, 1, 1);
-    }
-
-    private String translate(int row, int col){
-        return "" + BattleBoard.LETTER_NOTATION.charAt(col) + row;
     }
 
     public void sendMessage(byte[] b) throws Exception{

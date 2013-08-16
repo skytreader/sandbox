@@ -11,9 +11,6 @@ Observers as an argument.
 @author Chad Estioco
 */
 public class BattleBoard extends Observable{
-    
-    // As long as we can notate the board size with letters, we go.
-    public final static String LETTER_NOTATION = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 
     private int boardWidth = 10;
     private int boardHeight = 10;
