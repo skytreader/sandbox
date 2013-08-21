@@ -1,8 +1,9 @@
 #! /usr/bin/env python3
 
 from interactive_notes import InteractiveNote, interactive_show, note_divider
-import operator
 
+import math
+import operator
 import random
 
 """
@@ -72,9 +73,56 @@ def normal_distribution_process():
     print("Median : " + str(meandiff_median))
     print("Mode : " + str(meandiff_mode))
 
+###########################
+## HEAD FIRST STATISTICS ##
+###########################
+
+
+"""
+For self-learning. Python code for computing mean, standard deviation, and
+variance.
+"""
+
+def mean(numset):
+    """
+    Gets the mean of the given set of numbers.
+
+    numset - a sequence.
+    """
+    return sum(numset) / len(numset)
+
+def variance(numset):
+    # TODO Optimize
+    m = mean(numset)
+    setsize = len(numset)
+    varterms = (( ((x - m) ** 2) / setsize) for x in numset)
+    return sum(varterms)
+
+def standard_deviation(numset):
+    return math.sqrt(variance(numset))
+
+desc2 = "Mean, variance, and standard deviation from Head First Statisics"
+
+def head_first_show():
+    data_sets = ((1, 2, 3, 4, 5, 6, 7), (1, 2, 3, 4, 5, 6))
+
+    for numset in data_sets:
+        print("Data set: " + str(numset))
+        print("Mean: " + str(mean(numset)))
+        print("Variance: " + str(variance(numset)))
+        print("Standard deviation: " + str(standard_deviation(numset)))
+        print(note_divider())
+
+######################
+## Define the notes ##
+######################
+
+hfds = InteractiveNote("Demo for 'Head First Design Patterns'", desc2,
+  head_first_show)
+
 normal_distribution = InteractiveNote("Normal Distribution Demo", desc1, normal_distribution_process)
 
-notes = [normal_distribution]
+notes = [normal_distribution, hfds]
 
 if __name__ == "__main__":
     interactive_show(notes)
