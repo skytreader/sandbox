@@ -16,5 +16,9 @@ function handleReq(request, response){
     console.log("Response sent.");
 }
 
-http.createServer(handleReq).listen(8888);
-console.log("Server started.");
+function start(){
+    http.createServer(handleReq).listen(8888);
+    console.log("Server started.");
+}
+
+exports.start = start
