@@ -40,11 +40,13 @@ public class BattleBoard extends Observable{
 
         for(int i = 0; i < limit; i++){
             if(ships[i].isHit(row, col)){
-                //FIXME Hit the correct partition
-                //int hitPartition = 0;
-                //if(ships[i].getIsHorizontalOrientation()){
-                //    hitPartition 
-                ships[i].hit(0);
+                int hitPartition = 0;
+                if(ships[i].getIsHorizontalOrientation()){
+                    hitPartition = col - ships[i].getCol(); 
+                } else{
+                    hitPartition = row - ships[i].getRow();
+                }
+                ships[i].hit(hitPartition);
                 setChanged();
                 notifyObservers(ships[i]);
                 return true;

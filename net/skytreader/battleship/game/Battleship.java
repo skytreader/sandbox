@@ -3,7 +3,10 @@ package net.skytreader.battleship.game;
 import java.util.BitSet;
 
 /**
-Object model for a battleship in the board.
+Object model for a battleship in the board. Since only the vertical/horizontal
+orientation of the ship matters (and not the actual direction it is facing), we
+will assume that all ships are laid out from left-to-right or from top-to-
+bottom.
 
 @author Chad Estioco
 */
@@ -51,6 +54,14 @@ public class Battleship{
 
     public void setIsHorizontalOrientation(boolean orientation){
         isHorizontalOrientation = orientation;
+    }
+
+    public int getRow(){
+        return row;
+    }
+
+    public int getCol(){
+        return col;
     }
 
     /**
