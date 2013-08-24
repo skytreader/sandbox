@@ -64,6 +64,10 @@ public class Battleship{
         return col;
     }
 
+    public int getSpan(){
+        return span;
+    }
+
     /**
     Damages the given area of the battleship.
 

@@ -101,7 +101,10 @@ public class BattleRunnable extends BattleView implements Runnable{
                 while(true){
                     if(isRecvMode && map != null){
                         int[] coords = networkInterface.receiveHit();
-                        map[coords[0]][coords[1]].setBackground(Color.RED);
+                        
+                        if(boardModel.hit(coords[0], coords[1])){
+                            map[coords[0]][coords[1]].setBackground(Color.RED);
+                        }
                         isRecvMode = false;
                     }
                     Thread.sleep(1000);
