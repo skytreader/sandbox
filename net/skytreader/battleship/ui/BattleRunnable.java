@@ -120,8 +120,6 @@ public class BattleRunnable extends BattleView implements Runnable{
             e.printStackTrace();
         }
 
-        new Thread(new RecvThread()).start();
-
         mainFrame = new JFrame("Battleship");
         mainFrame.setSize(800, 500);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,6 +129,7 @@ public class BattleRunnable extends BattleView implements Runnable{
         
         try{
             networkInterface.connect();
+            new Thread(new RecvThread()).start();
         } catch(IOException ioe){
             JOptionPane.showMessageDialog(mainFrame,
               "Unable to connect to game server.",
