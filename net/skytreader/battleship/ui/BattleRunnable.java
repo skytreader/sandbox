@@ -37,6 +37,12 @@ public class BattleRunnable extends BattleView implements Runnable{
     // FIXME Hack!
     private BattleGridPane[][] map = new BattleGridPane[10][10];
 
+    private final Color SHIP_HIT = Color.RED;
+    private final Color SHIP = Color.GRAY;
+    private final Color SEA = Color.BLUE;
+
+    private final Color UNKNOWN = Color.LIGHT_GRAY;
+
     public BattleRunnable(BattleBoard boardModel,
       NetworkingInterface networkInterface){
         super(boardModel);
@@ -64,6 +70,12 @@ public class BattleRunnable extends BattleView implements Runnable{
                 panel.add(gridPane);
             }
         }
+    }
+    
+    /**
+    Updates the base grid based on the current state of boardModel. 
+    */
+    private void updateBaseGrid(){
     }
 
     /**
@@ -104,7 +116,7 @@ public class BattleRunnable extends BattleView implements Runnable{
                         int[] coords = networkInterface.receiveHit();
                         
                         if(boardModel.hit(coords[0], coords[1])){
-                            map[coords[0]][coords[1]].setBackground(Color.RED);
+                            map[coords[0]][coords[1]].setBackground(SHIP_HIT);
                         }
                         isRecvMode = false;
                     }
@@ -162,11 +174,11 @@ public class BattleRunnable extends BattleView implements Runnable{
         basePanel.setLayout(new GridLayout(10, 10, 3, 3));
 
         // Add grid for basePanel
-        generateGrid(basePanel, false, Color.BLUE);
+        generateGrid(basePanel, false, SEA);
 
         JPanel trackingPanel = new JPanel();
         trackingPanel.setLayout(new GridLayout(10, 10, 3, 3));
-        generateGrid(trackingPanel, true, Color.LIGHT_GRAY);
+        generateGrid(trackingPanel, true, UNKNOWN);
 
         /*
          * ######################################
