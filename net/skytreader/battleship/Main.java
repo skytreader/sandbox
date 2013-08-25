@@ -31,7 +31,7 @@ public class Main{
         System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
         SCTPConnector connector = new SCTPConnector(host, inPort, outPort);
         //ZMQConnector connector = new ZMQConnector("10.11.2.189", 1115, 1118);
-        BattleBoard model = new BattleBoard(null);
+        BattleBoard model = new BattleBoard(new Battleship[0]);
         EventQueue.invokeLater(new BattleRunnable(model, connector));
         //connector.sendMessage("Hello".getBytes());
         //MessageInfo mi = connector.receiveMessage();

@@ -49,6 +49,7 @@ public class BattleRunnable extends BattleView implements Runnable{
 
     @param panel the JPanel to which we draw the grid.
     @param isTracking if true, add an ActionListener to the the grid panes.
+    @param c the color of the grid cells.
     */
     private void generateGrid(JPanel panel, boolean isTracking, Color c){
         for(int i = 0; i < 10; i++){
