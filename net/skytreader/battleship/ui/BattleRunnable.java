@@ -51,6 +51,40 @@ public class BattleRunnable extends BattleView implements Runnable{
     }
 
     /**
+    Change color of grid cells in the base map to reflect the layout of ships.
+    Must be called every new game; this is not concerned with showing what parts
+    of ships are damaged.
+
+    Assumes that the base map has been preloaded with sea/water colors.
+    */
+    private void laydownShips(){
+        Battleship[] ships = boardModel.getShips();
+        int limit = ships.length;
+
+        for(int i = 0; i < limit; i++){
+            int shipRow = ships[i].getRow();
+            int shipCol = ships[i].getCol();
+            int shipSpan = ships[i].getSpan() - 1;
+            boolean isHorizontal = ships[i].getIsHorizontalOrientation();
+            
+            map[shipRow][shipCol].setBackground(SHIP);
+            int incr = 0;
+
+            if(isHorizontal){
+                while(incr < shipSpan){
+                    map[shipRow][shipCol + incr].setBackground(SHIP);
+                    incr++;
+                }
+            } else{
+                while(incr < shipSpan){
+                    map[shipRow + incr][shipCol].setBackground(SHIP);
+                    incr++;
+                }
+            }
+        }
+    }
+
+    /**
     Draw a grid in the JPanel.
 
     @param panel the JPanel to which we draw the grid.
@@ -72,12 +106,6 @@ public class BattleRunnable extends BattleView implements Runnable{
         }
     }
     
-    /**
-    Updates the base grid based on the current state of boardModel. 
-    */
-    private void updateBaseGrid(){
-    }
-
     /**
     Listen to clicks on GridPanes. Should send the coordinates over the network.
     It is assumed that this listener is only attached to instances of

@@ -32,6 +32,10 @@ public class BattleBoard extends Observable{
             throw new GameConfigurationException("Ships cannot intersect!");
         }
     }
+
+    public Battleship[] getShips(){
+        return ships;
+    }
     
     /**
     Checks that no ships are overlapping in the given configuration. Returns
