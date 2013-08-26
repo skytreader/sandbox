@@ -15,11 +15,16 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import net.skytreader.battleship.Main;
 import net.skytreader.battleship.game.BattleBoard;
+import net.skytreader.battleship.game.Battleship;
 import net.skytreader.battleship.networking.NetworkingInterface;
 
 /**
@@ -134,6 +139,28 @@ public class BattleRunnable extends BattleView implements Runnable{
             }
         }
     }
+    
+    /**
+    Handles clicks to the Game->Quit menu item.
+    */
+    private class QuitListener implements ActionListener{
+        public void actionPerformed(ActionEvent ae){
+            mainFrame.setVisible(false);
+            System.exit(0);
+        }
+    }
+
+    /**
+    Handles clicks to the About->Game menu item.
+    */
+    private class AboutGameListener implements ActionListener{
+        public void actionPerformed(ActionEvent ae){
+            JOptionPane.showMessageDialog(mainFrame,
+              "Battleship v" + Main.VERSION,
+              "About Battleship",
+              JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
     private class RecvThread implements Runnable{
         public void run(){
@@ -181,6 +208,30 @@ public class BattleRunnable extends BattleView implements Runnable{
               JOptionPane.WARNING_MESSAGE);
             ioe.printStackTrace();
         }
+
+        /*
+         * ######################################
+         * Menu Bar
+         * ######################################
+         */
+        JMenuBar menubar = new JMenuBar();
+
+        // Game menu and related items
+        JMenu gameMenu = new JMenu("Game");
+        JMenuItem newGame = new JMenuItem("New Game");
+        JMenuItem quit = new JMenuItem("Quit");
+        quit.addActionListener(new QuitListener());
+        gameMenu.add(newGame);
+        gameMenu.add(quit);
+        menubar.add(gameMenu);
+
+        JMenu aboutMenu = new JMenu("About");
+        JMenuItem aboutGame = new JMenuItem("Game");
+        aboutGame.addActionListener(new AboutGameListener());
+        aboutMenu.add(aboutGame);
+        menubar.add(aboutMenu);
+
+        mainFrame.setJMenuBar(menubar);
 
         /*
          * ######################################
