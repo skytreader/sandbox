@@ -174,6 +174,14 @@ public class BattleRunnable extends BattleView implements Runnable{
               JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    
+    /**
+    Abstraction for everytime we want to "open" the new game dialog.
+    */
+    private void openNewGameDialog(){
+        mainFrame.setEnabled(false);
+        newGameDialog.setVisible(true);
+    }
 
     /**
     Handles clicks to the Game->New Game menu item.
@@ -183,11 +191,10 @@ public class BattleRunnable extends BattleView implements Runnable{
     */
     private class NewGameListener implements ActionListener{
         public void actionPerformed(ActionEvent ae){
-            mainFrame.setEnabled(false);
-            newGameDialog.setVisible(true);
+            openNewGameDialog();
         }
     }
-    
+
     /**
     Window listener for the new game frame. Only interested in the close event.
     */
@@ -216,6 +223,36 @@ public class BattleRunnable extends BattleView implements Runnable{
              } catch(Exception e){
                 e.printStackTrace();
              }
+        }
+    }
+
+    /**
+    Abstraction for everytime we want to "close" the new game dialog box.
+    */
+    private void closeNewGameDialog(){
+        mainFrame.setEnabled(true);
+        newGameDialog.setVisible(false);
+    }
+    
+    private class CancelNewGameListener implements ActionListener{
+        public void actionPerformed(ActionEvent ae){
+            closeNewGameDialog();
+        }
+    }
+
+    // TODO
+    private class OkNewGameListener implements ActionListener{
+        public void actionPerformed(ActionEvent ae){
+            closeNewGameDialog();
+
+            // Get the coords values and set them to board.
+            Battleship[] ships = new Battleship[10];
+            int i = 0;
+
+            for(; i < patrolFields.length; i++){
+                //ships[i] = new BattleShip(BattleShip.PATROL_BOAT, i)
+                System.out.println("Patrol boat at: " + patrolFields[i].getText());
+            }
         }
     }
     
@@ -287,7 +324,9 @@ public class BattleRunnable extends BattleView implements Runnable{
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         JButton okButton = new JButton("OK");
+        okButton.addActionListener(new OkNewGameListener());
         JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new CancelNewGameListener());
         buttonPanel.add(okButton);
         buttonPanel.add(cancelButton);
 
@@ -296,6 +335,8 @@ public class BattleRunnable extends BattleView implements Runnable{
         newGameDialog.pack();
     }
 
+    // FIXME Just return an array of JComponents: the first one JPanel, the next
+    // JTextField
     private JPanel[] newGameConfigPanel(int limit, String prompt,
       JTextField[] fields){
         JLabel[] configLabels = new JLabel[limit];
