@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import java.io.IOException;
 
@@ -170,13 +173,26 @@ public class BattleRunnable extends BattleView implements Runnable{
     */
     private class NewGameListener implements ActionListener{
         public void actionPerformed(ActionEvent ae){
+            mainFrame.setEnabled(false);
+            System.out.println("Opening: Is mainFrame enabled? " + mainFrame.isEnabled());
             JFrame newGameFrame = new JFrame("New Battleship Game");
+            newGameFrame.addWindowListener(new NewGameWindowListener());
             Container newGameContainer = newGameFrame.getContentPane();
             newGameContainer.setLayout(new BoxLayout(newGameContainer,
               BoxLayout.Y_AXIS));
             newGameContainer.add(new JLabel("The quick brown fox jumps over the lazy dog"));
             newGameFrame.pack();
             newGameFrame.setVisible(true);
+        }
+    }
+    
+    /**
+    Window listener for the new game frame. Only interested in the close event.
+    */
+    private class NewGameWindowListener extends WindowAdapter{
+        public void windowClosing(WindowEvent we){
+            mainFrame.setEnabled(true);
+            System.out.println("Closing: Is mainFrame enabled? " + mainFrame.isEnabled());
         }
     }
 
