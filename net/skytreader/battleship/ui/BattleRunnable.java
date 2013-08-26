@@ -16,6 +16,7 @@ import java.util.Observable;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -37,6 +38,7 @@ Runnable for battles.
 */
 public class BattleRunnable extends BattleView implements Runnable{
     
+    private JDialog newGameDialog;
     private JFrame mainFrame;
     private JLabel statusLabel;
     private GridPaneClickListener paneListener = new GridPaneClickListener();
@@ -174,15 +176,7 @@ public class BattleRunnable extends BattleView implements Runnable{
     private class NewGameListener implements ActionListener{
         public void actionPerformed(ActionEvent ae){
             mainFrame.setEnabled(false);
-            System.out.println("Opening: Is mainFrame enabled? " + mainFrame.isEnabled());
-            JFrame newGameFrame = new JFrame("New Battleship Game");
-            newGameFrame.addWindowListener(new NewGameWindowListener());
-            Container newGameContainer = newGameFrame.getContentPane();
-            newGameContainer.setLayout(new BoxLayout(newGameContainer,
-              BoxLayout.Y_AXIS));
-            newGameContainer.add(new JLabel("The quick brown fox jumps over the lazy dog"));
-            newGameFrame.pack();
-            newGameFrame.setVisible(true);
+            newGameDialog.setVisible(true);
         }
     }
     
@@ -192,7 +186,6 @@ public class BattleRunnable extends BattleView implements Runnable{
     private class NewGameWindowListener extends WindowAdapter{
         public void windowClosing(WindowEvent we){
             mainFrame.setEnabled(true);
-            System.out.println("Closing: Is mainFrame enabled? " + mainFrame.isEnabled());
         }
     }
 
@@ -216,6 +209,30 @@ public class BattleRunnable extends BattleView implements Runnable{
                 e.printStackTrace();
              }
         }
+    }
+    
+    /**
+    Set-up the new game dialog so we don't have to assemble it every time new
+    game is triggered. Try not to call this more than once (though I don't see
+    any ill effects of doing so).
+    */
+    private void setUpNewGameDialog(){
+        newGameDialog = new JDialog(new JFrame(), "New Battleship Game");
+        newGameDialog.addWindowListener(new NewGameWindowListener());
+        newGameDialog.setResizable(false);
+        Container newGameContainer = newGameDialog.getContentPane();
+        newGameDialog.setLayout(new BoxLayout(newGameContainer,
+          BoxLayout.Y_AXIS));
+        
+        /*
+         * ######################################
+         * 4 Patrol Boats
+         * ######################################
+         */
+        JLabel[] labels = new JLabel[4];
+        JPanel p1 = new JPanel();
+
+        newGameDialog.pack();
     }
 
     public void run(){
