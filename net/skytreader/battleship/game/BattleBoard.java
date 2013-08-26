@@ -66,9 +66,9 @@ public class BattleBoard extends Observable{
         Rectangle[] rs = new Rectangle[limit];
 
         for(int i = 0; i < limit; i++){
-            int height = ships[i].getIsHorizontalOrientation() ? 1 :
+            int height = ships[i].isHorizontalOrientation() ? 1 :
               ships[i].getSpan();
-            int width = ships[i].getIsHorizontalOrientation() ?
+            int width = ships[i].isHorizontalOrientation() ?
               ships[i].getSpan() : 1;
             rs[i] = new Rectangle(ships[i].getRow(), ships[i].getCol(), width,
               height);
@@ -91,7 +91,7 @@ public class BattleBoard extends Observable{
         for(int i = 0; i < limit; i++){
             if(ships[i].isHit(row, col)){
                 int hitPartition = 0;
-                if(ships[i].getIsHorizontalOrientation()){
+                if(ships[i].isHorizontalOrientation()){
                     hitPartition = col - ships[i].getCol(); 
                 } else{
                     hitPartition = row - ships[i].getRow();

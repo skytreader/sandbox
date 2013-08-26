@@ -48,7 +48,7 @@ public class Battleship{
         hitAreas = new BitSet(s);
     }
 
-    public boolean getIsHorizontalOrientation(){
+    public boolean isHorizontalOrientation(){
         return isHorizontalOrientation;
     }
 

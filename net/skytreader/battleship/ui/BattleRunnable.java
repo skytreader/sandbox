@@ -73,7 +73,7 @@ public class BattleRunnable extends BattleView implements Runnable{
             int shipRow = ships[i].getRow();
             int shipCol = ships[i].getCol();
             int shipSpan = ships[i].getSpan() - 1;
-            boolean isHorizontal = ships[i].getIsHorizontalOrientation();
+            boolean isHorizontal = ships[i].isHorizontalOrientation();
             
             map[shipRow][shipCol].setBackground(SHIP);
             int incr = 0;
