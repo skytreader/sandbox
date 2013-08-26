@@ -16,6 +16,7 @@ import java.util.Observable;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import net.skytreader.battleship.Main;
@@ -46,6 +48,12 @@ public class BattleRunnable extends BattleView implements Runnable{
     private boolean isRecvMode = true;
     // FIXME Hack!
     private BattleGridPane[][] map = new BattleGridPane[10][10];
+
+    // New game config fields
+    private JTextField[] patrolFields;
+    private JTextField[] destroyerSubFields;
+    private JTextField[] battleshipFields;
+    private JTextField[] aircraftCarrierFields;
 
     private final Color SHIP_HIT = Color.RED;
     private final Color SHIP = Color.GRAY;
@@ -221,18 +229,91 @@ public class BattleRunnable extends BattleView implements Runnable{
         newGameDialog.addWindowListener(new NewGameWindowListener());
         newGameDialog.setResizable(false);
         Container newGameContainer = newGameDialog.getContentPane();
-        newGameDialog.setLayout(new BoxLayout(newGameContainer,
+        newGameContainer.setLayout(new BoxLayout(newGameContainer,
           BoxLayout.Y_AXIS));
+
+        JLabel instructions = new JLabel("Enter coordinates of first partition:");
+        newGameContainer.add(instructions);
         
         /*
          * ######################################
          * 4 Patrol Boats
          * ######################################
          */
-        JLabel[] labels = new JLabel[4];
-        JPanel p1 = new JPanel();
+        JPanel[] patrolPanels = newGameConfigPanel(BattleBoard.PATROL_BOAT_COUNT,
+          "Patrol Boat", patrolFields);
+
+        for(int i = 0; i < BattleBoard.PATROL_BOAT_COUNT; i++){
+            newGameContainer.add(patrolPanels[i]);
+        }
+
+        /*
+         * ######################################
+         * 3 Destroyers
+         * ######################################
+         */
+        JPanel[] destroyerPanels = newGameConfigPanel(BattleBoard.DESTROYER_SUB_COUNT,
+          "Destroyer", destroyerSubFields);
+
+        for(int i = 0; i < BattleBoard.DESTROYER_SUB_COUNT; i++){
+            newGameContainer.add(destroyerPanels[i]);
+        }
+
+        /*
+         * ######################################
+         * 2 Battleships
+         * ######################################
+         */
+        JPanel[] battleshipPanels = newGameConfigPanel(BattleBoard.BATTLESHIP_COUNT,
+          "Battleship", battleshipFields);
+
+        for(int i = 0; i < BattleBoard.BATTLESHIP_COUNT; i++){
+            newGameContainer.add(battleshipPanels[i]);
+        }
+
+        /*
+         * ######################################
+         * ONE AIRCRAFT CARRIER
+         * ######################################
+         */
+        JPanel[] aircraftCarrierPanels = newGameConfigPanel(
+          BattleBoard.AIRCRAFT_CARRIER_COUNT, "Aircraft Carrier",
+          aircraftCarrierFields);
+
+        for(int i = 0; i < BattleBoard.AIRCRAFT_CARRIER_COUNT; i++){
+            newGameContainer.add(aircraftCarrierPanels[i]);
+        }
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        JButton okButton = new JButton("OK");
+        JButton cancelButton = new JButton("Cancel");
+        buttonPanel.add(okButton);
+        buttonPanel.add(cancelButton);
+
+        newGameContainer.add(buttonPanel);
 
         newGameDialog.pack();
+    }
+
+    private JPanel[] newGameConfigPanel(int limit, String prompt,
+      JTextField[] fields){
+        JLabel[] configLabels = new JLabel[limit];
+        JPanel[] configPanels = new JPanel[limit];
+        fields = new JTextField[limit];
+
+        for(int i = 0; i < limit; i++){
+            configPanels[i] = new JPanel();
+            configPanels[i].setLayout(new BoxLayout(configPanels[i],
+              BoxLayout.X_AXIS));
+            configLabels[i] = new JLabel(prompt + " " + (i + 1) + ": ");
+            fields[i] = new JTextField("0 0", 5);
+
+            configPanels[i].add(configLabels[i]);
+            configPanels[i].add(fields[i]);
+        }
+
+        return configPanels;
     }
 
     public void run(){
@@ -241,6 +322,8 @@ public class BattleRunnable extends BattleView implements Runnable{
         } catch(Exception e){
             e.printStackTrace();
         }
+
+        setUpNewGameDialog();
 
         mainFrame = new JFrame("Battleship");
         mainFrame.setSize(800, 500);

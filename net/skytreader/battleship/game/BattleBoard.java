@@ -18,6 +18,11 @@ public class BattleBoard extends Observable{
     private int boardHeight = 10;
     private Battleship[] ships;
     private boolean[][] trackingBoard;
+
+    public static final int PATROL_BOAT_COUNT = 4;
+    public static final int DESTROYER_SUB_COUNT = 3;
+    public static final int BATTLESHIP_COUNT = 2;
+    public static final int AIRCRAFT_CARRIER_COUNT = 1;
     
     /**
     Construct a new board with the given ship configuration. Note that it is
