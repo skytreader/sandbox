@@ -162,6 +162,24 @@ public class BattleRunnable extends BattleView implements Runnable{
         }
     }
 
+    /**
+    Handles clicks to the Game->New Game menu item.
+
+    Creates a new JFrame to ask for the configuration of the new game. Disables
+    input to the main JFrame. Upon close, re-enable input to main JFrame.
+    */
+    private class NewGameListener implements ActionListener{
+        public void actionPerformed(ActionEvent ae){
+            JFrame newGameFrame = new JFrame("New Battleship Game");
+            Container newGameContainer = newGameFrame.getContentPane();
+            newGameContainer.setLayout(new BoxLayout(newGameContainer,
+              BoxLayout.Y_AXIS));
+            newGameContainer.add(new JLabel("The quick brown fox jumps over the lazy dog"));
+            newGameFrame.pack();
+            newGameFrame.setVisible(true);
+        }
+    }
+
     private class RecvThread implements Runnable{
         public void run(){
             System.out.println("RECV thread running.");
@@ -218,7 +236,8 @@ public class BattleRunnable extends BattleView implements Runnable{
 
         // Game menu and related items
         JMenu gameMenu = new JMenu("Game");
-        JMenuItem newGame = new JMenuItem("New Game");
+        JMenuItem newGame = new JMenuItem("New Game...");
+        newGame.addActionListener(new NewGameListener());
         JMenuItem quit = new JMenuItem("Quit");
         quit.addActionListener(new QuitListener());
         gameMenu.add(newGame);
