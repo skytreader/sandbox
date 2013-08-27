@@ -260,20 +260,63 @@ public class BattleRunnable extends BattleView implements Runnable{
             closeNewGameDialog();
         }
     }
-
+    
     // TODO
     private class OkNewGameListener implements ActionListener{
+
+        /**
+        Returns a mutlidimensional array of integers, each with two elements each,
+        containig the starting cell of a battleship for a new game.
+        */
+        private int[][] extractCoords(JTextField[] fs){
+            int limit = fs.length;
+            int[][] coords = new int[limit][];
+            
+            for(int i = 0; i < fs.length; i++){
+                String[] coordsText = fs[i].getText().split(" ");
+                int row = Integer.parseInt(coordsText[0]);
+                int col = Integer.parseInt(coordsText[1]);
+                coords[i] = new int[]{row, col};
+            }
+
+            return coords;
+        }
+
         public void actionPerformed(ActionEvent ae){
             closeNewGameDialog();
 
             // Get the coords values and set them to board.
             Battleship[] ships = new Battleship[10];
-            int i = 0;
+            int shipIndex = 0;
+            int[][] patrolBoats = extractCoords(patrolFields);
+            int[][] destroyerSubs = extractCoords(destroyerSubFields);
+            int[][] battleships = extractCoords(battleshipFields);
+            int[][] aircraftCarriers = extractCoords(aircraftCarrierFields);
 
-            for(; i < patrolFields.length; i++){
-                //ships[i] = new BattleShip(BattleShip.PATROL_BOAT, i)
-                System.out.println("Patrol boat at: " + patrolFields[i].getText());
+            for(int i = 0; i < patrolBoats.length; i++){
+                ships[shipIndex] = new Battleship(Battleship.PATROL_BOAT,
+                  patrolBoats[i][0], patrolBoats[i][1]);
+                shipIndex++;
             }
+            
+            for(int i = 0; i < destroyerSubs.length; i++){
+                ships[shipIndex] = new Battleship(Battleship.DESTROYER,
+                  destroyerSubs[i][0], destroyerSubs[i][1]);
+                shipIndex++;
+            }
+
+            for(int i = 0; i < battleships.length; i++){
+                ships[shipIndex] = new Battleship(Battleship.BATTLESHIP,
+                  battleships[i][0], battleships[i][1]);
+                shipIndex++;
+            }
+
+            for(int i = 0; i < aircraftCarriers.length; i++){
+                ships[shipIndex] = new Battleship(Battleship.AIRCRAFT_CARRIER,
+                  aircraftCarriers[i][0], aircraftCarriers[i][1]);
+                shipIndex++;
+            }
+
         }
     }
     
