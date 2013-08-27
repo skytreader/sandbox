@@ -30,6 +30,9 @@ public class BattleBoard extends Observable{
     /**
     Construct a new board with the given ship configuration. Note that it is
     assumed that the given set of ships do not overlap each other.
+
+    @param ships
+    @throws GameConfigurationException when there are intersecting Battleships.
     */
     public BattleBoard(Battleship[] ships) throws GameConfigurationException{
         if(checkShips(ships)){
@@ -41,6 +44,21 @@ public class BattleBoard extends Observable{
 
     public Battleship[] getShips(){
         return ships;
+    }
+    
+    /**
+    To save resources, when resetting a game, use this instead of constructing
+    new BattleBoard objects.
+
+    @param ships new Battleship set.
+    @throws GameConfigurationException when there are intersecting Battleships.
+    */
+    public void setShips(Battleship[] ships) throws GameConfigurationException{
+        if(checkShips(ships)){
+            this.ships = ships;
+        } else{
+            throw new GameConfigurationException("Ships cannot intersect!");
+        }
     }
     
     /**
@@ -104,7 +122,6 @@ public class BattleBoard extends Observable{
                 }
                 ships[i].hit(hitPartition);
                 setChanged();
-                mark(row, col);
                 notifyObservers(ships[i]);
                 return true;
             }

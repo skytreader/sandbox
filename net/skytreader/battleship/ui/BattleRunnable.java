@@ -32,6 +32,7 @@ import javax.swing.Box;
 import net.skytreader.battleship.Main;
 import net.skytreader.battleship.game.BattleBoard;
 import net.skytreader.battleship.game.Battleship;
+import net.skytreader.battleship.game.GameConfigurationException;
 import net.skytreader.battleship.networking.NetworkingInterface;
 
 /**
@@ -283,8 +284,6 @@ public class BattleRunnable extends BattleView implements Runnable{
         }
 
         public void actionPerformed(ActionEvent ae){
-            closeNewGameDialog();
-
             // Get the coords values and set them to board.
             Battleship[] ships = new Battleship[10];
             int shipIndex = 0;
@@ -315,6 +314,17 @@ public class BattleRunnable extends BattleView implements Runnable{
                 ships[shipIndex] = new Battleship(Battleship.AIRCRAFT_CARRIER,
                   aircraftCarriers[i][0], aircraftCarriers[i][1]);
                 shipIndex++;
+            }
+
+            try{
+                boardModel.setShips(ships);
+                laydownShips();
+                closeNewGameDialog();
+            } catch(GameConfigurationException gfe){
+                JOptionPane.showMessageDialog(mainFrame,
+                  "You cannot have intersecting battle ships!",
+                  "Set-up Error",
+                  JOptionPane.ERROR_MESSAGE);
             }
 
         }
