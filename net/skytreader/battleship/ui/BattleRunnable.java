@@ -12,9 +12,6 @@ import java.awt.event.WindowEvent;
 
 import java.io.IOException;
 
-import java.util.Observable;
-
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,6 +25,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import java.util.Observable;
+import java.util.HashMap;
+
+import javax.swing.Box;
 import net.skytreader.battleship.Main;
 import net.skytreader.battleship.game.BattleBoard;
 import net.skytreader.battleship.game.Battleship;
@@ -58,14 +59,34 @@ public class BattleRunnable extends BattleView implements Runnable{
     private final Color SHIP_HIT = Color.RED;
     private final Color SHIP = Color.GRAY;
     private final Color SEA = Color.BLUE;
-
     private final Color UNKNOWN = Color.LIGHT_GRAY;
 
-    public BattleRunnable(BattleBoard boardModel,
+    private final String PATROL_BOAT_LABEL = "Patrol Boat";
+    private final String DESTROYER_LABEL = "Destroyer";
+    private final String BATTLESHIP_LABEL = "Battleship";
+    private final String AIRCRAFT_CARRIER_LABEL = "Aircraft Carrier";
+
+    private final HashMap<String, JTextField[]> textFieldMapping;
+
+    public BattleRunnable(BattleBoard boardModel, 
       NetworkingInterface networkInterface){
         super(boardModel);
         this.boardModel.addObserver(this);
         this.networkInterface = networkInterface;
+
+        // Initialize the text fields
+        patrolFields = new JTextField[BattleBoard.PATROL_BOAT_COUNT];
+        destroyerSubFields = new JTextField[BattleBoard.DESTROYER_SUB_COUNT];
+        battleshipFields = new JTextField[BattleBoard.BATTLESHIP_COUNT];
+        aircraftCarrierFields = new JTextField[BattleBoard.AIRCRAFT_CARRIER_COUNT];
+
+        // Set-up the look-up map for textfields.
+        textFieldMapping = new HashMap<String, JTextField[]>();
+
+        textFieldMapping.put(PATROL_BOAT_LABEL, patrolFields);
+        textFieldMapping.put(DESTROYER_LABEL, destroyerSubFields);
+        textFieldMapping.put(BATTLESHIP_LABEL, battleshipFields);
+        textFieldMapping.put(AIRCRAFT_CARRIER_LABEL, aircraftCarrierFields);
     }
 
     /**
@@ -278,7 +299,7 @@ public class BattleRunnable extends BattleView implements Runnable{
          * ######################################
          */
         JPanel[] patrolPanels = newGameConfigPanel(BattleBoard.PATROL_BOAT_COUNT,
-          "Patrol Boat", patrolFields);
+          PATROL_BOAT_LABEL);
 
         for(int i = 0; i < BattleBoard.PATROL_BOAT_COUNT; i++){
             newGameContainer.add(patrolPanels[i]);
@@ -290,7 +311,7 @@ public class BattleRunnable extends BattleView implements Runnable{
          * ######################################
          */
         JPanel[] destroyerPanels = newGameConfigPanel(BattleBoard.DESTROYER_SUB_COUNT,
-          "Destroyer", destroyerSubFields);
+          DESTROYER_LABEL);
 
         for(int i = 0; i < BattleBoard.DESTROYER_SUB_COUNT; i++){
             newGameContainer.add(destroyerPanels[i]);
@@ -302,7 +323,7 @@ public class BattleRunnable extends BattleView implements Runnable{
          * ######################################
          */
         JPanel[] battleshipPanels = newGameConfigPanel(BattleBoard.BATTLESHIP_COUNT,
-          "Battleship", battleshipFields);
+          BATTLESHIP_LABEL);
 
         for(int i = 0; i < BattleBoard.BATTLESHIP_COUNT; i++){
             newGameContainer.add(battleshipPanels[i]);
@@ -314,8 +335,7 @@ public class BattleRunnable extends BattleView implements Runnable{
          * ######################################
          */
         JPanel[] aircraftCarrierPanels = newGameConfigPanel(
-          BattleBoard.AIRCRAFT_CARRIER_COUNT, "Aircraft Carrier",
-          aircraftCarrierFields);
+          BattleBoard.AIRCRAFT_CARRIER_COUNT, AIRCRAFT_CARRIER_LABEL);
 
         for(int i = 0; i < BattleBoard.AIRCRAFT_CARRIER_COUNT; i++){
             newGameContainer.add(aircraftCarrierPanels[i]);
@@ -335,13 +355,13 @@ public class BattleRunnable extends BattleView implements Runnable{
         newGameDialog.pack();
     }
 
-    // FIXME Just return an array of JComponents: the first one JPanel, the next
-    // JTextField
-    private JPanel[] newGameConfigPanel(int limit, String prompt,
-      JTextField[] fields){
+    /**
+    Creates configuration panels for ships in the new game dialog.
+    */
+    private JPanel[] newGameConfigPanel(int limit, String prompt){
         JLabel[] configLabels = new JLabel[limit];
         JPanel[] configPanels = new JPanel[limit];
-        fields = new JTextField[limit];
+        JTextField[] fields = textFieldMapping.get(prompt);
 
         for(int i = 0; i < limit; i++){
             configPanels[i] = new JPanel();
@@ -356,6 +376,7 @@ public class BattleRunnable extends BattleView implements Runnable{
 
         return configPanels;
     }
+
 
     public void run(){
         try{

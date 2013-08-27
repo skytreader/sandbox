@@ -19,9 +19,13 @@ public class BattleBoard extends Observable{
     private Battleship[] ships;
     private boolean[][] trackingBoard;
 
+    /**Allocation count for patrol boats.*/
     public static final int PATROL_BOAT_COUNT = 4;
+    /**Allocation count for destroyers/submarines.*/
     public static final int DESTROYER_SUB_COUNT = 3;
+    /**Allocation count for battleships.*/
     public static final int BATTLESHIP_COUNT = 2;
+    /**Allocation count for aircraft carriers.*/
     public static final int AIRCRAFT_CARRIER_COUNT = 1;
     
     /**
