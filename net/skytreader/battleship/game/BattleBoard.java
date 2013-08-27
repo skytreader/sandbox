@@ -17,7 +17,6 @@ public class BattleBoard extends Observable{
     private int boardWidth = 10;
     private int boardHeight = 10;
     private Battleship[] ships;
-    private boolean[][] trackingBoard;
 
     /**Allocation count for patrol boats.*/
     public static final int PATROL_BOAT_COUNT = 4;
@@ -35,8 +34,6 @@ public class BattleBoard extends Observable{
     public BattleBoard(Battleship[] ships) throws GameConfigurationException{
         if(checkShips(ships)){
             this.ships = ships;
-            // Implicitly all false
-            trackingBoard = new boolean[boardWidth][boardHeight];
         } else{
             throw new GameConfigurationException("Ships cannot intersect!");
         }
@@ -114,17 +111,6 @@ public class BattleBoard extends Observable{
         }
 
         return false;
-    }
-
-    /**
-    Marks the given block in the tracking board (i.e., indeed, a ship was hiding
-    there).
-
-    @param row
-    @param col
-    */
-    private void mark(int row, int col){
-        trackingBoard[row][col] = true;
     }
 
 }
