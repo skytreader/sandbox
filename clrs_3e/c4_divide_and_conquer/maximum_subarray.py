@@ -133,4 +133,11 @@ class FunctionsTest(unittest.TestCase):
         self.tests = ((13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7),
         (5, 15, -30, 10, -5, 40, 10))
 
-        self.expected_results = (43, )
+        self.expected_results = ((7, 11, 43), (3, 7, 55))
+
+    def test_brute_force(self):
+        for (test, result) in zip(self.tests, self.expected_results):
+            self.assertEqual(brute_max_subarray(test), result)
+
+if __name__ == "__main__":
+    unittest.main()
