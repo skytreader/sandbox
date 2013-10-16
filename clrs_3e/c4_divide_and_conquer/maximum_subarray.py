@@ -137,9 +137,10 @@ class FunctionsTest(unittest.TestCase):
     
     def setUp(self):
         self.tests = ((13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7),
-        (5, 15, -30, 10, -5, 40, 10))
+        (5, 15, -30, 10, -5, 40, 10), (-3, -1, -4, -1, -5, -9, -2, -6, -5, -3, -5,
+        -8, -9, -7, -9, -3, -2, -3, -8, -4, -6))
 
-        self.expected_results = ((7, 11, 43), (3, 7, 55))
+        self.expected_results = ((7, 11, 43), (3, 7, 55), (1, 2, -1))
 
     def test_brute_force(self):
         for (test, result) in zip(self.tests, self.expected_results):
