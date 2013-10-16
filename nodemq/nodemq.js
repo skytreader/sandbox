@@ -24,16 +24,16 @@ function NodeMessageQueue(){
     }
     
     this.COMMAND_MAP["PUSH"] = function(item){
+        console.log(this.COMMAND_MAP);
+        console.log(this.queue);
         return this.queue.push(item);
     }
     
     this.COMMAND_MAP["LEN"] = function(item){
         return this.queue.length;
     }
-}
 
-NodeMessageQueue.prototype = {
-    interpret: function(command){
+    this.interpret = function(command){
         /**
         Test cases:
             - undefined function
@@ -43,7 +43,12 @@ NodeMessageQueue.prototype = {
         command_split = command.split(" ");
         arg = (command_split.length == 1) ? "" : command_split[1];
         return this.COMMAND_MAP[command_split[0].toUpperCase()](arg);
+        /*if(command_split[0].toUpperCase() == "PUSH"){
+            return this.queue.push(arg);
+        }*/
     }
+
+
 }
 
 function listener(socket){
@@ -55,5 +60,5 @@ function listener(socket){
 
 var nodemq = new NodeMessageQueue();
 nodemq.interpret("PUSH Hello");
-nodemq.interpret("LEN");
-nodemq.interpret("POP");
+//nodemq.interpret("LEN");
+//nodemq.interpret("POP");
