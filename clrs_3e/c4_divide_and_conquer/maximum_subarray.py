@@ -90,6 +90,12 @@ def find_maximum_subarray(a, low, high):
         else:
             return crossing
 
+def find_max_subarray(a):
+    """
+    Driver function for find_maximum_subarray.
+    """
+    return find_maximum_subarray(a, 0, len(a))
+
 def brute_max_subarray(a):
     """
     Brute-force O(n^2) method for finding the max subaray: consider all possible
@@ -138,6 +144,10 @@ class FunctionsTest(unittest.TestCase):
     def test_brute_force(self):
         for (test, result) in zip(self.tests, self.expected_results):
             self.assertEqual(brute_max_subarray(test), result)
+
+    def test_divide_and_conquer(self):
+        for (test, result) in zip(self.tests, self.expected_results):
+            self.assertEqual(find_max_subarray(test), result)
 
 if __name__ == "__main__":
     unittest.main()
