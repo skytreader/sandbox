@@ -69,6 +69,8 @@ def find_maximum_subarray(a, low, high):
     (exclusive), and the sum over the specified subarray, in that order.
     """
     if high == (low + 1):
+        print("For call: " + str((a, low, high)))
+        print("Return: " + str((low, high, a[low])))
         return (low, high, a[low])
     else:
         midpoint = math.floor((low + high) / 2)
@@ -84,10 +86,16 @@ def find_maximum_subarray(a, low, high):
             crossing[SUBARRAY_SUM_INDEX])
 
         if maximum_sum == lefties[SUBARRAY_SUM_INDEX]:
+            print("For call: " + str((a, low, high)))
+            print("Return: " + str(lefties))
             return lefties
         elif maximum_sum == righties[SUBARRAY_SUM_INDEX]:
+            print("For call: " + str((a, low, high)))
+            print("Return: " + str(righties))
             return righties
         else:
+            print("For call: " + str((a, low, high)))
+            print("Return: " + str(crossing))
             return crossing
 
 def find_max_subarray(a):
@@ -99,7 +107,7 @@ def find_max_subarray(a):
 def brute_max_subarray(a):
     """
     Brute-force O(n^2) method for finding the max subaray: consider all possible
-    subarrays
+    subarrays.
     """
     prev_sums = []
     start_index = 0
