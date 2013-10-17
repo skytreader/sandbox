@@ -69,8 +69,8 @@ def find_maximum_subarray(a, low, high):
     (exclusive), and the sum over the specified subarray, in that order.
     """
     if high == (low + 1):
-        print("For call: " + str((a, low, high)))
-        print("Return: " + str((low, high, a[low])))
+        #print("For call: " + str((a, low, high)))
+        #print("Return: " + str((low, high, a[low])))
         return (low, high, a[low])
     else:
         midpoint = math.floor((low + high) / 2)
@@ -86,16 +86,16 @@ def find_maximum_subarray(a, low, high):
             crossing[SUBARRAY_SUM_INDEX])
 
         if maximum_sum == lefties[SUBARRAY_SUM_INDEX]:
-            print("For call: " + str((a, low, high)))
-            print("Return: " + str(lefties))
+            #print("For call: " + str((a, low, high)))
+            #print("Return: " + str(lefties))
             return lefties
         elif maximum_sum == righties[SUBARRAY_SUM_INDEX]:
-            print("For call: " + str((a, low, high)))
-            print("Return: " + str(righties))
+            #print("For call: " + str((a, low, high)))
+            #print("Return: " + str(righties))
             return righties
         else:
-            print("For call: " + str((a, low, high)))
-            print("Return: " + str(crossing))
+            #print("For call: " + str((a, low, high)))
+            #print("Return: " + str(crossing))
             return crossing
 
 def find_max_subarray(a):
@@ -146,9 +146,9 @@ class FunctionsTest(unittest.TestCase):
     def setUp(self):
         self.tests = ((13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7),
         (5, 15, -30, 10, -5, 40, 10), (-3, -1, -4, -1, -5, -9, -2, -6, -5, -3, -5,
-        -8, -9, -7, -9, -3, -2, -3, -8, -4, -6))
+        -8, -9, -7, -9, -3, -2, -3, -8, -4, -6), (5, 15, -30))
 
-        self.expected_results = ((7, 11, 43), (3, 7, 55), (1, 2, -1))
+        self.expected_results = ((7, 11, 43), (3, 7, 55), (1, 2, -1), (0, 2, 20))
 
     def test_brute_force(self):
         for (test, result) in zip(self.tests, self.expected_results):
