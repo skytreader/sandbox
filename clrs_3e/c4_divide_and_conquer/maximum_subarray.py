@@ -44,6 +44,9 @@ def find_max_crossing_subarray(a, low, mid, high):
 
         i -= 1
 
+    print("For " + str((a, low, mid, high)))
+    print("Left max: " + str((low, max_left_index, max_left_sum)))
+
     max_right_sum = float("-inf")
     right_sum = 0
     max_right_index = mid + 1
@@ -56,6 +59,8 @@ def find_max_crossing_subarray(a, low, mid, high):
             max_right_index = i
 
         i += 1
+
+    print("Right max: " + str((max_right_index, high, max_right_sum)))
 
     return (max_left_index, max_right_index + 1, max_left_sum + max_right_sum)
 
