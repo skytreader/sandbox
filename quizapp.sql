@@ -3,9 +3,9 @@ CREATE TABLE IF NOT EXISTS users(
     username VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     total_score INTEGER DEFAULT 0,
-    create_time TIMESTAMP NOT NULL,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_updater INTEGER NOT NULL,
-    last_update TIMESTAMP NOT NULL,
+    last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     can_read BOOLEAN NOT NULL DEFAULT TRUE,
     can_write BOOLEAN NOT NULL DEFAULT TRUE,
     can_exec BOOLEAN NOT NULL DEFAULT FALSE,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS quiz_categories(
     category_name VARCHAR(255) UNIQUE NOT NULL,
     top_scorer INTEGER DEFAULT 0,
     last_updater INTEGER NOT NULL,
-    last_update TIMESTAMP NOT NULL,
+    last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (quizcatid),
     FOREIGN KAY (last_updater) REFERENCES users (userid)
 ) ENGINE = INNODB;
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS quizzes(
     quiz_title VARCHAR(30) NOT NULL,
     quiz_desc VARCHAR(255) NOT NULL,
     last_updater INTEGER NOT NULL,
-    last_update TIMESTAMP NOT NULL,
+    last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (quizid),
     FOREIGN KEY (last_updater) REFERENCES users (userid),
     FOREIGN KEY (quizcatid) REFERENCES quiz_categories (quizcatid)
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS tags(
     tagid INTEGER AUTO_INCREMENT,
     taglabel VARCHAR(20) NOT NULL,
     last_updater INTEGER NOT NULL,
-    last_update TIMESTAMP NOT NULL,
+    last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (tagid),
     FOREIGN KEY (last_updater) REFERENCES users (userid)
 ) ENGINE = INNODB;
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS quiztags(
     tagid INTEGER,
     quizid INTEGER,
     last_updater INTEGER NOT NULL,
-    last_update TIMESTAMP NOT NULL,
+    last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (tagid, quizid),
     FOREIGN KEY (tagid) REFERENCES tags (tagid),
     FOREIGN KEY (quizid) REFERENCES quizzes (quizid),
