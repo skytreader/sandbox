@@ -31,6 +31,7 @@ def find_max_crossing_subarray(a, low, mid, high):
     subarray starts (inclusive), the index where the crossing subarray ends
     (exclusive), and the total sum of the crossing subarray, in that order.
     """
+    print("find_max_crossing_subarray call with params: " + str((a, low, mid, high)))
     max_left_sum = float("-inf")
     left_sum = 0
     max_left_index = mid
@@ -79,6 +80,7 @@ def find_maximum_subarray(a, low, high):
         return (low, high, a[low])
     else:
         midpoint = math.floor((low + high) / 2)
+        print("Midpoint: " + str(midpoint))
 
         # find the maximum subarray in the left of the midpoint
         lefties = find_maximum_subarray(a, low, midpoint)
@@ -89,6 +91,8 @@ def find_maximum_subarray(a, low, high):
 
         maximum_sum = max(lefties[SUBARRAY_SUM_INDEX], righties[SUBARRAY_SUM_INDEX],
             crossing[SUBARRAY_SUM_INDEX])
+
+        print("Max between: " + str((lefties[SUBARRAY_SUM_INDEX], righties[SUBARRAY_SUM_INDEX], crossing[SUBARRAY_SUM_INDEX])))
 
         if maximum_sum == lefties[SUBARRAY_SUM_INDEX]:
             #print("For call: " + str((a, low, high)))
