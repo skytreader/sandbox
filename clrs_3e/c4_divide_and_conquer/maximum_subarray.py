@@ -74,10 +74,26 @@ def find_maximum_subarray(a, low, high):
     subarray starts (inclusive), the index where the max subarray ends
     (exclusive), and the sum over the specified subarray, in that order.
     """
+
     if high == (low + 1):
+        return (low, high, a[low])
+    elif high == (low + 2):
         #print("For call: " + str((a, low, high)))
         #print("Return: " + str((low, high, a[low])))
-        return (low, high, a[low])
+        #return (low, high, a[low])
+        print("Array length: " + str(len(a)))
+        print("indices: " + str((low, high)))
+        possibilities = ((low, low + 1, a[low]), (high - 1, high, a[high - 1]),
+            (low, high, a[low] + a[high - 1]))
+
+        max_possible = max((a[low], a[high - 1], a[low] + a[high - 1]))
+
+        if max_possible == a[low]:
+            return possibilities[0]
+        elif max_possible == a[high - 1]:
+            return possibilities[1]
+        else:
+            return possibilities[2]
     else:
         midpoint = math.floor((low + high) / 2)
         print("Midpoint: " + str(midpoint))
