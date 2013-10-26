@@ -12,6 +12,7 @@ See also:
 https://wiki.python.org/jython/PackageScanning
 """
 
-w = JFrame("Jython!")
-w.size = (200, 200)
-w.show()
+if __name__ == "__main__":
+    w = JFrame("Jython!")
+    w.size = (200, 200)
+    w.visible = True
