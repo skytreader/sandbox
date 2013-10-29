@@ -29,6 +29,9 @@ def counting_sort(numlist, range_upper_bound):
 
     i = limit - 1
 
+    # The position of numlist[i] in sorted_list will be its count (minus 1 for
+    # index adjustment). Decrement its count afterwards to handle multiple
+    # instances of the same number.
     while i >= 0:
         sorted_list[count_list[numlist[i]] - 1] = numlist[i]
         count_list[numlist[i]] -= 1
