@@ -1,4 +1,5 @@
 import gevent
+import os
 import random
 import sys
 import time
@@ -8,9 +9,10 @@ from gevent.lock import Semaphore
 
 chargrid = None
 semaphore_lock = None
+flags = None
 
 def grid_join():
-    return "\n".join(["".join(ss) for ss in chargrid])
+    return "\n\r".join(["".join(ss) for ss in chargrid])
 
 def fill_grid(row, duration):
     for i in range(duration):
@@ -21,8 +23,16 @@ def fill_grid(row, duration):
         chargrid[row][random_index] = random_bit
         semaphore_lock.release()
 
+def all_true():
+    for b in flags:
+        if not b:
+            return False
+    
+    return True
+
 def animator(duration):
-    for i in range(duration):
+    while not all_true():
+        os.system("clear")
         sys.stdout.write(grid_join() + "\r")
         sys.stdout.flush()
         time.sleep(1)
@@ -37,6 +47,7 @@ if __name__ == "__main__":
     duration = int(sys.argv[3])
 
     chargrid = [[' ' for i in range(width_cols)] for j in range(height_rows)]
+    flags = [False for j in range(height_rows)]
     semaphore_lock = Semaphore()
 
     draw_threads = []
