@@ -17,11 +17,15 @@ def grid_join():
 def fill_grid(row, duration):
     for i in range(duration):
         random_index = random.choice(range(len(chargrid[row])))
+        print "Random index: " + str((row, random_index))
         random_bit = random.choice(("1", "0"))
     
         semaphore_lock.acquire()
         chargrid[row][random_index] = random_bit
         semaphore_lock.release()
+        time.sleep(1)
+
+    flags[row] = True
 
 def all_true():
     for b in flags:
