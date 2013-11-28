@@ -25,6 +25,7 @@ def fill_grid(row, duration):
         semaphore_lock.release()
         time.sleep(1)
 
+    print str(i) + " is done."
     flags[row] = True
 
 def all_true():
