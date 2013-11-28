@@ -35,7 +35,7 @@ def all_true():
     
     return True
 
-def animator(duration):
+def animator():
     while not all_true():
         os.system("clear")
         sys.stdout.write(grid_join() + "\r")
@@ -61,5 +61,5 @@ if __name__ == "__main__":
         artist = gevent.spawn(fill_grid, i, duration)
         draw_threads.append(artist)
     
-    draw_threads.append(gevent.spawn(animator, duration))
+    draw_threads.append(gevent.spawn(animator))
     gevent.joinall(draw_threads)
