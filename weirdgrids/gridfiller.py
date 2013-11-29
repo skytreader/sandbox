@@ -17,15 +17,15 @@ def grid_join():
 def fill_grid(row, duration):
     for i in range(duration):
         random_index = random.choice(range(len(chargrid[row])))
-        print "Random index: " + str((row, random_index))
         random_bit = random.choice(("1", "0"))
     
         semaphore_lock.acquire()
         chargrid[row][random_index] = random_bit
         semaphore_lock.release()
-        time.sleep(1)
+        #time.sleep(1)
+        gevent.sleep(1)
 
-    print str(i) + " is done."
+    print str(row) + " is done."
     flags[row] = True
 
 def all_true():
@@ -37,11 +37,12 @@ def all_true():
 
 def animator():
     while not all_true():
-        #os.system("clear")
-        #sys.stdout.write(grid_join() + "\r")
-        #sys.stdout.flush()
-        print "Animator will draw..."
-        time.sleep(1)
+        os.system("clear")
+        sys.stdout.write(grid_join() + "\r")
+        sys.stdout.flush()
+        #print "Animator will draw..."
+        #time.sleep(1)
+        gevent.sleep(1)
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
