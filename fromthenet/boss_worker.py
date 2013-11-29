@@ -1,4 +1,5 @@
 import gevent
+import time
 from gevent.queue import Queue
 
 tasks = Queue()
@@ -8,6 +9,7 @@ def worker(n):
         task = tasks.get()
         print "Worker " + n + " got task " + task
         gevent.sleep(1)
+        time.sleep(1)
     
     print n + "'s day is done."
 
