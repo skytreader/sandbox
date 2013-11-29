@@ -37,9 +37,10 @@ def all_true():
 
 def animator():
     while not all_true():
-        os.system("clear")
-        sys.stdout.write(grid_join() + "\r")
-        sys.stdout.flush()
+        #os.system("clear")
+        #sys.stdout.write(grid_join() + "\r")
+        #sys.stdout.flush()
+        print "Animator will draw..."
         time.sleep(1)
 
 if __name__ == "__main__":

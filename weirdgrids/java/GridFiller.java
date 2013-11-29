@@ -2,10 +2,10 @@ import java.util.Random;
 
 public class GridFiller{
     private static char[][] canvas;
-    private static boolean[] flags;
+    private static volatile boolean[] flags;
     private static Random randomizer = new Random();
 
-    private static final int[] BINARY = {0, 1};
+    private static final char[] BINARY = {'0', '1'};
 
     private static class Artist implements Runnable{
         private int row;
@@ -20,6 +20,8 @@ public class GridFiller{
             int randomIndex = randomizer.nextInt(canvas[row].length);
             int randomBit = randomizer.nextInt(2);
 
+            System.out.println("Random index: (" + row + ", " + randomIndex + ")");
+
             canvas[row][randomIndex] = BINARY[randomBit];
         }
     
@@ -31,16 +33,33 @@ public class GridFiller{
                 try{
                     Thread.sleep(1000);
                 } catch(InterruptedException ie){
-                    System.err.println("InterruptedException occurred.");
+                    System.err.println("Artist InterruptedException!");
                 }
             }
         }
     }
 
+    private static boolean allDone(){
+        for(int i = 0; i < flags.length; i++){
+            if(!flags[i]){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private static class Animator implements Runnable{
         @Override
         public void run(){
-            // TODO
+            while(!allDone()){
+                System.out.println("Animator will try to draw...TODO LOLzzz!!");
+                try{
+                    Thread.sleep(1000);
+                } catch(InterruptedException ie){
+                    System.err.println("Animator InterruptedException!");
+                }
+            }
         }
     }
 
@@ -75,11 +94,11 @@ public class GridFiller{
         flags = new boolean[gridHeight];
 
         for(int i = 0; i < gridHeight; i++){
-            Thread t = new Artist(i, duration);
+            Thread t = new Thread(new Artist(i, duration));
             t.start();
         }
 
-        Thread t = new Animator();
+        Thread t = new Thread(new Animator());
         t.start();
     }
 }
