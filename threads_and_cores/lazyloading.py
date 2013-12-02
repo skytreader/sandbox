@@ -30,7 +30,7 @@ if __name__ == "__main__":
         exit(1)
     
     greenlets = []
-    greenlets.append(gevent.spawn(lazyloader, sys.argv[1])))
+    greenlets.append(gevent.spawn(lazyloader, sys.argv[1]))
     
     for i in range(worker_count):
         greenlets.append(gevent.spawn(compute_worker, name_pool[i]))
