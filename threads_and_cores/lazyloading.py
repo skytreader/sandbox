@@ -14,9 +14,11 @@ def compute_worker(worker_name):
         print worker_name + ": " + str(int(parse[0]) + int(parse[1]))
 
 def lazyloader(filename):
+    print "Adding boss..."
     with open(filename) as operand_source:
         for operands in operand_source:
             operations.put_nowait(operands)
+    print "done."
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
