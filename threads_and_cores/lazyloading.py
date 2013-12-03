@@ -7,24 +7,30 @@ from gevent.queue import Queue
 operations = Queue()
 name_pool = ("heero", "duo", "trowa", "quatre", "chang", "treize", "romefeller", "raven")
 
-def compute_worker(worker_name):
+def compute_worker(worker_name, sleeptime):
     while not operations.empty():
         operands = operations.get()
         parse = operands.split(" ")
         print worker_name + ": " + str(int(parse[0]) + int(parse[1]))
-        gevent.sleep(1)
+        gevent.sleep(sleeptime)
 
-def lazyloader(filename):
+def lazyloader(filename, sleeptime):
     print "Adding boss..."
     with open(filename) as operand_source:
         for operands in operand_source:
             operations.put_nowait(operands)
-            gevent.sleep(1)
+            gevent.sleep(sleeptime)
     print "done."
 
+def numeric_parse(n):
+    try:
+        return int(n)
+    except ValueError:
+        return float(n)
+
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print "Usage: python " + str(sys.argv[0]) + " <operands file> <worker_count>"
+    if len(sys.argv) != 4:
+        print "Usage: python " + str(sys.argv[0]) + " <operands file> <worker_count> <sleeptime>"
         exit(1)
     
     worker_count = int(sys.argv[2])
@@ -32,12 +38,14 @@ if __name__ == "__main__":
     if worker_count < 1 or worker_count > 8:
         print "worker_count should be between 1 and 8, inclusive."
         exit(1)
+
+    sleeptime = numeric_count(sys.argv[3])
     
     greenlets = []
-    greenlets.append(gevent.spawn(lazyloader, sys.argv[1]))
+    greenlets.append(gevent.spawn(lazyloader, sys.argv[1], sleeptime))
     
     for i in range(worker_count):
-        greenlets.append(gevent.spawn(compute_worker, name_pool[i]))
+        greenlets.append(gevent.spawn(compute_worker, name_pool[i], sleeptime))
 
     start_time = time.time()
     gevent.joinall(greenlets)
