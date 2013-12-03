@@ -39,7 +39,7 @@ if __name__ == "__main__":
         print "worker_count should be between 1 and 8, inclusive."
         exit(1)
 
-    sleeptime = numeric_count(sys.argv[3])
+    sleeptime = numeric_parse(sys.argv[3])
     
     greenlets = []
     greenlets.append(gevent.spawn(lazyloader, sys.argv[1], sleeptime))
