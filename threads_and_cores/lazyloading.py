@@ -20,7 +20,7 @@ def lazyloader(filename, sleeptime):
         for operands in operand_source:
             operations.put_nowait(operands)
             gevent.sleep(sleeptime)
-    print "done."
+    print "Done adding boss."
 
 def numeric_parse(n):
     try:
