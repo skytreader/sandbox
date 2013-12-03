@@ -7,8 +7,10 @@ from gevent.queue import Queue
 operations = Queue()
 name_pool = ("heero", "duo", "trowa", "quatre", "chang", "treize", "romefeller", "raven")
 
+boss_is_done = False
+
 def compute_worker(worker_name, sleeptime):
-    while not operations.empty():
+    while not operations.empty() and not boss_is_done:
         operands = operations.get()
         parse = operands.split(" ")
         print worker_name + ": " + str(int(parse[0]) + int(parse[1]))
@@ -20,6 +22,7 @@ def lazyloader(filename, sleeptime):
         for operands in operand_source:
             operations.put_nowait(operands)
             gevent.sleep(sleeptime)
+    boss_is_done = True
     print "Done adding boss."
 
 def numeric_parse(n):
