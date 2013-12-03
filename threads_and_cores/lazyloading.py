@@ -12,12 +12,14 @@ def compute_worker(worker_name):
         operands = operations.get()
         parse = operands.split(" ")
         print worker_name + ": " + str(int(parse[0]) + int(parse[1]))
+        gevent.sleep(1)
 
 def lazyloader(filename):
     print "Adding boss..."
     with open(filename) as operand_source:
         for operands in operand_source:
             operations.put_nowait(operands)
+            gevent.sleep(1)
     print "done."
 
 if __name__ == "__main__":
@@ -42,3 +44,4 @@ if __name__ == "__main__":
     end_time = time.time()
     print "Start time: " + str(start_time)
     print "End time: " + str(end_time)
+    print "Worker count: " + sys.argv[2]
