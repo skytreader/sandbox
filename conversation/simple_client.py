@@ -4,21 +4,42 @@ import socket
 import sys
 
 """
-A simple (quick hack) client for the conversation protocol.
+A simple (quick hack) client for the conversation protocol. This totally assumes
+the happy path.
 """
 
 CLIENT_COMMANDS = ("LOGIN", "TCE", "DATEWEATHER", "LOGOUT")
 
+class MalformedGrammarException(Exception):
+    
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return "Unexpected character in grammar: " + str(self.value)
+
 class HackBuffer(object):
+    """
+    Totes inefficient.
+    """
     
     def __init__(self, socksource):
-        self.byte_buffer = []
         self.socksource = socksource
 
     def get_packet(self):
-        recv = self.socksource.recv(1024)
-        print dir(recv)
-        print type(recv)
+        recv = self.socksource.recv(1)
+        byte_buffer = []
+
+        if recv != chr(2):
+            raise MalformedGrammarException(recv)
+
+        while recv != chr(3):
+            byte_buffer.append(recv)
+            recv = self.socksource.recv(1)
+        
+        byte_buffer.append(recv)
+
+        return "".join(byte_buffer)
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
@@ -34,9 +55,20 @@ if __name__ == "__main__":
     print("Connection established")
 
     reply_buffer = HackBuffer(server_socket)
+    clientid = None
 
-    server_socket.send("Hello")
-    print("Sent 'Hello'")
-    reply_buffer.get_packet()
+    for command in CLIENT_COMMANDS:
+        for_sending = None
+        if clientid:
+            for_sending = chr(2) + " ".join([clientid, command] + chr(3))
+        else:
+            for_sending = chr(2) + command + chr(3)
+        
+        print("SEND: " + for_sending)
+        server_socket.send(for_sending.encode())
+
+        response = reply_buffer.get_packet()
+        
+        print("RECV: " + response)
     
     server_socket.close()
