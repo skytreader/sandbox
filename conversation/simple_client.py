@@ -11,11 +11,14 @@ CLIENT_COMMANDS = ("LOGIN", "TCE", "DATEWEATHER", "LOGOUT")
 
 class HackBuffer(object):
     
-    def __init__(self):
+    def __init__(self, socksource):
         self.byte_buffer = []
+        self.socksource = socksource
 
     def get_packet(self):
-        pass
+        recv = self.socksource.recv(1024)
+        print dir(recv)
+        print type(recv)
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
@@ -27,5 +30,13 @@ if __name__ == "__main__":
 
     server_socket = socket.socket()
     print("Connecting to " + host + ":" + sys.argv[2])
-    sock.connect((host, port))
+    server_socket.connect((host, port))
     print("Connection established")
+
+    reply_buffer = HackBuffer(server_socket)
+
+    server_socket.send("Hello")
+    print("Sent 'Hello'")
+    reply_buffer.get_packet()
+    
+    server_socket.close()
