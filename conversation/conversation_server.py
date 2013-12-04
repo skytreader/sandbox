@@ -1,3 +1,4 @@
+import random
 import uuid
 
 from twisted.internet import reactor, protocol
@@ -8,7 +9,13 @@ class Conversation(protocol.Protocol):
     def login(self):
         clientid = " " + str(uuid.uuid1()) if self.factory.give_client_id else ""
         
-        return chr(2) + Conversation.ACK clientid + chr(3)
+        return chr(2) + Conversation.ACK + clientid + chr(3)
+
+    def name(self, clientid, name):
+        return chr(2) + " ".join(("ACK", clientid, name)) + chr(3)
+
+    def dateweather(self, clientid):
+        pass
     
     def get_command(self, data):
         parse = data.split(" ")
