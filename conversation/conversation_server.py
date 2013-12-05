@@ -11,14 +11,19 @@ class Conversation(protocol.Protocol):
         clientid = " " + str(uuid.uuid1()) if self.factory.give_client_id else ""
         
         return chr(2) + Conversation.ACK + clientid + chr(3)
+    
+    def gid(self, clientid):
+        return clientid if clientid else ""
 
     def name(self, clientid, name):
-        return chr(2) + " ".join((Conversation.ACK, clientid, name)) + chr(3)
+        cid = self.gid(clientid)
+        return chr(2) + " ".join((Conversation.ACK, cid, name)) + chr(3)
 
     def dateweather(self, clientid):
+        cid = self.gid(clientid)
         iso8601 = time.strftime(time.localtime())
-        return chr(2) + " ".join((Conversation.ACK, clientid, iso8601)) +chr(3)
-    
+        return chr(2) + " ".join((Conversation.ACK, cid, iso8601)) + chr(3)
+
     def data_parse(self, data):
         """
         Parse the data and return a map containing its components. Assumes that
@@ -42,6 +47,8 @@ class Conversation(protocol.Protocol):
             self.transport.write(self.login())
         elif command == "DATEWEATHER":
             self.transport.dateweather(parsed["clientid"])
+        else:
+            self.transport.name(parsed["clientid"], parsed["name"])
 
 class ConversationFactory(protocol.Factory):
     
