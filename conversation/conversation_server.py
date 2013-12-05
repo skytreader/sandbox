@@ -6,6 +6,7 @@ from twisted.internet import reactor, protocol
 
 class Conversation(protocol.Protocol):
     ACK = "ACK"
+    WEATHER = ("SUNNY", "RAINY", "OVERCAST")
     
     def login(self):
         clientid = " " + str(uuid.uuid1()) if self.factory.give_client_id else ""
@@ -19,10 +20,15 @@ class Conversation(protocol.Protocol):
         cid = self.gid(clientid)
         return chr(2) + " ".join((Conversation.ACK, cid, name)) + chr(3)
 
-    def dateweather(self, clientid):
+    def getdate(self, clientid):
         cid = self.gid(clientid)
         iso8601 = time.strftime(time.localtime())
         return chr(2) + " ".join((Conversation.ACK, cid, iso8601)) + chr(3)
+
+    def getweather(self, clientid):
+        cid = self.gid(clientid)
+        weather = random.choice(Conversation.WEATHER)
+        return chr(2) + " ".join((Conversation.ACK, cid, weather)) + chr(3)
 
     def data_parse(self, data):
         """
@@ -46,9 +52,10 @@ class Conversation(protocol.Protocol):
         if command == "LOGIN":
             self.transport.write(self.login())
         elif command == "DATEWEATHER":
-            self.transport.dateweather(parsed["clientid"])
+            self.transport.write(self.getdate(parsed["clientid"]))
+            self.transport.write(self.getweather(parsed["clientid"]))
         else:
-            self.transport.name(parsed["clientid"], parsed["name"])
+            self.transport.write(self.name(parsed["clientid"], parsed["command"]))
 
 class ConversationFactory(protocol.Factory):
     
@@ -58,6 +65,6 @@ class ConversationFactory(protocol.Factory):
         self.give_client_id = give_client_id
 
 if __name__ == "__main__":
-    factory = ConversationFactory(True)
+    factory = ConversationFactory(False)
     reactor.listenTCP(16981, factory)
     reactor.run()
