@@ -27,7 +27,7 @@ class HackBuffer(object):
         self.socksource = socksource
 
     def get_packet(self):
-        recv = self.socksource.recv(1)
+        recv = self.socksource.recv(1).decode()
         byte_buffer = []
 
         if recv != chr(2):
@@ -35,7 +35,7 @@ class HackBuffer(object):
 
         while recv != chr(3):
             byte_buffer.append(recv)
-            recv = self.socksource.recv(1)
+            recv = self.socksource.recv(1).decode()
         
         byte_buffer.append(recv)
 
@@ -43,7 +43,7 @@ class HackBuffer(object):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print "Usage: python3 " + sys.argv[0] + " <bindhost> <bindport>"
+        print("Usage: python3 " + sys.argv[0] + " <bindhost> <bindport>")
         exit(1)
 
     host = sys.argv[1]
@@ -70,5 +70,11 @@ if __name__ == "__main__":
         response = reply_buffer.get_packet()
         
         print("RECV: " + response)
+
+        if command == "DATEWEATHER":
+            # Isa pang get_packet()
+            response = reply_buffer.get_packet()
+
+            print("RECV: " + response)
     
     server_socket.close()
