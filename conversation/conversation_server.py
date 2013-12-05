@@ -52,5 +52,5 @@ class ConversationFactory(protocol.Factory):
 
 if __name__ == "__main__":
     factory = ConversationFactory(True)
-    reactor.listen(16981, factory)
+    reactor.listenTCP(16981, factory)
     reactor.run()
