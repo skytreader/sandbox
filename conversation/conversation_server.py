@@ -22,7 +22,7 @@ class Conversation(protocol.Protocol):
 
     def getdate(self, clientid):
         cid = self.gid(clientid)
-        iso8601 = time.strftime(time.localtime())
+        iso8601 = time.strftime("%Y-%m-%d", time.localtime())
         return chr(2) + " ".join((Conversation.ACK, cid, iso8601)) + chr(3)
 
     def getweather(self, clientid):
