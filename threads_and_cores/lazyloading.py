@@ -45,7 +45,7 @@ if __name__ == "__main__":
     sleeptime = numeric_parse(sys.argv[3])
     
     greenlets = []
-    greenlets.append(gevent.spawn(lazyloader, sys.argv[1], sleeptime))
+    gevent.spawn(lazyloader, sys.argv[1], sleeptime).join()
     
     for i in range(worker_count):
         greenlets.append(gevent.spawn(compute_worker, name_pool[i], sleeptime))
