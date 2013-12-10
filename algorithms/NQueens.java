@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -24,19 +26,12 @@ public class NQueens{
         return nextConfigurations;
     }
 
-    static int getSlope(int r1, int c1, int r2, int c2){
-        //System.out.println("Get slope of " + r1 + " " + c1 + " " + r2 + " " + c2);
-        int slope = ((r2 + 1) - (r1 + 1)) / ((c2 + 1) - (c1 + 1));
-        if(slope < 0){
-            slope *= -1;
-        }
-        //System.out.println("Slope is " + slope);
-
-        return slope;
+    static boolean isDiagonalChecking(int r1, int c1, int r2, int c2){
+        return Math.abs(c2 - c1) == Math.abs(r2 - r1);
     }
 
     static boolean isCheckingPosition(int r1, int c1, int r2, int c2){
-        return (r1 == r2) || (getSlope(r1, c1, r2, c2) == 1);
+        return (r1 == r2) || isDiagonalChecking(r1, c1, r2, c2);
     }
 
     static boolean isValidConfiguration(int[] queenConfiguration){
@@ -80,6 +75,13 @@ public class NQueens{
         return false;
     }
 
+    static boolean isAntiSymmetric(int[] configuration){
+        for(int i = 0; i < (configuration.length - 1); i++){
+            if(configuration[i] > configuration[i + 1]) return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String count = br.readLine();
@@ -87,6 +89,7 @@ public class NQueens{
         while(count != null){
             int validCount = 0;
             int queenCount = Integer.parseInt(count);
+            Set<Integer[]> checkedConfigurations = new HashSet<Integer[]>();
             int[] queenConfiguration = new int[queenCount];
             Stack<Integer[]> backtracker = new Stack<Integer[]>();
             backtracker.push(autobox(queenConfiguration));
@@ -100,11 +103,13 @@ public class NQueens{
                     validCount++;
                 }
 
+                checkedConfigurations.add(autobox(config));
+
                 if(canProceed(config)){
                     int[][] nextStates = getNextStates(config);
     
                     for(int i = 0; i < nextStates.length; i++){
-                        if(nextStates[i] != null){
+                        if(nextStates[i] != null &&!checkedConfigurations.contains(nextStates[i])){
                             //System.out.println("PUSH " + Arrays.toString(nextStates[i]));
                             backtracker.push(autobox(nextStates[i]));
                         }
