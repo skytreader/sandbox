@@ -10,17 +10,20 @@ configurations for that number of queens.
 */
 public class NQueens{
     
-    static int[][] getNextStates(int[] queenConfiguration){
-        //System.out.println("Input: " + Arrays.toString(queenConfiguration));
-        int limit = queenConfiguration.length;
-        int[][] nextConfigurations = new int[limit][];
+    static int[] getNextState(int[] queenConfiguration){
+        /*Find the first nonzero cell in queenConfigurations. If there is none.
+        return the index of the last cell.*/
+        int backtrackCell = queenConfigurations.length - 1;
 
-        for(int i = 0; i < limit; i++){
-            if(queenConfiguration[i] < (limit - 1)){
-                nextConfigurations[i] = Arrays.copyOf(queenConfiguration, limit);
-                nextConfigurations[i][i]++;
-                //System.out.println("Next state: " + Arrays.toString(nextConfigurations[i]));
+        for(int i = 0; i < queenConfigurations.length; i++){
+            if(queenConfigurations[i] == 0){
+                backtrackCell = i;
+                break;
             }
+        }
+
+        while(queenConfiguration[backtrackCell] <= queenConfiguration.length){
+            
         }
 
         return nextConfigurations;
@@ -31,7 +34,7 @@ public class NQueens{
     }
 
     static boolean isCheckingPosition(int r1, int c1, int r2, int c2){
-        return (r1 == r2) || isDiagonalChecking(r1, c1, r2, c2);
+        return (r1 != 0 && r2 != 0) && ((r1 == r2) || isDiagonalChecking(r1, c1, r2, c2));
     }
 
     static boolean isValidConfiguration(int[] queenConfiguration){
@@ -68,7 +71,7 @@ public class NQueens{
 
     static boolean canProceed(int[] configuration){ 
         for(int i = 0; i < configuration.length; i++){
-            if(configuration[i] != (configuration.length - 1)){
+            if(configuration[i] != configuration.length){
                 return true;
             }
         }
