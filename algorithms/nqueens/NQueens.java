@@ -23,7 +23,11 @@ public class NQueens{
         }
 
         while(queenConfiguration[backtrackCell] <= queenConfiguration.length){
-            
+            if(isValidConfiguration(queenConfiguration)){
+                break;
+            }
+
+            queenConfiguration[backtrackCell]++;
         }
 
         return nextConfigurations;
@@ -39,7 +43,7 @@ public class NQueens{
 
     static boolean isValidConfiguration(int[] queenConfiguration){
         for(int i = 0; i < queenConfiguration.length; i++){
-            for(int j = i + 1; j < queenConfiguration.length; j++){
+            for(int j = i + 1; j < queenConfiguration.length && queenConfiguration[j] != 0; j++){
                 if(isCheckingPosition(queenConfiguration[i], i, queenConfiguration[j], j)){
                     return false;
                 }
@@ -69,6 +73,10 @@ public class NQueens{
         return autoboxed;
     }
 
+    /**
+    You can only proceed from a given configuration if not all queens are in
+    the last row.
+    */
     static boolean canProceed(int[] configuration){ 
         for(int i = 0; i < configuration.length; i++){
             if(configuration[i] != configuration.length){
@@ -76,13 +84,6 @@ public class NQueens{
             }
         }
         return false;
-    }
-
-    static boolean isAntiSymmetric(int[] configuration){
-        for(int i = 0; i < (configuration.length - 1); i++){
-            if(configuration[i] > configuration[i + 1]) return false;
-        }
-        return true;
     }
 
     public static void main(String[] args) throws Exception{
@@ -106,17 +107,9 @@ public class NQueens{
                     validCount++;
                 }
 
-                checkedConfigurations.add(autobox(config));
-
                 if(canProceed(config)){
-                    int[][] nextStates = getNextStates(config);
-    
-                    for(int i = 0; i < nextStates.length; i++){
-                        if(nextStates[i] != null &&!checkedConfigurations.contains(nextStates[i])){
-                            //System.out.println("PUSH " + Arrays.toString(nextStates[i]));
-                            backtracker.push(autobox(nextStates[i]));
-                        }
-                    }
+                    int[] nextStates = getNextState(config);
+                    backtracker.push(autobox(nextStates[i]));
                 }
             }
 
