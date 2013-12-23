@@ -34,6 +34,11 @@ public class NQueens{
               queenConfiguration[i], (i + 1)) && queenConfiguration[backtrackCell] < queenConfiguration.length){
                     queenConfiguration[backtrackCell]++;
             }
+
+            if(queenConfiguration[backtrackCell] >= queenConfiguration.length){
+                queenConfiguration[backtrackCell] = 0;
+                backtrackCell--;
+            }
         }
 
         System.out.println("getNextState: next state is " + Arrays.toString(queenConfiguration));
@@ -54,11 +59,14 @@ public class NQueens{
         return (r1 == r2) || isDiagonalChecking(r1, c1, r2, c2);
     }
 
+    /**
+    A configuration is valid if and only if all queens are in the board and none
+    of them threaten another.
+    */
     static boolean isValidConfiguration(int[] queenConfiguration){
         for(int i = 0; i < queenConfiguration.length; i++){
             for(int j = i + 1; j < queenConfiguration.length; j++){
-                if(isCheckingPosition(queenConfiguration[i], (i + 1), queenConfiguration[j], (j + 1)) ||
-                  queenConfiguration[j] == 0){
+                if(isCheckingPosition(queenConfiguration[i], (i + 1), queenConfiguration[j], (j + 1))){
                     return false;
                 }
             }
