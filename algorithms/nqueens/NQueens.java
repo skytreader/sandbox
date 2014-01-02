@@ -10,6 +10,10 @@ configurations for that number of queens.
 */
 public class NQueens{
     
+    /**
+    Get the next possible state for the given queenConfiguration. If we have
+    exhausted all possible configurations, return null.
+    */
     static int[] getNextState(int[] queenConfiguration){
         /*Find the first nonzero cell in queenConfigurations. If there is none.
         return the index of the last cell.*/
