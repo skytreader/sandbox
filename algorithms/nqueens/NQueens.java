@@ -79,8 +79,7 @@ public class NQueens{
         if(queenConfiguration[0] == 0) return false;
         for(int i = 0; i < queenConfiguration.length; i++){
             for(int j = i + 1; j < queenConfiguration.length; j++){
-                if(isCheckingPosition(queenConfiguration[i], (i + 1), queenConfiguration[j], (j + 1)) ||
-                  queenConfiguration[j] == 0){
+                if(queenConfiguration[j] == 0 || isCheckingPosition(queenConfiguration[i], (i + 1), queenConfiguration[j], (j + 1))){
                     return false;
                 }
             }
