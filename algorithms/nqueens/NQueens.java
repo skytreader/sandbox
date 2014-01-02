@@ -54,6 +54,18 @@ public class NQueens{
         }
 
         System.out.println("getNextState: next state is " + Arrays.toString(queenConfiguration));
+        
+        boolean goNull = true;
+        for(int i = 0; i < queenConfiguration.length; i++){
+            if(queenConfiguration[i] != 0){
+                goNull = false;
+                break;
+            }
+        }
+
+        if(goNull){
+            return null;
+        }
 
         return queenConfiguration;
     }
