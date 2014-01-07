@@ -2,6 +2,18 @@
 
 import unittest
 
+"""
+Algorithm description (from CORMEN):
+
+Counting sort assumes that each of the n input elements is an integer in the
+range 0 to k, for some integer k. When k = O(n), the sort runs in \Theta(n) time.
+
+Counting sort determines, for each input element x, the number of elements less
+than x. It uses this information to place element x directly into its position in the
+output array. For example, if 17 elements are less than x, then x belongs in
+output position 18.
+"""
+
 def counting_sort(numlist, range_upper_bound):
     """
     Sorts the integers in numlist provided that all numbers in numlist are in
@@ -12,7 +24,6 @@ def counting_sort(numlist, range_upper_bound):
     limit = len(numlist)
     limit_range = range(limit)
     sorted_list = [None for i in limit_range]
-    # Can be more efficient, space-wise with a hash map
     count_list = [0 for i in range(range_upper_bound + 1)]
     
     # "Count" the number of entries equal to numlist[i]
