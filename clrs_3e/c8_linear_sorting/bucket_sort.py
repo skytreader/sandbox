@@ -18,6 +18,16 @@ individually and then concatenate their results.
 
 Note that if the uniform distribution assumption does not hold, the algorithm
 degenerates to the runtime of the sorting algorithm we use to sort each bucket.
+
+Interesting note from [CORMEN3], p204:
+    
+    T(n) = \Theta(n) + \sum_{i=0}^{n-1}O(n_i^2)
+    Equation 8.1: E[T(n)] = \Theta(n) + \sum_{i=0}^{n - 1}O(E[n_i^2])
+
+    Even if the input is not drawn from a uniform distribution, bucket sort may
+    still run in linear time. As long as the input has the property that the sum
+    of the squares of the bucket sizes is linear in the total number of elements,
+    equation (8.1) tells us that bucket sort will run in linear time.
 """
 
 def insertion_sort(numlist):
@@ -64,8 +74,11 @@ def bucket_sort(numlist):
 class FunctionsTest(unittest.TestCase):
     
     def test_bucket_sort(self):
-        self.assertEqual(bucket_sort([0.78, 0.17, 0.39, 0.26, 0.72, 0.94, 0.21, 0.12, 0.23, 0.68]),
-          [0.12, 0.17, 0.21, 0.23, 0.26, 0.39, 0.68, 0.72, 0.78, 0.94])
+        diagram_example = [0.78, 0.17, 0.39, 0.26, 0.72, 0.94, 0.21, 0.12, 0.23, 0.68]
+        self.assertEqual(bucket_sort(diagram_example), insertion_sort(diagram_example))
+
+        exercise_example = [0.79, 0.13, 0.16, 0.64, 0.39, 0.20, 0.89, 0.53, 0.71, 0.42]
+        self.assertEqual(bucket_sort(exercise_example), insertion_sort(exercise_example))
 
 if __name__ == "__main__":
     unittest.main()
