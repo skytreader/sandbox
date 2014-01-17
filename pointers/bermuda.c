@@ -1,8 +1,15 @@
 #include <stdio.h>
 
+/**
+From Head First C.
+*/
+
 void go_south_east(int *lat, int *lon){
-    printf("go_south_east: Addresses: %p, %p\n", &lat, &lon);
-    printf("go_south_east: They are actually %d, %d\n", *lat, *lon);
+    printf("go_south_east: Ampersands: %p, %p\n", &lat, &lon);
+    printf("go_south_east: Stars: %d, %d\n", *lat, *lon);
+    printf("go_south_east: Plain: %p, %p\n", lat, lon);
+    // Try *lat--; *lon--;
+    // Will that work?
     *lat = *lat - 1;
     *lon = *lon - 1;
 }
