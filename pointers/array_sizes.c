@@ -27,5 +27,28 @@ int main(){
     printf("main: GOING TO pointer_len_printer WITH s AS ARGUMENT THEN t.\n");
     pointer_len_printer(s);
     pointer_len_printer(t);
+    /*
+    Note: Bawal. Generates the following error messages upon compile:
+
+    array_sizes.c: In function ‘main’:
+    array_sizes.c:31:5: warning: passing argument 1 of ‘array_len_printer’ from incompatible pointer type [enabled by default]
+    array_sizes.c:7:6: note: expected ‘char *’ but argument is of type ‘char (*)[58]’
+    array_sizes.c:32:5: warning: passing argument 1 of ‘array_len_printer’ from incompatible pointer type [enabled by default]
+    array_sizes.c:7:6: note: expected ‘char *’ but argument is of type ‘char **’
+    array_sizes.c:34:5: warning: passing argument 1 of ‘pointer_len_printer’ from incompatible pointer type [enabled by default]
+    array_sizes.c:13:6: note: expected ‘char *’ but argument is of type ‘char (*)[58]’
+    array_sizes.c:35:5: warning: passing argument 1 of ‘pointer_len_printer’ from incompatible pointer type [enabled by default]
+    array_sizes.c:13:6: note: expected ‘char *’ but argument is of type ‘char **’
+
+    Line numbers have been translated due to this comment. Oh meta.
+    */
+    /*
+    printf("main: GOING TO array_len_printer (AGAIN), SAME ARG SEQUENCE BUT WITH &.\n");
+    array_len_printer(&s);
+    array_len_printer(&t);
+    printf("main: GOING TO pointer_len_printer (AGAIN), SAME ARG SEQUENCE BUT WITH &.\n");
+    pointer_len_printer(&s);
+    pointer_len_printer(&t);
+    */
     return 0;
 }
