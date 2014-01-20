@@ -13,6 +13,8 @@ could modify the string.
    (with its own copy of data) in the stack. The "JQK" in the constants section
    of the memory is still there but we have a copy outside of read-only memory
    thanks to the array declaration.
+
+TODO Can we modify strings in other functions?
 */
 
 int main(){
