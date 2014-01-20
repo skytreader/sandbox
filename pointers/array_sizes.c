@@ -27,6 +27,12 @@ int main(){
     printf("main: GOING TO pointer_len_printer WITH s AS ARGUMENT THEN t.\n");
     pointer_len_printer(s);
     pointer_len_printer(t);
+    // May generate some compile errors. Just ignore for sake of proof.
+    printf("main: ADDRESS PRINTOUTS\n");
+    printf("main: \%p of s is %p\n", s);
+    printf("main: & of s is %p\n", &s);
+    printf("main: \%p of t is %p\n", t);
+    printf("main: & of t is %p\n", &t);
     /*
     Note: Bawal. Generates the following error messages upon compile:
 
