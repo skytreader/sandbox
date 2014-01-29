@@ -6,6 +6,13 @@ using std::cout;
 Person::Person(string name, int age): _name(name), _age(age)
 {}
 
+// Java-ish constructor syntax
+// NOTE: This does not seem to work :|
+//Person::Person(String name, int age){
+//    _name = name;
+//    _age = age;
+//}
+
 void Person::setAge(int age){
     _age = age;
 }
