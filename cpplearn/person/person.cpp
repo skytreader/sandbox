@@ -10,14 +10,14 @@ void Person::setAge(int age){
     _age = age;
 }
 
-string Person::getName() const{
+string Person::getName(){
     return _name;
 }
 
-int Person::getAge() const{
+int Person::getAge(){
     return _age;
 }
 
-void Person::print() const{
+void Person::print(){
     cout << "Name: " << _name << "Age:" << _age;
 }

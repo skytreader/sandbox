@@ -1,9 +1,6 @@
 #include <string>
 using std::string;
 
-/**
-Verbatim copy of the Person class code in Java-C++ comparison module.
-*/
 class Person{
     public:
         // Constructor
@@ -13,10 +10,10 @@ class Person{
         void setAge(int age);
 
         // Accessors
-        string getName() const;
-        int getAge() const;
+        string getName();
+        int getAge();
         // Print out fill information
-        void print() const;
+        void print();
 
     private:
         string _name;
