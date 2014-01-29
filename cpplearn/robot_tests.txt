@@ -1,0 +1,13 @@
+# Corner case
+1 2 1
+EW
+0 step(s) before a loop of 2 step(s)
+
+# Tight weave
+5 5 1
+SNWNN
+ESNWW
+EWWSN
+WWSWN
+SSEEN
+18 step(s) to exit

@@ -1,0 +1,1 @@
+g++ -isystem /opt/lib/gtest-1.7.0/include/ -pthread /opt/lib/gtest-1.7.0/fused-src/gtest/gtest_main.cc $1.cpp /opt/lib/gtest-1.7.0/libgtest.a -o $1
