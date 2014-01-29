@@ -13,6 +13,10 @@ Person::Person(string name, int age): _name(name), _age(age)
 //    _age = age;
 //}
 
+//int ten_to_now(){
+//    return _age + 10;
+//}
+
 void Person::setAge(int age){
     _age = age;
 }
@@ -22,6 +26,7 @@ string Person::getName(){
 }
 
 int Person::getAge(){
+    //return ten_to_now();
     return _age;
 }
 
