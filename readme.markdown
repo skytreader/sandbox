@@ -15,6 +15,9 @@ machine code is invokeable from your other Python modules!
  2. Instead of a plain compile/interpret command, you have to build even the
     simplest modules (with the Python equivalent to make files, `setup.py`).
 
+It even generated an equivalent C source code listing! (Can you make heads/tails
+of that?)
+
 ### Ok, that can get easier...
 
 Just use `pyximport`!
