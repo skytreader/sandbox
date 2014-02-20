@@ -13,8 +13,8 @@ machine code is invokeable from your other Python modules!
 
  1. You save your files with a `.pyx` extension.
  2. Instead of a plain compile/interpret command, you have to build even the
-    simplest modules (with the Python equivalen to make files, `setup.py`).
+    simplest modules (with the Python equivalent to make files, `setup.py`).
 
-## Ok, that can get easier...
+### Ok, that can get easier...
 
 Just use `pyximport`!
