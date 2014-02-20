@@ -3,7 +3,7 @@
 using std::cout;
 
 // WHOA what is this notation??!?!?!?!??!
-Person::Person(string name, int age): _name(name), _age(age)
+Person::Person(string name, int age): _name(name), _age(21)
 {}
 
 // Java-ish constructor syntax
