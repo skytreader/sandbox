@@ -9,7 +9,7 @@ CREATE TABLE users(
     can_write BOOLEAN NOT NULL DEFAULT FALSE,
     can_exec BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (userid),
-) ENGINE = INNODB;
+) ENGINE = INNODB DEFAULT CHARSET=utf8;
 
 INSERT INTO users (username, password, last_updater, can_read, can_write, can_exec)
 VALUES ('root', 'root', 0, 1, 1, 1);
