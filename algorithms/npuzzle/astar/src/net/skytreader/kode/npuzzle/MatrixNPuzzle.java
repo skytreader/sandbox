@@ -1,5 +1,7 @@
 package net.skytreader.kode.npuzzle;
 
+import net.skytreader.kode.npuzzle.NPuzzle.Direction;
+
 public class MatrixNPuzzle implements NPuzzle{
     /**
     This would always be a square matrix.
@@ -10,9 +12,13 @@ public class MatrixNPuzzle implements NPuzzle{
         matrixPuzzle = new int[n][n];
     }
 
-    public void move(int row, int col){
+    public void initialize(){
     }
 
-    public void getTileAt(int row, int col){
+    public void move(Direction d){
+    }
+
+    public int getTileAt(int row, int col){
+        return 0;
     }
 }
