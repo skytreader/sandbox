@@ -34,7 +34,19 @@ public interface NPuzzle{
         }
     }
 
+    /**
+    Where you could "randomize" the NPuzzle instance.
+    */
     public void initialize();
+    /**
+    Move the blank tile to the specified direction (effectively swapping places
+    with the tile currently in that location).
+
+    @param Direction d
+    */
     public void move(Direction d);
+    /**
+    Check the tile at the given location.
+    */
     public int getTileAt(int row, int col);
 }
