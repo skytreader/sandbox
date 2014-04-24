@@ -49,4 +49,8 @@ public interface NPuzzle{
     Check the tile at the given location.
     */
     public int getTileAt(int row, int col);
+    /**
+    Checks whether this NPuzzle instance is already solved.
+    */
+    public boolean isSolved();
 }

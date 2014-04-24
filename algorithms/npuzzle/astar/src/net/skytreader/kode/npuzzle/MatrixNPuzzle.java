@@ -11,6 +11,14 @@ public class MatrixNPuzzle implements NPuzzle{
     public MatrixNPuzzle(int n){
         matrixPuzzle = new int[n][n];
     }
+    
+    private int countInversions(){
+        return 0;
+    }
+
+    private boolean isSolvable(){
+        return true;
+    }
 
     public void initialize(){
     }
@@ -20,5 +28,9 @@ public class MatrixNPuzzle implements NPuzzle{
 
     public int getTileAt(int row, int col){
         return 0;
+    }
+
+    public boolean isSolved(){
+        return false;
     }
 }
