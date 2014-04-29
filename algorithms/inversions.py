@@ -25,6 +25,7 @@ def smart_inversion_count(numlist):
     maybe original index - pivot index?).
 
     Always start from left. Do not randomize.
+    [Why]
     """
     count = 0
     pivot_index = 0

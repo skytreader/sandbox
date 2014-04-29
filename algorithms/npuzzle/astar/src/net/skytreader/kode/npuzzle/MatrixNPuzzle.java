@@ -1,5 +1,7 @@
 package net.skytreader.kode.npuzzle;
 
+import java.awt.Point;
+
 import net.skytreader.kode.npuzzle.NPuzzle.Direction;
 
 /**
@@ -12,7 +14,8 @@ public class MatrixNPuzzle implements NPuzzle{
     This would always be a square matrix.
     */
     private int[][] matrixPuzzle;
-    private int[] unfolded;
+    private int[] unfoldedSolved;
+    private Point blankPos;
     
     public MatrixNPuzzle(int n){
         matrixPuzzle = new int[n][n];
@@ -20,16 +23,53 @@ public class MatrixNPuzzle implements NPuzzle{
         unfolded = new int[limit];
 
         for(int i = 0; i < limit; i++){
-            unfolded[i] = i;
+            unfoldedSolved[i] = i;
         }
     }
     
+    /*
+    FIXME Uses O(n^2) and other inefficiencies. You can definitely do better.
+    */
     private int countInversions(){
-        return 0;
+        int inversionCount = 0;
+        int[] unfolded = unfold();
+        int limit = unfolded.length;
+        
+        for(int i = 0; i < limit; i++){
+            for(int j = i + 1; j < limit; j++){
+                if(unfolded[i] > unfolded[j] && unfolded[j] != 0){
+                    inversionCount++;
+                }
+            }
+        }
+
+        return inversionCount;
+    }
+
+    private int[] unfold(){
+        int limit = matrixPuzzle.length * matrixPuzzle.length;
+        int[] unfolded = new int[limit];
+        unfoldIndex = 0;
+
+        for(int row = 0; row < matrixPuzzle.length; row++){
+            for(int col = 0; col < matrixPuzzle.length; col++){
+                unfolded[unfoldIndex] = matrixPuzzle[row][col];
+                unfoldIndex++;
+            }
+        }
+
+        return unfolded;
     }
 
     private boolean isSolvable(){
-        return true;
+        int inversionCount = countInversions();
+        int n = matrixPuzzle.length;
+        
+        if((n % 2) == 1 && (inversionCount % 2) == 0){
+            return true;
+        }
+
+        return false;
     }
 
     public void initialize(){
