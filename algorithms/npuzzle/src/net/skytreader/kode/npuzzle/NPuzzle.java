@@ -50,6 +50,12 @@ public interface NPuzzle{
     */
     public int getTileAt(int row, int col);
     /**
+    The size of this puzzle. Size is defined as the length of <i>one side</i>
+    of the puzzle. So a puzzle with 16 tiles (with one blank) will have a size
+    of 4.
+    */
+    public int getSize();
+    /**
     Checks whether this NPuzzle instance is already solved.
     */
     public boolean isSolved();

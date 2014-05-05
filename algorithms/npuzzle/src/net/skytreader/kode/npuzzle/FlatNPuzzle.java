@@ -28,6 +28,10 @@ public class FlatNPuzzle implements NPuzzle{
             solvedInstance[i] = i;
         }
     }
+
+    public int getSize(){
+        return size;
+    }
     
     /**
     Given the row and column, compute the index in the flat representation.
