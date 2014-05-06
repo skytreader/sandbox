@@ -68,11 +68,24 @@ public class FlatNPuzzle implements NPuzzle{
         return inversionCount;
     }
 
+    /**
+    "Randomizes" the puzzle. Afterwards, the puzzle must remain solvable.
+
+    If m is odd, inversion count must be even.
+    If m is even and the missing tile is on an (even|odd), counting from below,
+    and the number of inversions is (odd|even).
+    */
     public void initialize(){
         int inversionCount = inversionCount();
         if((size % 2) == 1){
             // Add an even number of inversions.
         } else{
+            Point blankPosition = getBlankPos();
+
+            if((inversionCount % 2) == 0){ // even number of inversions
+                // Easier since the polarity of rows do not change going from
+                // below or above.
+            }
         }
     }
     
