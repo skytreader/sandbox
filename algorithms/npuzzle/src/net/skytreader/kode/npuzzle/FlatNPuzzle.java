@@ -45,7 +45,7 @@ public class FlatNPuzzle implements NPuzzle{
     Given the index, compute the row, col in the grid representation. Returns a
     Point object with the row in Point.x and col in Point.y.
     */
-    private int translateIndex(int index){
+    private Point translateIndex(int index){
         int row = index / size;
         int col = index % size;
         return new Point(row, col);
@@ -75,9 +75,12 @@ public class FlatNPuzzle implements NPuzzle{
         } else{
         }
     }
+    
+    public Point getBlankPos(){
+        return translateIndex(getBlankIndex());
+    }
 
-    public void move(Direction d){
-        // Find the blank tile
+    private int getBlankIndex(){
         int blankIndex = 0;
         for(; blankIndex < size; blankIndex++){
             if(puzzle[blankIndex] == 0){
@@ -85,11 +88,18 @@ public class FlatNPuzzle implements NPuzzle{
             }
         }
 
-        //TODO If loop stops and we haven't found any blank tile, raise exception.
+        if(blankIndex <= size){
+            throw new CorruptedPuzzleException("blank tile not found!");
+        }
 
-        Point p = translateIndex(blankIndex)
-        int newRow = p.x - p.drow();
-        int newCol = p.y - p.dcol();
+        return blankIndex;
+    }
+
+    public void move(Direction d){
+        int blankIndex = getBlankIndex();
+        Point blankPoint = translateIndex(blankIndex);
+        int newRow = blankPoint.x - d.drow();
+        int newCol = blankPoint.y - d.dcol();
 
         int moveIndex = translateRowCol(newRow, newCol);
 

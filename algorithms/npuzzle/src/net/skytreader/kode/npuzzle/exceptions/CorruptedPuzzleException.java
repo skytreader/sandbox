@@ -1,4 +1,4 @@
-package net.skytreader.kode.npuzzle.exception;
+package net.skytreader.kode.npuzzle.exceptions;
 
 import net.skytreader.kode.npuzzle.NPuzzle;
 

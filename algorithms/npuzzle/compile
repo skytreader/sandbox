@@ -1,0 +1,7 @@
+cd src
+javac -cp .:../classes -d ../classes net/skytreader/kode/npuzzle/exceptions/CorruptedPuzzleException.java
+echo "OK"
+javac -cp .:../classes -d ../classes net/skytreader/kode/npuzzle/NPuzzle.java
+echo "OK"
+javac -cp .:../classes -d ../classes net/skytreader/kode/npuzzle/FlatNPuzzle.java
+echo "OK"
