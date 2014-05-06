@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.Arrays;
 
 import net.skytreader.kode.npuzzle.NPuzzle.Direction;
+import net.skytreader.kode.npuzzle.exceptions.CorruptedPuzzleException;
 
 /**
 For this class, the NPuzzle is represented as follows:
@@ -68,6 +69,11 @@ public class FlatNPuzzle implements NPuzzle{
     }
 
     public void initialize(){
+        int inversionCount = inversionCount();
+        if((size % 2) == 1){
+            // Add an even number of inversions.
+        } else{
+        }
     }
 
     public void move(Direction d){

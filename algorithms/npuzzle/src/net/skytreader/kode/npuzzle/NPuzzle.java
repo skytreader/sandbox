@@ -1,16 +1,11 @@
 package net.skytreader.kode.npuzzle;
 
+import java.awt.Point;
+
 /**
 Standard interface to NPuzzle.
 */
 public interface NPuzzle{
-    /**
-    Prepares the puzzle for solving. This method should be invoked first before
-    doing anything with the puzzle instance. Between the construction of the
-    object and the call to initialize, no guarantee is made as to the state the
-    puzzle is in.
-    */
-
     public enum Direction{
         UP(-1, 0),
         DOWN(1, 0),
@@ -35,8 +30,12 @@ public interface NPuzzle{
     }
 
     /**
-    Where you could "randomize" the NPuzzle instance.
+    Prepares the puzzle for solving. This method should be invoked first before
+    doing anything with the puzzle instance. Between the construction of the
+    object and the call to initialize, no guarantee is made as to the state the
+    puzzle is in.
     */
+
     public void initialize();
     /**
     Move the blank tile to the specified direction (effectively swapping places
@@ -55,6 +54,10 @@ public interface NPuzzle{
     of 4.
     */
     public int getSize();
+    /**
+    Return the position of the blank tile.
+    */
+    public Point getBlankPos();
     /**
     Checks whether this NPuzzle instance is already solved.
     */
