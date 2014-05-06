@@ -34,6 +34,8 @@ public interface NPuzzle{
     doing anything with the puzzle instance. Between the construction of the
     object and the call to initialize, no guarantee is made as to the state the
     puzzle is in.
+
+    Preferrably, this is where you will "randomize" the puzzle.
     */
 
     public void initialize();
