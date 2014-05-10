@@ -19,6 +19,10 @@ public class FlatNPuzzle implements NPuzzle{
     private int[] puzzle;
     private int[] solvedInstance;
     private int size;
+    /**
+    entropyFactor determines how "messed-up" a puzzle do we get.
+    */
+    private int entropyFactor = 6; // FIXME What's the max value for entropyFactor?
 
     public FlatNPuzzle(int size){
         this.size = size;
@@ -30,8 +34,16 @@ public class FlatNPuzzle implements NPuzzle{
         }
     }
 
+    public int getEntropyFactor(){
+        return entropyFactor;
+    }
+
     public int getSize(){
         return size;
+    }
+
+    public void setEntropyFactor(int ef){
+        entropyFactor = ef;
     }
     
     /**
@@ -67,6 +79,48 @@ public class FlatNPuzzle implements NPuzzle{
 
         return inversionCount;
     }
+    
+    /**
+    Add a certain number of inversions in the puzzle (determined by entropyFactor).
+
+    @param isEven
+        If true, add an even number of inversions. Otherwise, add an odd number
+        of inversions.
+    */
+    private void makeInversions(boolean isEven){
+        // TODO experiment on this function more
+        // FIXME This method could hang if we don't validate entropyFactor.
+        // get the current number of inversions (ideally, this is always 0 when
+        // this method is called.
+        boolean isEFEven = (entropyFactor % 2) == 0;
+        int inversionAdd = 0;
+
+        if(isEven && isEFEven){
+            inversionAdd = entropyFactor;
+        } else if(isEven && !isEFEven){
+            inversionAdd = entropyFactor + 1;
+        } else if(!isEven && isEFEven){
+            inversionAdd = entropyFactor + 1;
+        } else{
+            inversionAdd = entropyFactor;
+        }
+        
+        int lastInversion = 0;
+        int limit = puzzle.length;
+
+        while(inversionCount() < inversionAdd){
+            for(int i = lastInversion; i < limit; i++){
+                for(int j = i + 1; j < limit; j++){
+                    if((puzzle[i] != 0 || puzzle[j] != 0) && puzzle[i] < puzzle[j]){
+                        // swap without extra variable!
+                        puzzle[i] += puzzle[j];
+                        puzzle[j] = puzzle[i] - puzzle[j];
+                        puzzle[i] -= puzzle[j];
+                    }
+                }
+            }
+        }
+    }
 
     /**
     "Randomizes" the puzzle. Afterwards, the puzzle must remain solvable.
@@ -81,10 +135,12 @@ public class FlatNPuzzle implements NPuzzle{
             // Add an even number of inversions.
         } else{
             Point blankPosition = getBlankPos();
+            int blankRow = blankPosition.x + 1; // Add 1 to translate from indices to "normal" counting
 
-            if((inversionCount % 2) == 0){ // even number of inversions
-                // Easier since the polarity of rows do not change going from
-                // below or above.
+            if((blankRow % 2) == 0){
+                // Add an odd number of inversions.
+            } else{
+                // Add an even number of inversions.
             }
         }
     }
