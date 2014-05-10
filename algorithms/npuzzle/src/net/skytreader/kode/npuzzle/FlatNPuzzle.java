@@ -133,14 +133,17 @@ public class FlatNPuzzle implements NPuzzle{
         int inversionCount = inversionCount();
         if((size % 2) == 1){
             // Add an even number of inversions.
+            makeInversions(true);
         } else{
             Point blankPosition = getBlankPos();
             int blankRow = blankPosition.x + 1; // Add 1 to translate from indices to "normal" counting
 
             if((blankRow % 2) == 0){
                 // Add an odd number of inversions.
+                makeInversions(false);
             } else{
                 // Add an even number of inversions.
+                makeInversions(true);
             }
         }
     }
