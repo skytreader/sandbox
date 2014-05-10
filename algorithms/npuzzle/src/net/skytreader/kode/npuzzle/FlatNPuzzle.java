@@ -197,4 +197,33 @@ public class FlatNPuzzle implements NPuzzle{
         return Arrays.equals(puzzle, solvedInstance);
     }
 
+    public boolean equals(Object o){
+        if(o == null){
+            return false;
+        }
+        NPuzzle np = (NPuzzle) o;
+        int npLimit = np.getSize();
+
+        if(npLimit != this.getSize()){
+            return false;
+        }
+
+        for(int row = 0; row < npLimit; row++){
+            for(int col = 0; col < npLimit; col++){
+                if(np.getTileAt(row, col) != this.getTileAt(row, col)){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+    The hashcode is just the hashcode of the underlying array representation.
+    */
+    public int hashCode(){
+        return Arrays.hashCode(puzzle);
+    }
+
 }
