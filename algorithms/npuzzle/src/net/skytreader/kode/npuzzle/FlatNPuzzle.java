@@ -24,6 +24,13 @@ public class FlatNPuzzle implements NPuzzle{
     */
     private int entropyFactor = 6; // FIXME What's the max value for entropyFactor?
 
+    /**
+    Create an instance of FlatNPuzzle.
+
+    @param size
+        The length of the side of an n puzzle. A puzzle with 16 blocks will have
+        size = 4 while a puzzle with 9 blocks will have size = 3.
+    */
     public FlatNPuzzle(int size){
         this.size = size;
         int limit = size * size;
