@@ -64,4 +64,11 @@ public interface NPuzzle{
     Checks whether this NPuzzle instance is already solved.
     */
     public boolean isSolved();
+    /**
+    Two NPuzzle instances are equal if and only if they have the same
+    configuration of tiles. More formally, for every possible (row, col)
+    combination, the getTileAtMethod should return equal values.
+    */
+    public boolean equals(Object o);
+    public int hashCode();
 }
