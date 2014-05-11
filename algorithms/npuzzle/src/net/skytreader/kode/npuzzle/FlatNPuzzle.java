@@ -25,7 +25,8 @@ public class FlatNPuzzle implements NPuzzle{
     private int entropyFactor = 6; // FIXME What's the max value for entropyFactor?
 
     /**
-    Create an instance of FlatNPuzzle.
+    Create an instance of FlatNPuzzle. Upon construction, the puzzle is initially
+    solved. Call initialize() to shuffle the puzzle.
 
     @param size
         The length of the side of an n puzzle. A puzzle with 16 blocks will have
@@ -168,7 +169,7 @@ public class FlatNPuzzle implements NPuzzle{
             }
         }
 
-        if(blankIndex >= size){
+        if(blankIndex >= puzzle.length){
             throw new CorruptedPuzzleException("blank tile not found!");
         }
 
