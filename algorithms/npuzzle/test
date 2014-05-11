@@ -1,0 +1,4 @@
+echo "Compiling..."
+cd src
+javac -cp .:../lib/* -d ../classes net/skytreader/kode/npuzzle/tests/FlatNPuzzleTests.java
+
