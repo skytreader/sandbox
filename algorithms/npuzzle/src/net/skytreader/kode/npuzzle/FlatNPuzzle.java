@@ -35,9 +35,11 @@ public class FlatNPuzzle implements NPuzzle{
         this.size = size;
         int limit = size * size;
         puzzle = new int[limit];
+        solvedInstance = new int[limit];
 
         for(int i = 0; i < limit; i++){
             solvedInstance[i] = i;
+            puzzle[i] = i;
         }
     }
 
@@ -166,7 +168,7 @@ public class FlatNPuzzle implements NPuzzle{
             }
         }
 
-        if(blankIndex <= size){
+        if(blankIndex >= size){
             throw new CorruptedPuzzleException("blank tile not found!");
         }
 
@@ -176,8 +178,8 @@ public class FlatNPuzzle implements NPuzzle{
     public void move(Direction d){
         int blankIndex = getBlankIndex();
         Point blankPoint = translateIndex(blankIndex);
-        int newRow = blankPoint.x - d.drow();
-        int newCol = blankPoint.y - d.dcol();
+        int newRow = blankPoint.x + d.drow();
+        int newCol = blankPoint.y + d.dcol();
 
         int moveIndex = translateRowCol(newRow, newCol);
 
