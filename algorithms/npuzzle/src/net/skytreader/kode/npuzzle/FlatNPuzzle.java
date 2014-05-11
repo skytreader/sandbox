@@ -197,7 +197,7 @@ public class FlatNPuzzle implements NPuzzle{
     }
 
     public boolean equals(Object o){
-        if(o == null || !(o instanceof NPuzzle)){
+        if(!(o instanceof NPuzzle)){
             return false;
         }
         
