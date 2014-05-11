@@ -112,11 +112,10 @@ public class FlatNPuzzle implements NPuzzle{
             inversionAdd = entropyFactor;
         }
         
-        int lastInversion = 0;
         int limit = puzzle.length;
 
         while(inversionCount() < inversionAdd){
-            for(int i = lastInversion; i < limit; i++){
+            for(int i = 0; i < limit; i++){
                 for(int j = i + 1; j < limit; j++){
                     if((puzzle[i] != 0 || puzzle[j] != 0) && puzzle[i] < puzzle[j]){
                         // swap without extra variable!
@@ -130,7 +129,7 @@ public class FlatNPuzzle implements NPuzzle{
     }
 
     /**
-    "Randomizes" the puzzle. Afterwards, the puzzle must remain solvable.
+    Shuffles the puzzle such that it is non trivial to solve.
 
     If m is odd, inversion count must be even.
     If m is even and the missing tile is on an (even|odd), counting from below,
@@ -198,9 +197,10 @@ public class FlatNPuzzle implements NPuzzle{
     }
 
     public boolean equals(Object o){
-        if(o == null){
+        if(o == null || !(o instanceof NPuzzle)){
             return false;
         }
+        
         NPuzzle np = (NPuzzle) o;
         int npLimit = np.getSize();
 
