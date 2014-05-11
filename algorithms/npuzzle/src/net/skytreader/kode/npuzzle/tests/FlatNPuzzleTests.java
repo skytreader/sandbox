@@ -1,5 +1,7 @@
 package net.skytreader.kode.npuzzle.tests;
 
+import java.awt.Point;
+
 import net.skytreader.kode.npuzzle.FlatNPuzzle;
 import net.skytreader.kode.npuzzle.NPuzzle;
 
@@ -18,6 +20,16 @@ public class FlatNPuzzleTests{
 
     @Test
     public void testInitialize(){
+    }
+
+    @Test
+    public void testMove(){
+        Point blankOrigin = fnp.getBlankPos();
+        fnp.move(NPuzzle.Direction.DOWN);
+        Point movedBlank = fnp.getBlankPos();
+
+        Assert.assertEquals(blankOrigin.x + 1, movedBlank.x);
+        Assert.assertEquals(blankOrigin.y, movedBlank.y);
     }
 
     @Test
