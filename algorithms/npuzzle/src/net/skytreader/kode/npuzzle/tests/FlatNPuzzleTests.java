@@ -30,6 +30,27 @@ public class FlatNPuzzleTests{
 
         Assert.assertEquals(blankOrigin.x + 1, movedBlank.x);
         Assert.assertEquals(blankOrigin.y, movedBlank.y);
+
+        blankOrigin = movedBlank;
+        fnp.move(NPuzzle.Direction.UP);
+        movedBlank = fnp.getBlankPos();
+
+        Assert.assertEquals(blankOrigin.x - 1, movedBlank.x);
+        Assert.assertEquals(blankOrigin.y, movedBlank.y);
+
+        blankOrigin = movedBlank;
+        fnp.move(NPuzzle.Direction.RIGHT);
+        movedBlank = fnp.getBlankPos();
+
+        Assert.assertEquals(blankOrigin.x, movedBlank.x);
+        Assert.assertEquals(blankOrigin.y + 1, movedBlank.y);
+
+        blankOrigin = movedBlank;
+        fnp.move(NPuzzle.Direction.LEFT);
+        movedBlank = fnp.getBlankPos();
+
+        Assert.assertEquals(blankOrigin.x, movedBlank.x);
+        Assert.assertEquals(blankOrigin.y - 1, movedBlank.y);
     }
 
     @Test
