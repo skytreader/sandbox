@@ -81,7 +81,7 @@ public class FlatNPuzzle implements NPuzzle{
 
         for(int i = 0; i < size; i++){
             for(int j = i + 1; j < size; j++){
-                if(puzzle[i] > puzzle[j]){
+                if(puzzle[i] > puzzle[j] && puzzle[j] != 0){
                     inversionCount++;
                 }
             }
