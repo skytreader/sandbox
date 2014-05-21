@@ -49,6 +49,22 @@ def smart_inversion_count(numlist):
                 
     print(numlist)
 
+def merge_inversion_count(numlist):
+    """
+    The idea is to walk through the steps of merge sort. Each time we pick
+    an item from pile 2 during the merge operation, we add n to the inversion
+    count, where n is the number of items left in pile 1.
+    """
+    inversion_count = 0
+    p1_index = 0
+    p2_index = 1
+    limit = len(numlist)
+    sorted_pile = numlist[p1_index]
+
+    while p2_index < limit:
+        temp_sorted_list = []
+        while len(sorted_pile)
+
 class FunctionsTest(unittest.TestCase):
     
     def test_naive(self):
