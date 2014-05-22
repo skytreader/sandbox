@@ -63,20 +63,29 @@ def merge_inversion_count(numlist):
 
     while p2_index < limit:
         temp_sorted_list = []
-        while len(sorted_pile):
-            print(temp_sorted_list)
-            if sorted_pile[0] < numlist[p2_index]:
-                mini = sorted_pile.pop()
-                temp_sorted_list.append(mini)
+        p2_taken = False
+        while len(sorted_pile) or not p2_taken:
+            if len(sorted_pile):
+                if sorted_pile[0] < numlist[p2_index]:
+                    print("Removing from sorted pile " + str(sorted_pile))
+                    mini = sorted_pile.pop(0)
+                    temp_sorted_list.append(mini)
+                    print("sorted pile length " + str(len(sorted_pile)))
+                else:
+                    inversion_count += len(sorted_pile)
+                    temp_sorted_list.append(numlist[p2_index])
+    
+                    # Exhaust the current sorted pile
+                    temp_sorted_list.extend(sorted_pile)
+                    break
             else:
-                inversion_count += len(sorted_pile)
+                print("Sorted pile exhausted. temp_sort " + str(temp_sorted_list))
+                # We've exhausted the sorted_pile without taking p2_index
                 temp_sorted_list.append(numlist[p2_index])
-
-                # Exhaust the current sorted pile
-                temp_sorted_list.extend(sorted_pile)
-                break
+                p2_taken = True
 
         sorted_pile = temp_sorted_list
+        print("sorted_pile is now " + str(sorted_pile))
         p2_index += 1
 
     return inversion_count
