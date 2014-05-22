@@ -49,6 +49,7 @@ def smart_inversion_count(numlist):
                 
     print(numlist)
 
+# FIXME This still looks like O(n^2)
 def merge_inversion_count(numlist):
     """
     The idea is to walk through the steps of merge sort. Each time we pick
