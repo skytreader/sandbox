@@ -98,6 +98,13 @@ class FunctionsTest(unittest.TestCase):
         negative_odd = binary_search(odd_list, 34)
         self.assertEqual(negative_odd, -1)
 
+        loner = binary_search([1], 1)
+        self.assertEqual(loner, 0)
+
+        couple = [1, 2]
+        self.assertEqual(binary_search(couple, 1), 0)
+        self.assertEqual(binary_search(couple, 2), 1)
+
     def test_binary_insert(self):
         """
         """
@@ -111,6 +118,8 @@ class FunctionsTest(unittest.TestCase):
         heavy_test = [2, 4, 5, 7, 9]
         self.assertEqual(binary_insert(heavy_test, 1), [1, 2, 4, 5, 7, 9])
         self.assertEqual(binary_insert(heavy_test, 2), [2, 2, 4, 5, 7, 9])
+        self.assertEqual(binary_insert(heavy_test, 6), [2, 4, 5, 6, 7, 9])
+        self.assertEqual(binary_insert(heavy_test, 10), [2, 4, 5, 7, 9, 10])
 
 if __name__ == "__main__":
     unittest.main()
