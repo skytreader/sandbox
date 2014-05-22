@@ -59,17 +59,40 @@ def merge_inversion_count(numlist):
     p1_index = 0
     p2_index = 1
     limit = len(numlist)
-    sorted_pile = numlist[p1_index]
+    sorted_pile = [numlist[p1_index]]
 
     while p2_index < limit:
         temp_sorted_list = []
-        while len(sorted_pile)
+        while len(sorted_pile):
+            print(temp_sorted_list)
+            if sorted_pile[0] < numlist[p2_index]:
+                mini = sorted_pile.pop()
+                temp_sorted_list.append(mini)
+            else:
+                inversion_count += len(sorted_pile)
+                temp_sorted_list.append(numlist[p2_index])
+
+                # Exhaust the current sorted pile
+                temp_sorted_list.extend(sorted_pile)
+                break
+
+        sorted_pile = temp_sorted_list
+        p2_index += 1
+
+    return inversion_count
+
 
 class FunctionsTest(unittest.TestCase):
     
     def test_naive(self):
         self.assertEqual(5, naive_inversion_count([2, 3, 8, 6, 1]))
         self.assertEqual(5, naive_inversion_count([1, 4, 1, 5, 9, 2, 6]))
- 
+
+    def test_merge_inversion_count(self):
+        self.assertEqual(5, merge_inversion_count([2, 3, 8, 6, 1]))
+        print("=======")
+        self.assertEqual(5, merge_inversion_count([1, 4, 1, 5, 9, 2, 6]))
+
+
 if __name__ == "__main__":
     unittest.main()
