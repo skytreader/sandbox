@@ -41,7 +41,7 @@ def smart_inversion_count(numlist):
               numlist[loop_through_index] > pivot_element:
                 first_gt_pivot = loop_through_index
             else:
-                numlist[loop_thtough_index], numlist[first_gt_pivot] = \
+                numlist[loop_through_index], numlist[first_gt_pivot] = \
                 numlist[first_gt_pivot], numlist[loop_through_index]
                 last_gt_pivot = loop_through_index
 
@@ -66,7 +66,7 @@ def merge_inversion_count(numlist):
         p2_taken = False
         while len(sorted_pile) or not p2_taken:
             if len(sorted_pile):
-                if sorted_pile[0] < numlist[p2_index]:
+                if sorted_pile[0] <= numlist[p2_index]:
                     print("Removing from sorted pile " + str(sorted_pile))
                     mini = sorted_pile.pop(0)
                     temp_sorted_list.append(mini)
