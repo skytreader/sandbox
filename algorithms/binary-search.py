@@ -35,15 +35,16 @@ def binary_search(sorted_space, query):
     
     return -1
 
-def binary_insert(sorted_space, item):
+def binary_insert(ss, item):
     """
     Inserts the item in sorted_space (assumed to be sorted) such that
     the list remains to be sorted. The sorted_space is traversed as
     in binary_search.
 
     Returns the sorted_space with the item inserted in the proper
-    place.
+    place. This _does not_ modify the original list.
     """
+    sorted_space = [i for i in ss]
     low_limit = 0
     hi_limit = len(sorted_space)
     cur_node_index = math.floor((low_limit + hi_limit) / 2)
@@ -52,16 +53,21 @@ def binary_insert(sorted_space, item):
     while True and cur_node_index not in visited_nodes:
         visited_nodes.add(cur_node_index)
 
-        if sorted_space[cur_node_index] == query:
-            return cur_node_index
-        elif sorted_space[cur_node_index] < query:
+        if sorted_space[cur_node_index] == item:
+            break
+        elif sorted_space[cur_node_index] < item:
             low_limit = cur_node_index
         else:
             hi_limit = cur_node_index
 
         cur_node_index = math.floor((low_limit + hi_limit) / 2)
     
-    return -1
+    if sorted_space[cur_node_index] >= item:
+        sorted_space.insert(cur_node_index, item)
+    else:
+        sorted_space.insert(cur_node_index + 1, item)
+
+    return sorted_space
 
 class FunctionsTest(unittest.TestCase):
     
@@ -91,6 +97,20 @@ class FunctionsTest(unittest.TestCase):
 
         negative_odd = binary_search(odd_list, 34)
         self.assertEqual(negative_odd, -1)
+
+    def test_binary_insert(self):
+        """
+        """
+        # Base cases
+        self.assertEqual(binary_insert([1, 3], 2), [1, 2, 3])
+        self.assertEqual(binary_insert([2], 1), [1, 2])
+        self.assertEqual(binary_insert([1], 2), [1, 2])
+        self.assertEqual(binary_insert([1, 1], 2), [1, 1, 2])
+        self.assertEqual(binary_insert([2, 2], 1), [1, 2, 2])
+        
+        heavy_test = [2, 4, 5, 7, 9]
+        self.assertEqual(binary_insert(heavy_test, 1), [1, 2, 4, 5, 7, 9])
+        self.assertEqual(binary_insert(heavy_test, 2), [2, 2, 4, 5, 7, 9])
 
 if __name__ == "__main__":
     unittest.main()
