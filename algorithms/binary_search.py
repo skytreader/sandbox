@@ -16,6 +16,10 @@ def binary_search(sorted_space, query):
 
     We assume that the list is sorted in ascending order.
     """
+    # Hard-handle the trivial case
+    if not len(sorted_space):
+        return - 1
+
     low_limit = 0
     hi_limit = len(sorted_space)
     cur_node_index = math.floor((low_limit + hi_limit) / 2)
@@ -44,13 +48,16 @@ def binary_insert(ss, item):
     Returns the sorted_space with the item inserted in the proper
     place. This _does not_ modify the original list.
     """
+    # Hard handle the trivial case
+    if not len(ss):
+        return [item]
     sorted_space = [i for i in ss]
     low_limit = 0
     hi_limit = len(sorted_space)
     cur_node_index = math.floor((low_limit + hi_limit) / 2)
     visited_nodes = set()
 
-    while True and cur_node_index not in visited_nodes:
+    while cur_node_index not in visited_nodes:
         visited_nodes.add(cur_node_index)
 
         if sorted_space[cur_node_index] == item:
@@ -101,6 +108,8 @@ class FunctionsTest(unittest.TestCase):
         loner = binary_search([1], 1)
         self.assertEqual(loner, 0)
 
+        self.assertTrue(binary_search([], 1) < 0)
+
         couple = [1, 2]
         self.assertEqual(binary_search(couple, 1), 0)
         self.assertEqual(binary_search(couple, 2), 1)
@@ -120,6 +129,8 @@ class FunctionsTest(unittest.TestCase):
         self.assertEqual(binary_insert(heavy_test, 2), [2, 2, 4, 5, 7, 9])
         self.assertEqual(binary_insert(heavy_test, 6), [2, 4, 5, 6, 7, 9])
         self.assertEqual(binary_insert(heavy_test, 10), [2, 4, 5, 7, 9, 10])
+
+        self.assertEqual(binary_insert([], 1), [1])
 
 if __name__ == "__main__":
     unittest.main()
