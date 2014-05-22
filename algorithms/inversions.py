@@ -67,10 +67,8 @@ def merge_inversion_count(numlist):
         while len(sorted_pile) or not p2_taken:
             if len(sorted_pile):
                 if sorted_pile[0] <= numlist[p2_index]:
-                    print("Removing from sorted pile " + str(sorted_pile))
                     mini = sorted_pile.pop(0)
                     temp_sorted_list.append(mini)
-                    print("sorted pile length " + str(len(sorted_pile)))
                 else:
                     inversion_count += len(sorted_pile)
                     temp_sorted_list.append(numlist[p2_index])
@@ -79,13 +77,11 @@ def merge_inversion_count(numlist):
                     temp_sorted_list.extend(sorted_pile)
                     break
             else:
-                print("Sorted pile exhausted. temp_sort " + str(temp_sorted_list))
                 # We've exhausted the sorted_pile without taking p2_index
                 temp_sorted_list.append(numlist[p2_index])
                 p2_taken = True
 
         sorted_pile = temp_sorted_list
-        print("sorted_pile is now " + str(sorted_pile))
         p2_index += 1
 
     return inversion_count
@@ -99,7 +95,6 @@ class FunctionsTest(unittest.TestCase):
 
     def test_merge_inversion_count(self):
         self.assertEqual(5, merge_inversion_count([2, 3, 8, 6, 1]))
-        print("=======")
         self.assertEqual(5, merge_inversion_count([1, 4, 1, 5, 9, 2, 6]))
 
 
