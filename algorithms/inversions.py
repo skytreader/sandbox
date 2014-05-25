@@ -84,6 +84,7 @@ def merge_by(numlist, skip_count):
         while j < sublimit and len(l2):
             numlist[j] = l2.pop(0)
             j += 1
+            l2_count += 1
 
         i = sublimit
 
