@@ -36,7 +36,6 @@ def merge_sort(numlist):
     """
     Keep merging til a skip count of half the numlist size.
     """
-    # TODO How about lists with an odd length
     limit = math.floor(len(numlist) / 2) + 1
     
     for i in range(limit):
@@ -52,6 +51,9 @@ class FunctionsTest(unittest.TestCase):
         pi = [1, 4, 1 ,5 ,9, 2]
         merge_sort(pi)
         self.assertEqual(pi, [1, 1, 2, 4, 5, 9])
+        pi_odd = [1, 4, 1, 5, 9]
+        merge_sort(pi_odd)
+        self.assertEqual(pi_odd, [1, 1, 4, 5, 9])
 
 if __name__ == "__main__":
     unittest.main()
