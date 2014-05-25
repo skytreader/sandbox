@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 
+import math
 import unittest
 
 def naive_inversion_count(numlist):
@@ -49,6 +50,45 @@ def smart_inversion_count(numlist):
                 
     print(numlist)
 
+def merge_by(numlist, skip_count):
+    """
+    Merges sublists within numlist where each is expected to be of length at 
+    most skip_count. Returns the number of times that we picked from l2.
+    """
+    i = 0
+    limit = len(numlist)
+    l2_count = 0
+
+    while i < limit:
+        # list 1 is the range [i, i + skip_count]
+        # list 2 is the range [i + skip_count + 1, i + 2 * skip_count]
+        l1 = numlist[i:i + skip_count + 1]
+        l2 = numlist[i + skip_count + 1:i + (2 * skip_count) + 1]
+
+        j = i
+        sublimit = i + (2 * skip_count) + 1
+
+        while j < sublimit and len(l1) and len(l2):
+            if l1[0] <= l2[0]:
+                numlist[j] = l1.pop(0)
+            else:
+                numlist[j] = l2.pop(0)
+                l2_count += 1
+
+            j += 1
+
+        while j < sublimit and len(l1):
+            numlist[j] = l1.pop(0)
+            j += 1
+
+        while j < sublimit and len(l2):
+            numlist[j] = l2.pop(0)
+            j += 1
+
+        i = sublimit
+
+    return l2_count
+
 # FIXME This still looks like O(n^2)
 # This is basically insertion sort!
 def merge_inversion_count(numlist):
@@ -57,34 +97,12 @@ def merge_inversion_count(numlist):
     an item from pile 2 during the merge operation, we add n to the inversion
     count, where n is the number of items left in pile 1.
     """
+    list_clone = [num for num in numlist]
+    limit = math.floor(len(list_clone) / 2) + 1
     inversion_count = 0
-    p1_index = 0
-    p2_index = 1
-    limit = len(numlist)
-    sorted_pile = [numlist[p1_index]]
 
-    while p2_index < limit:
-        temp_sorted_list = []
-        p2_taken = False
-        while len(sorted_pile) or not p2_taken:
-            if len(sorted_pile):
-                if sorted_pile[0] <= numlist[p2_index]:
-                    mini = sorted_pile.pop(0)
-                    temp_sorted_list.append(mini)
-                else:
-                    inversion_count += len(sorted_pile)
-                    temp_sorted_list.append(numlist[p2_index])
-    
-                    # Exhaust the current sorted pile
-                    temp_sorted_list.extend(sorted_pile)
-                    break
-            else:
-                # We've exhausted the sorted_pile without taking p2_index
-                temp_sorted_list.append(numlist[p2_index])
-                p2_taken = True
-
-        sorted_pile = temp_sorted_list
-        p2_index += 1
+    for i in range(limit):
+        inversion_count += merge_by(list_clone, i)
 
     return inversion_count
 
