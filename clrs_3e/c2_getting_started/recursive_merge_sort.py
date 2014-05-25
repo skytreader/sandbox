@@ -47,7 +47,6 @@ def merge_sort_actual(numlist, start_index, end_index):
         merge_sort_actual(numlist, start_index, midpoint)
         merge_sort_actual(numlist, midpoint + 1, end_index)
         merge(numlist, start_index, midpoint, end_index)
-        print("merge_sort_actual: post merge " + str(numlist))
 
 def merge_sort(numlist):
     merge_sort_actual(numlist, 0, len(numlist) - 1)
