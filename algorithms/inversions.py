@@ -51,29 +51,23 @@ def smart_inversion_count(numlist):
     print(numlist)
 
 def merge_by(numlist, skip_count):
-    """
-    Merges sublists within numlist where each is expected to be of length at 
-    most skip_count. Returns the number of times that we picked from l2.
-    """
     i = 0
     limit = len(numlist)
-    l2_count = 0
 
     while i < limit:
         # list 1 is the range [i, i + skip_count]
         # list 2 is the range [i + skip_count + 1, i + 2 * skip_count]
-        l1 = numlist[i:i + skip_count + 1]
-        l2 = numlist[i + skip_count + 1:i + (2 * skip_count) + 1]
+        l1 = numlist[i:i + skip_count]
+        l2 = numlist[i + skip_count:i + (2 * skip_count)]
 
         j = i
-        sublimit = i + (2 * skip_count) + 1
+        sublimit = i + (2 * skip_count)
 
         while j < sublimit and len(l1) and len(l2):
             if l1[0] <= l2[0]:
                 numlist[j] = l1.pop(0)
             else:
                 numlist[j] = l2.pop(0)
-                l2_count += 1
 
             j += 1
 
@@ -84,11 +78,32 @@ def merge_by(numlist, skip_count):
         while j < sublimit and len(l2):
             numlist[j] = l2.pop(0)
             j += 1
-            l2_count += 1
 
         i = sublimit
 
-    return l2_count
+    leftover = limit % skip_count
+
+    if leftover:
+        # merge the leftover with the rest of the sorted part
+        cutpoint = limit - leftover
+        l1 = numlist[0:cutpoint]
+        l2 = numlist[cutpoint:limit]
+
+        i = 0
+        while i < limit and len(l1) and len(l2):
+            if l1[0] < l2[0]:
+                numlist[i] = l1.pop(0)
+            else:
+                numlist[i] = l2.pop(0)
+
+            i += 1
+        
+        # Since we are sure that l1 is longer than l2
+        while i < limit and len(l1):
+            numlist[i] = l1.pop(0)
+            i += 1
+    
+    return 0
 
 # FIXME This still looks like O(n^2)
 # This is basically insertion sort!
@@ -99,7 +114,7 @@ def merge_inversion_count(numlist):
     count, where n is the number of items left in pile 1.
     """
     list_clone = [num for num in numlist]
-    limit = math.floor(len(list_clone) / 2) + 1
+    limit = len(list_clone)
     inversion_count = 0
 
     for i in range(limit):
