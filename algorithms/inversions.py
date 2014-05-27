@@ -53,6 +53,7 @@ def smart_inversion_count(numlist):
 def merge_by(numlist, skip_count):
     i = 0
     limit = len(numlist)
+    l2_count = 0
 
     while i < limit:
         # list 1 is the range [i, i + skip_count]
@@ -68,6 +69,7 @@ def merge_by(numlist, skip_count):
                 numlist[j] = l1.pop(0)
             else:
                 numlist[j] = l2.pop(0)
+                l2_count += len(l1)
 
             j += 1
 
@@ -95,6 +97,7 @@ def merge_by(numlist, skip_count):
                 numlist[i] = l1.pop(0)
             else:
                 numlist[i] = l2.pop(0)
+                l2_count = len(l1)
 
             i += 1
         
@@ -103,10 +106,8 @@ def merge_by(numlist, skip_count):
             numlist[i] = l1.pop(0)
             i += 1
     
-    return 0
+    return l2_count
 
-# FIXME This still looks like O(n^2)
-# This is basically insertion sort!
 def merge_inversion_count(numlist):
     """
     The idea is to walk through the steps of merge sort. Each time we pick
@@ -116,9 +117,11 @@ def merge_inversion_count(numlist):
     list_clone = [num for num in numlist]
     limit = len(list_clone)
     inversion_count = 0
+    i = 1
 
-    for i in range(limit):
+    while i < limit:
         inversion_count += merge_by(list_clone, i)
+        i *= 2
 
     return inversion_count
 
