@@ -10,10 +10,6 @@ def merge_by(numlist, skip_count):
         # list 2 is the range [i + skip_count + 1, i + 2 * skip_count]
         l1 = numlist[i:i + skip_count]
         l2 = numlist[i + skip_count:i + (2 * skip_count)]
-        print("Skip count " + str(skip_count))
-        print(numlist)
-        print(str(l1))
-        print(str(l2))
 
         j = i
         sublimit = i + (2 * skip_count)
@@ -35,7 +31,6 @@ def merge_by(numlist, skip_count):
             j += 1
 
         i = sublimit
-        print("===")
 
     leftover = limit % skip_count
 
@@ -44,9 +39,6 @@ def merge_by(numlist, skip_count):
         cutpoint = limit - leftover
         l1 = numlist[0:cutpoint]
         l2 = numlist[cutpoint:limit]
-        print("Last pass")
-        print(l1)
-        print(l2)
 
         i = 0
         while i < limit and len(l1) and len(l2):
@@ -66,18 +58,19 @@ def merge_sort(numlist):
     """
     Keep merging til a skip count of half the numlist size.
     """
-    limit = math.floor(len(numlist) / 2)
-    
-    for i in range(limit):
-        merge_by(numlist, i + 1)
+    limit = len(numlist)
+    i = 1 
+    while i < limit:
+        merge_by(numlist, i)
+        i *= 2
 
 
 class FunctionsTest(unittest.TestCase):
     
     def test_sort(self):
         one = [1]
-        #merge_sort(one)
-        #self.assertEqual(one, [1])
+        merge_sort(one)
+        self.assertEqual(one, [1])
         pi = [1, 4, 1 ,5 ,9, 2]
         merge_sort(pi)
         self.assertEqual(pi, [1, 1, 2, 4, 5, 9])
