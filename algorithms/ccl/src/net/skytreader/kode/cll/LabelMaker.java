@@ -1,5 +1,9 @@
 package net.skytreader.kode.cll;
 
+import java.awt.Point;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
 An implementation of connected-components labeling, but we should be able to
 use this on a grid with more than two distinct cells. Input, for now, is expected
@@ -17,6 +21,10 @@ public class LabelMaker{
 
     public LabelMaker(char[][] grid){
         this.grid = grid;
+    }
+
+    public Set<Point> getRegion(Point p){
+        return null;
     }
 
 }
