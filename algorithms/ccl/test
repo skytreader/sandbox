@@ -6,7 +6,7 @@ if [ $? -eq 0 ]; then
     echo "Compile success!"
     echo "Running tests..."
     cd ../classes
-    java -cp .:../lib/* org.junit.runner.JUnitCore net.skytreader.kode.npuzzle.tests.FlatNPuzzleTests
+    java -cp .:../lib/* org.junit.runner.JUnitCore net.skytreader.kode.cll.tests.CLLTest
     echo "Tests done."
 else
     echo "Compile failed. :("

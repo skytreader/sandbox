@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
+import net.skytreader.kode.cll.LabelMaker;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
