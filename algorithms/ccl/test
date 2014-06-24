@@ -1,0 +1,13 @@
+echo "Compiling..."
+cd src
+javac -cp .:../lib/* -d ../classes net/skytreader/kode/cll/tests/CLLTest.java
+
+if [ $? -eq 0 ]; then
+    echo "Compile success!"
+    echo "Running tests..."
+    cd ../classes
+    java -cp .:../lib/* org.junit.runner.JUnitCore net.skytreader.kode.npuzzle.tests.FlatNPuzzleTests
+    echo "Tests done."
+else
+    echo "Compile failed. :("
+fi

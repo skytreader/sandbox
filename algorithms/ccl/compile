@@ -1,0 +1,8 @@
+declare -a files=('net/skytreader/kode/cll/LabelMaker.java')
+cd src
+
+for file in "${files[@]}"
+do
+    javac -cp .:../classes -d ../classes $file
+    echo "$file DONE"
+done
