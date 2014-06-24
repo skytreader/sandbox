@@ -23,6 +23,10 @@ public class LabelMaker{
         this.grid = grid;
     }
 
+    /**
+    Returns a set of points that includes the given point. Point.x is taken to
+    be the row index while Point.y is taken to be the col index.
+    */
     public Set<Point> getRegion(Point p){
         return null;
     }
