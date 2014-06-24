@@ -1,6 +1,7 @@
 package net.skytreader.kode.cll.tests;
 
 import java.awt.Point;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -37,7 +38,10 @@ public class CLLTest{
 
     @Test
     public void testGetRegion(){
-        Point p = new Point(11, 9);
-        TreeSet regionSet = new TreeSet<Point>();
+        Point[] region = {
+            new Point(10, 7), new Point(10, 8), new Point(10, 9), new Point(10, 10), new Point(10, 11),
+            new Point(11, 8), new Point(11, 9), new Point(11, 10), new Point(11, 11)
+        };
+        TreeSet regionSet = new TreeSet<Point>(Arrays.asList(region));
     }
 }
