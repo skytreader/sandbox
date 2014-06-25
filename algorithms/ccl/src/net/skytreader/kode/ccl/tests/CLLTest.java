@@ -1,11 +1,11 @@
-package net.skytreader.kode.cll.tests;
+package net.skytreader.kode.ccl.tests;
 
 import java.awt.Point;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-import net.skytreader.kode.cll.LabelMaker;
+import net.skytreader.kode.ccl.LabelMaker;
 
 import org.junit.Assert;
 import org.junit.Test;
