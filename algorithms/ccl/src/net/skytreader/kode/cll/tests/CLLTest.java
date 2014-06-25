@@ -44,6 +44,13 @@ public class CLLTest{
             new Point(10, 7), new Point(10, 8), new Point(10, 9), new Point(10, 10), new Point(10, 11),
             new Point(11, 8), new Point(11, 9), new Point(11, 10), new Point(11, 11)
         };
-        TreeSet regionSet = new TreeSet<Point>(Arrays.asList(region));
+        TreeSet<Point> regionSet = new TreeSet<Point>(Arrays.asList(region));
+        
+        int limit = region.length;
+
+        for(int i = 0; i < limit; i++){
+            Set<Point> actualRegion = lblMaker.getRegion(region[i]);
+            Assert.assertEquals(actualRegion, regionSet);
+        }
     }
 }
