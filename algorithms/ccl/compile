@@ -1,4 +1,4 @@
-declare -a files=('net/skytreader/kode/cll/LabelMaker.java')
+declare -a files=('net/skytreader/kode/ccl/LabelMaker.java')
 cd src
 
 for file in "${files[@]}"
