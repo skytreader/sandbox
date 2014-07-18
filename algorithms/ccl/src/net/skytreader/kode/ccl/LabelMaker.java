@@ -1,6 +1,8 @@
 package net.skytreader.kode.ccl;
 
 import java.awt.Point;
+
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -23,16 +25,63 @@ public class LabelMaker{
     otherwise it is 4-connected.
     */
     private boolean is8conn;
+    private Set<Set<Point>> labels;
 
     public LabelMaker(char[][] grid, boolean is8conn){
         this.grid = grid;
         this.is8conn = is8conn;
+        this.labels = new HashSet<Set<Point>>();
     }
     
     /**
     This actually performs connected-component labeling algorithm.
     */
     private void label(){
+        int rowLimit = grid.length;
+        int colLimit = grid[0].length;
+
+        for(int row = 0; row < rowLimit; row++){
+            for(int col = 0; col < colLimit; col++){
+                Point[] neighbors = getNeighbors(row, col);
+                // Do something like add the current cell to a label.
+            }
+        }
+    }
+    
+    /**
+    Iterates through the current labels we have and looks for one that contains
+    the point described. If one is found, remove the label from our current set
+    of labels and return. Else return null.
+
+    (Removal is done so that if we want to merge this label with another in the
+    run of our algorithm, we can do so consistently. If no merging will occur,
+    it is the invoking function's responsibility to add the labels back.
+
+    Time complexity: O(n) where n is the number of labels we currently have.
+
+    @param row
+    @param col
+    @param remove
+        If true, we remove the label set from labels when it is found. Else, no
+        and just return the label set.
+    @return The set of Points which the described row is included. If the given
+    Point is not yet included in any labels, return null.
+    */
+    private Set<Point> getCurrentLabel(int row, int col, boolean remove){
+        Point p = new Point();
+        p.x = row;
+        p.y = col;
+
+        for(Set<Point> l : labels){
+            if(l.contains(p)){
+                if(remove){
+                    labels.remove(l);
+                }
+                return l;
+            }
+        }
+
+        return null;
     }
 
     private boolean isCorner(int row, int col){
@@ -105,11 +154,10 @@ public class LabelMaker{
     }
 
     /**
-    Returns a set of points that includes the given point. Point.x is taken to
-    be the row index while Point.y is taken to be the col index.
+    Returns a set of points that includes the given point.
     */
-    public Set<Point> getRegion(Point p){
-        return null;
+    public Set<Point> getRegion(int row, int col){
+        return getCurrentLabel(row, col, false);
     }
 
 }
