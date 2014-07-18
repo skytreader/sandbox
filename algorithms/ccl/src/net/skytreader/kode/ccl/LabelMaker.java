@@ -34,18 +34,71 @@ public class LabelMaker{
     */
     private void label(){
     }
+
+    private boolean isCorner(int row, int col){
+        int rowLimit = grid.length;
+        int colLimit = grid[0].length;
+
+        return ((row == 0 && col == 0) || (row == 0 && col == colLimit) ||
+          (row == rowLimit && col == 0) || (row == rowLimit && col == colLimit));
+    }
     
     /**
     Returns the neighbors of the cell described in row, col as an array. The
     neighbors are enumerated in row-major order (left-to-right, top-to-bottom).
+
+    @param row
+    @param col
+    @return An array of Points signifying the neighbors of the cell described by
+        the provided row, col combination. For every Point, Point.x is row,
+        Point.y is col.
     */
     private Point[] getNeighbors(int row, int col){
+        int rowLimit = grid.length;
+        int colLimit = grid[0].length;
+
         if(is8conn){
             Point[] neighbors;
+
+            if(row == 0 && col == 0){
+                neighbors = new Point[0];
+            } else if(row == 0 && col == colLimit){
+                neighbors = new Point[1];
+                neighbors[0] = new Point(row, col - 1);
+            } else if(row == rowLimit && col == 0){
+                neighbors = new Point[1];
+                neighbors[0] = new Point(row - 1, col);
+            } else{
+                neighbors = new Point[2];
+                neighbors[0] = new Point(row, col - 1);
+                neighbors[1] = new Point(row - 1, col);
+            }
 
             return neighbors;
         } else{
             Point[] neighbors;
+
+            if(row == 0 && col == 0){
+                neighbors = new Point[0];
+            } else if(row == 0 && col == colLimit){
+                neighbors = new Point[1];
+                neighbors[0] = new Point(row, col - 1);
+            } else if(row == rowLimit && col == 0){
+                neighbors = new Point[2];
+                neighbors[0] = new Point(row - 1, col);
+                neighbors[1] = new Point(row - 1, col + 1);
+            } else if (row == rowLimit & col == colLimit){
+                neighbors = new Point[3];
+                neighbors[0] = new Point(row, col - 1);
+                neighbors[1] = new Point(row - 1, col - 1);
+                neighbors[2] = new Point(row - 1, col);
+            } else{
+                neighbors = new Point[4];
+                neighbors[0] = new Point(row, col - 1);
+                neighbors[1] = new Point(row - 1, col - 1);
+                neighbors[2] = new Point(row - 1, col);
+                neighbors[3] = new Point(row - 1, col + 1);
+            }
 
             return neighbors;
         }
