@@ -42,8 +42,34 @@ public class LabelMaker{
 
         for(int row = 0; row < rowLimit; row++){
             for(int col = 0; col < colLimit; col++){
+                Point thisPoint = new Point(row, col);
+                Set<Point> thisLabel;
                 Point[] neighbors = getNeighbors(row, col);
-                // Do something like add the current cell to a label.
+                // Try to merge
+                int neighborCount = neighbors.length;
+
+                for(int i = 0; i < neighborCount; i++){
+                    Point p = neighbors[i];
+
+                    if(thisLabel == null){
+                        if(grid[p.x][p.y] == grid[row][col]){
+                            Set<Point> label = getCurrentLabel(p.x, p.y, true);
+                            label.add(thisPoint);
+                            labels.add(label);
+                            thisLabel = label;
+                        }
+                    } else{
+                        if(grid[p.x][p.y] == grid[row][col]){
+                            Set<Point> label = getCurrentLabel(p.x, p.y, true);
+                            if(!thisLabel.equals(label)){
+                                labels.remove(thisLabel);
+                                label.addAll(thisLabel);
+                                thisLabel = label;
+                            }
+                        }
+                    }
+
+                }
             }
         }
     }
