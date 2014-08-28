@@ -4,6 +4,9 @@ Getting started tutorial for three.js.
 See: http://www.aerotwist.com/tutorials/getting-started-with-three-js/
 */
 
+/**
+From http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+*/
 window.requestAnimFrame = (function(){
     return window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
