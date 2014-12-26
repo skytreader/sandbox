@@ -35,7 +35,7 @@ public class CLLTest{
 
     @Before
     public void setUp(){
-        lblMaker = new LabelMaker(sampleMap);
+        lblMaker = new LabelMaker(sampleMap, false);
     }
 
     @Test
