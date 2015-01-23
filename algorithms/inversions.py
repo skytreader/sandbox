@@ -4,6 +4,9 @@ import math
 import unittest
 
 def naive_inversion_count(numlist):
+    """
+    O(n^2)
+    """
     limit = len(numlist)
     inversion_count = 0
 
@@ -51,6 +54,12 @@ def smart_inversion_count(numlist):
     print(numlist)
 
 def merge_by(numlist, skip_count):
+    """
+    Perform mergesort on numlist and return the (summed) number of items
+    in the left list for every time we pick an item from the right list.
+
+    skip_count - The number of items in each sublist we break numlist into.
+    """
     i = 0
     limit = len(numlist)
     l2_count = 0
@@ -113,6 +122,8 @@ def merge_inversion_count(numlist):
     The idea is to walk through the steps of merge sort. Each time we pick
     an item from pile 2 during the merge operation, we add n to the inversion
     count, where n is the number of items left in pile 1.
+
+    O(n lg n)
     """
     list_clone = [num for num in numlist]
     limit = len(list_clone)
@@ -131,10 +142,14 @@ class FunctionsTest(unittest.TestCase):
     def test_naive(self):
         self.assertEqual(5, naive_inversion_count([2, 3, 8, 6, 1]))
         self.assertEqual(5, naive_inversion_count([1, 4, 1, 5, 9, 2, 6]))
+        self.assertEqual(6, naive_inversion_count([4, 1, 5, 2, 6, 3]))
+        self.assertEqual(60, naive_inversion_count((0,15,14,1,13,2,3,12,11,4,5,10,6,9,8,7)))
 
     def test_merge_inversion_count(self):
         self.assertEqual(5, merge_inversion_count([2, 3, 8, 6, 1]))
         self.assertEqual(5, merge_inversion_count([1, 4, 1, 5, 9, 2, 6]))
+        self.assertEqual(6, merge_inversion_count([4, 1, 5, 2, 6, 3]))
+        self.assertEqual(60, merge_inversion_count((0,15,14,1,13,2,3,12,11,4,5,10,6,9,8,7)))
 
 
 if __name__ == "__main__":
