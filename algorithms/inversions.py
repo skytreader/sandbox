@@ -150,6 +150,9 @@ class FunctionsTest(unittest.TestCase):
         self.assertEqual(5, merge_inversion_count([1, 4, 1, 5, 9, 2, 6]))
         self.assertEqual(6, merge_inversion_count([4, 1, 5, 2, 6, 3]))
         self.assertEqual(60, merge_inversion_count((0,15,14,1,13,2,3,12,11,4,5,10,6,9,8,7)))
+        self.assertEqual(0, merge_inversion_count([]))
+        self.assertEqual(0, merge_inversion_count([1]))
+        self.assertEqual(0, merge_inversion_count([1, 2, 3]))
 
 
 if __name__ == "__main__":
