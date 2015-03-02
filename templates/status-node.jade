@@ -3,10 +3,14 @@ html(ng-app)
     head
         link(rel="stylesheet" src="../css/bootstrap.min.css")
         link(rel="stylesheet" src="../css/bootstrap-theme.min.css")
-        script(src="../scripts/angular.js")
     body
         div
             label Say:
-            input(type="text" ng-model="status" placeholder="something")
+            input(type="text" ng-model="status" placeholder="something" id="user-status")
+            input(type="button" id="post-status" value="Post status")
             hr
             h1 Says "{{status}}"
+            div(id="status-area")
+        script(src="../scripts/angular.js")
+        script(src="../scripts/jquery.js")
+        script(src="../scripts/status-node.js")
