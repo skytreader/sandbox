@@ -1,17 +1,21 @@
 doctype html
-html(ng-app)
+html(ng-app="statusNodeApp")
     head
-        link(rel="stylesheet" src="../css/bootstrap.min.css")
-        link(rel="stylesheet" src="../css/bootstrap-theme.min.css")
+        link(rel="stylesheet" type="text/css" src="../css/bootstrap.min.css")
+        link(rel="stylesheet" type="text/css" src="../css/bootstrap-theme.min.css")
         title Status Node
+        script(src="../scripts/angular.js")
+        script(src="../scripts/jquery.js")
+        script(src="../scripts/status-node.js")
+        script(src="../scripts/sn-angular.js")
     body
-        div
+        div(ng-controller="statusNodeController")
             label Say:
             input(type="text" ng-model="status" placeholder="something" id="user-status")
             input(type="button" id="post-status" value="Post status")
             hr
             h1 Says "{{status}}"
             div(id="status-area")
-        script(src="../scripts/angular.js")
-        script(src="../scripts/jquery.js")
-        script(src="../scripts/status-node.js")
+            ul
+                li(ng-repeat="stat in statusUpdates")
+                    span {{stat.timestamp + " " + stat.update}}
