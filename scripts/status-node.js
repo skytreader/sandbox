@@ -7,7 +7,7 @@ function getTimestamp(){
 
 $(document).ready(function(){
     $("#post-status").click(function(){
-        var statusPost = document.createElement("div");
+        var statusPost = document.createElement("li");
         statusPost.innerHTML = getTimestamp() + " " + $("#user-status").val();
         $("#status-area").prepend(statusPost);
     });

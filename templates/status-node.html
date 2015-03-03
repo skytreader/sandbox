@@ -16,10 +16,11 @@
       <input type="button" id="post-status" value="Post status">
       <hr>
       <h1>Says "{{status}}"</h1>
-      <div id="status-area"></div>
-      <ul>
-        <li ng-repeat="stat in statusUpdates"><span>{{stat.timestamp + " " + stat.update}}</span></li>
-      </ul>
+      <div>
+        <ul id="status-area">
+          <li ng-repeat="stat in statusUpdates"><span>{{stat.timestamp + " " + stat.update}}</span></li>
+        </ul>
+      </div>
     </div>
   </body>
 </html>

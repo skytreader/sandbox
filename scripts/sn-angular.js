@@ -1,4 +1,4 @@
-angular.module("statusNodeModule", []).controller("statusNodeController", function($scope){
+angular.module("statusNodeApp", []).controller("statusNodeController", function($scope){
     $scope.statusUpdates = [
         {"timestamp": "2/9/15 12:00:00",
          "update": "Happy Birthday!!!"},
