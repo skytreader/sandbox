@@ -10,11 +10,13 @@ html(ng-app="statusNodeApp")
         script(src="../scripts/sn-angular.js")
     body
         div(ng-controller="statusNodeController")
-            label Say:
-            input(type="text" ng-model="status" placeholder="something" id="user-status")
-            input(type="button" id="post-status" value="Post status")
+            form(ng-submit="addStatus()")
+                label Say:
+                input(type="text" ng-model="statusUpdate" placeholder="something" id="user-status")
+                input(type="submit" id="post-status" value="Post status")
             hr
-            h1 Says "{{status}}"
+            h1 Says "{{statusUpdate}}"
+            p You have said {{statusUpdates.length}} things so far.
             div
                 ul(id="status-area")
                     li(ng-repeat="stat in statusUpdates")

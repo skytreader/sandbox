@@ -7,4 +7,10 @@ angular.module("statusNodeApp", []).controller("statusNodeController", function(
         {"timestamp": "12/4/14 12:00:00",
          "update": "Happy Birthday S!!!"}
     ]
+
+    $scope.addStatus = function(){
+        $scope.statusUpdates.unshift({"timestamp": getTimestamp(),
+          "update": $scope.statusUpdate});
+        $scope.statusUpdate="";
+    }
 });
