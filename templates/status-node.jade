@@ -14,6 +14,7 @@ html(ng-app="statusNodeApp")
                 label Say:
                 input(type="text" ng-model="statusUpdate" placeholder="something" id="user-status")
                 input(type="submit" id="post-status" value="Post status")
+                input(type="button" ng-click="qotd()" value="QOTD")
             hr
             h1 Says "{{statusUpdate}}"
             p You have said {{statusUpdates.length}} things so far.
