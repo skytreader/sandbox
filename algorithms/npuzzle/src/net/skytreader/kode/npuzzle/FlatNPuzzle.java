@@ -22,7 +22,7 @@ public class FlatNPuzzle implements NPuzzle{
     /**
     entropyFactor determines how "messed-up" a puzzle do we get.
     */
-    private int entropyFactor = 6; // FIXME What's the max value for entropyFactor?
+    private int entropyFactor = 6;
 
     /**
     Create an instance of FlatNPuzzle. Upon construction, the puzzle is initially
@@ -53,6 +53,13 @@ public class FlatNPuzzle implements NPuzzle{
     }
 
     public void setEntropyFactor(int ef){
+        int x = puzzle.length - 1;
+        int entropyLimit = ((x * x) - x) / 2;
+
+        if(ef > entropyLimit){
+            throw IllegalArgumentException("Maximum entropy limit for this instance is " + entropyLimit);
+        }
+
         entropyFactor = ef;
     }
     
@@ -98,10 +105,6 @@ public class FlatNPuzzle implements NPuzzle{
         of inversions.
     */
     private void makeInversions(boolean isEven){
-        // TODO experiment on this function more
-        // FIXME This method could hang if we don't validate entropyFactor.
-        // get the current number of inversions (ideally, this is always 0 when
-        // this method is called.
         boolean isEFEven = (entropyFactor % 2) == 0;
         int inversionAdd = 0;
 
