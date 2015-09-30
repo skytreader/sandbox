@@ -6,12 +6,18 @@ import net.skytreader.kode.npuzzle.FlatNPuzzle;
 import net.skytreader.kode.npuzzle.NPuzzle;
 
 import org.junit.Assert;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+
+import org.junit.rules.ExpectedException;
 
 public class FlatNPuzzleTests{
     private FlatNPuzzle fnp;
     public static final int TEST_SIZE = 4;
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp(){
@@ -20,6 +26,22 @@ public class FlatNPuzzleTests{
 
     @Test
     public void testInitialize(){
+    }
+
+    @Test
+    public void testSetEntropyFactor(){
+        Assert.assertNotEquals(fnp.getEntropyFactor(), 88);
+        fnp.setEntropyFactor(88);
+        Assert.assertEquals(fnp.getEntropyFactor(), 88);
+        fnp.setEntropyFactor(105);
+        Assert.assertEquals(fnp.getEntropyFactor(), 105);
+    }
+
+    @Test
+    public void testEntropyFactorException(){
+        // For our test puzzle of size 4, the maximum entropy factor will be 105.
+        exception.expect(IllegalArgumentException.class);
+        fnp.setEntropyFactor(106);
     }
 
     @Test

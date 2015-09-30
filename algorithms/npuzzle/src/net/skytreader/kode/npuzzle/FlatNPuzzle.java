@@ -52,12 +52,18 @@ public class FlatNPuzzle implements NPuzzle{
         return size;
     }
 
+    /**
+    @param ef
+    @throws IllegalArgumentException
+        If the given entropy factor is more than the maximum number of
+        inversions possible for this state.
+    */
     public void setEntropyFactor(int ef){
         int x = puzzle.length - 1;
         int entropyLimit = ((x * x) - x) / 2;
 
         if(ef > entropyLimit){
-            throw IllegalArgumentException("Maximum entropy limit for this instance is " + entropyLimit);
+            throw new IllegalArgumentException("Maximum entropy limit for this instance is " + entropyLimit);
         }
 
         entropyFactor = ef;
