@@ -26,6 +26,7 @@ public class FlatNPuzzleTests{
 
     @Test
     public void testInitialize(){
+        // Test the even instance
     }
 
     @Test

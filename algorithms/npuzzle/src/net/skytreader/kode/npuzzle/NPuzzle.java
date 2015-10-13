@@ -3,7 +3,7 @@ package net.skytreader.kode.npuzzle;
 import java.awt.Point;
 
 /**
-Standard interface to NPuzzle.
+Standard interface to NPuzzle. All Points should be taken as (row, col).
 */
 public interface NPuzzle{
     public enum Direction{
@@ -39,6 +39,7 @@ public interface NPuzzle{
     */
 
     public void initialize();
+
     /**
     Move the blank tile to the specified direction (effectively swapping places
     with the tile currently in that location).
@@ -46,29 +47,35 @@ public interface NPuzzle{
     @param Direction d
     */
     public void move(Direction d);
+
     /**
     Check the tile at the given location.
     */
     public int getTileAt(int row, int col);
+
     /**
     The size of this puzzle. Size is defined as the length of <i>one side</i>
     of the puzzle. So a puzzle with 16 tiles (with one blank) will have a size
     of 4.
     */
     public int getSize();
+
     /**
     Return the position of the blank tile.
     */
     public Point getBlankPos();
+
     /**
     Checks whether this NPuzzle instance is already solved.
     */
     public boolean isSolved();
+
     /**
     Two NPuzzle instances are equal if and only if they have the same
     configuration of tiles. More formally, for every possible (row, col)
     combination, the getTileAtMethod should return equal values.
     */
     public boolean equals(Object o);
+
     public int hashCode();
 }
