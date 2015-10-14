@@ -20,11 +20,18 @@ public class MatrixNPuzzle implements NPuzzle{
     public MatrixNPuzzle(int n){
         matrixPuzzle = new int[n][n];
         int limit = n * n;
-        unfolded = new int[limit];
 
         for(int i = 0; i < limit; i++){
             unfoldedSolved[i] = i;
         }
+    }
+
+    public Point getBlankPos(){
+        return blankPos;
+    }
+
+    public int getSize(){
+        return matrixPuzzle.length;
     }
     
     /*
@@ -49,7 +56,7 @@ public class MatrixNPuzzle implements NPuzzle{
     private int[] unfold(){
         int limit = matrixPuzzle.length * matrixPuzzle.length;
         int[] unfolded = new int[limit];
-        unfoldIndex = 0;
+        int unfoldIndex = 0;
 
         for(int row = 0; row < matrixPuzzle.length; row++){
             for(int col = 0; col < matrixPuzzle.length; col++){
