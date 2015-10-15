@@ -3,6 +3,9 @@ package net.skytreader.kode.npuzzle.utils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.primitives.Ints;
 
+import net.skytreader.kode.npuzzle.FlatNPuzzle;
+import net.skytreader.kode.npuzzle.NPuzzle;
+
 import net.skytreader.kode.npuzzle.utils.Algorithms;
 
 import org.junit.Assert;
@@ -26,5 +29,10 @@ public class AlgorithmsTest{
 
         int[] noneAtAll = new int[0];
         Assert.assertEquals(0, Algorithms.countInversions(noneAtAll));
+    }
+
+    @Test
+    public void testIsSolvable(){
+         NPuzzle oddWidth = new FlatNPuzzle(3);
     }
 }

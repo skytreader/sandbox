@@ -41,6 +41,16 @@ public interface NPuzzle{
     public void initialize();
 
     /**
+    Set this puzzle's configuration based on the given integer array.
+    The integer array is assumed ot be given in row-major order. Included
+    primarily for testing purposes. A cell containing 0 is taken as the location
+    of the blank cell.
+
+    @param int[] conf
+    */
+    public void setConfig(int[] conf);
+
+    /**
     Move the blank tile to the specified direction (effectively swapping places
     with the tile currently in that location).
 

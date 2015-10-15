@@ -26,6 +26,15 @@ public class MatrixNPuzzle implements NPuzzle{
         }
     }
 
+    public void setConfig(int[] conf){
+        int width = matrixPuzzle.length;
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < matrixPuzzle[i].length; j++){
+                matrixPuzzle[i][j] = conf[j + (i * width)];
+            }
+        }
+    }
+
     public Point getBlankPos(){
         return blankPos;
     }

@@ -44,6 +44,10 @@ public class FlatNPuzzle implements NPuzzle{
         }
     }
 
+    public void setConfig(int[] conf){
+        this.puzzle = conf;
+    }
+
     public int getEntropyFactor(){
         return entropyFactor;
     }
