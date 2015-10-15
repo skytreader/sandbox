@@ -1,15 +1,21 @@
 doctype html
 html(ng-app="statusNodeApp")
     head
-        link(rel="stylesheet" type="text/css" src="../css/bootstrap.min.css")
-        link(rel="stylesheet" type="text/css" src="../css/bootstrap-theme.min.css")
+        link(rel="stylesheet" type="text/css" href="../css/bootstrap.min.css")
+        link(rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css")
+        link(rel="stylesheet" type="text/css" href="../css/sn.css")
         title Status Node
         script(src="../scripts/angular.js")
         script(src="../scripts/jquery.js")
         script(src="../scripts/status-node.js")
         script(src="../scripts/sn-angular.js")
     body
-        div(ng-controller="statusNodeController")
+        div(ng-controller="statusNodeController as something")
+            div(ng-class="{'red': something.getFlag()}") The dog is {{something.spam}}
+            button(ng-click="something.flagTrue()") Red
+            button(ng-click="something.flagFalse()") Not Red
+            div(ng-if="something.getFlag()") Flag is true
+            div(ng-if="!something.getFlag()") Flag is false
             form(ng-submit="addStatus()")
                 label Say:
                 input(type="text" ng-model="statusUpdate" placeholder="something" id="user-status")
