@@ -1,7 +1,9 @@
 *.swp
 *~
 *.log
+*.bak
 *.class
 *.pyc
 */__pycache__/*
 *bin
+target
