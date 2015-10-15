@@ -1,4 +1,4 @@
-package net.skytreader.kode.npuzzle.tests;
+package net.skytreader.kode.npuzzle;
 
 import java.awt.Point;
 
@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 
-public class FlatNPuzzleTests{
+public class FlatNPuzzleTest{
     private FlatNPuzzle fnp;
     public static final int TEST_SIZE = 4;
 
@@ -21,7 +21,7 @@ public class FlatNPuzzleTests{
 
     @Before
     public void setUp(){
-        fnp = new FlatNPuzzle(FlatNPuzzleTests.TEST_SIZE);
+        fnp = new FlatNPuzzle(FlatNPuzzleTest.TEST_SIZE);
     }
 
     @Test
@@ -87,13 +87,13 @@ public class FlatNPuzzleTests{
         Assert.assertTrue(fnp.equals(fnp));
 
         // Create another instance, should still be equal at this point.
-        FlatNPuzzle another = new FlatNPuzzle(FlatNPuzzleTests.TEST_SIZE);
+        FlatNPuzzle another = new FlatNPuzzle(FlatNPuzzleTest.TEST_SIZE);
         Assert.assertTrue(fnp.equals(another));
         // Test symmetry.
         Assert.assertTrue(another.equals(fnp));
 
         // Test transitivity
-        FlatNPuzzle transitiveOther = new FlatNPuzzle(FlatNPuzzleTests.TEST_SIZE);
+        FlatNPuzzle transitiveOther = new FlatNPuzzle(FlatNPuzzleTest.TEST_SIZE);
         Assert.assertTrue(another.equals(transitiveOther));
         Assert.assertTrue(fnp.equals(transitiveOther));
 
