@@ -1,8 +1,0 @@
-net/skytreader/kode/npuzzle/NPuzzle$Direction.class
-net/skytreader/kode/npuzzle/MatrixNPuzzle.class
-net/skytreader/kode/npuzzle/utils/Algorithms.class
-net/skytreader/kode/npuzzle/NPuzzle.class
-net/skytreader/kode/npuzzle/Solver.class
-net/skytreader/kode/npuzzle/exceptions/CorruptedPuzzleException.class
-net/skytreader/kode/npuzzle/FlatNPuzzle.class
-net/skytreader/kode/App.class
