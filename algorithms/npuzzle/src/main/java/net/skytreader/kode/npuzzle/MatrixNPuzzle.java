@@ -3,6 +3,7 @@ package net.skytreader.kode.npuzzle;
 import java.awt.Point;
 
 import net.skytreader.kode.npuzzle.NPuzzle.Direction;
+import net.skytreader.kode.npuzzle.exceptions.CorruptedPuzzleException;
 
 /**
 For this class, the NPuzzle is represented as follows:
@@ -26,13 +27,27 @@ public class MatrixNPuzzle implements NPuzzle{
         }
     }
 
-    public void setConfig(int[] conf){
+    public void setConfig(int[] conf) throws CorruptedPuzzleException{
         int width = matrixPuzzle.length;
         for(int i = 0; i < width; i++){
             for(int j = 0; j < matrixPuzzle[i].length; j++){
                 matrixPuzzle[i][j] = conf[j + (i * width)];
             }
         }
+    }
+
+    public int[] toArray(){
+        int sideLen = matrixPuzzle.length;
+        int limit = sideLen * sideLen;
+        int[] arrRep = new int[limit];
+
+        for(int i = 0; i < limit; i++){
+            int row = i / sideLen;
+            int col = i % sideLen;
+            arrRep[i] = matrixPuzzle[row][col];
+        }
+
+        return arrRep;
     }
 
     public Point getBlankPos(){

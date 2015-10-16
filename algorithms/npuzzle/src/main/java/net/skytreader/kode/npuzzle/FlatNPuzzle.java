@@ -44,8 +44,12 @@ public class FlatNPuzzle implements NPuzzle{
         }
     }
 
-    public void setConfig(int[] conf){
+    public void setConfig(int[] conf) throws CorruptedPuzzleException{
         this.puzzle = conf;
+    }
+
+    public int[] toArray(){
+        return this.puzzle;
     }
 
     public int getEntropyFactor(){

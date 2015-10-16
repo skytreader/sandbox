@@ -1,5 +1,8 @@
 package net.skytreader.kode.npuzzle;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.primitives.Ints;
+
 import java.awt.Point;
 
 import net.skytreader.kode.npuzzle.FlatNPuzzle;
@@ -27,6 +30,15 @@ public class FlatNPuzzleTest{
     @Test
     public void testInitialize(){
         // Test the even instance
+    }
+
+    @Test
+    public void testSetConfig(){
+        int[] superInversion = Ints.toArray((new ImmutableList.Builder<Integer>())
+          .add(15).add(14).add(13).add(12).add(11).add(10).add(9).add(8).add(7)
+          .add(6).add(5).add(4).add(3).add(2).add(1).build());
+
+        fnp.setConfig(superInversion);
     }
 
     @Test
