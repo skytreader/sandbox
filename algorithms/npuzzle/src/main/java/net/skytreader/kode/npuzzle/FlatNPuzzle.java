@@ -1,8 +1,11 @@
 package net.skytreader.kode.npuzzle;
 
+import com.google.common.collect.HashMultiset;
+
 import java.awt.Point;
 
 import java.util.Arrays;
+import java.util.List;
 
 import net.skytreader.kode.npuzzle.NPuzzle.Direction;
 import net.skytreader.kode.npuzzle.exceptions.CorruptedPuzzleException;
@@ -45,6 +48,13 @@ public class FlatNPuzzle implements NPuzzle{
     }
 
     public void setConfig(int[] conf) throws CorruptedPuzzleException{
+        List<Integer> confList = Arrays.asList(**conf);
+        HashMultiset<Integer> counter = HashMultiset.create(confList);
+
+        if(counter.count(0) > 1){
+            throw new CorruptedPuzzleException("Attempting to set more than one blank tile.");
+        }
+
         this.puzzle = conf;
     }
 
