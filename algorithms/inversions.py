@@ -73,6 +73,8 @@ def merge_by(numlist, skip_count):
         j = i
         sublimit = i + (2 * skip_count)
 
+        # Perform the merging steps in this loop. But we are not actually sorting
+        # anything. We are just counting the inversions but with style(TM).
         while j < sublimit and len(l1) and len(l2):
             if l1[0] <= l2[0]:
                 numlist[j] = l1.pop(0)
@@ -82,6 +84,7 @@ def merge_by(numlist, skip_count):
 
             j += 1
 
+        # Deal with any leftovers in the following loops.
         while j < sublimit and len(l1):
             numlist[j] = l1.pop(0)
             j += 1
