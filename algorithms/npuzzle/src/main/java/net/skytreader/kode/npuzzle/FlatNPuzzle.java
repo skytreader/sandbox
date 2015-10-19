@@ -48,13 +48,17 @@ public class FlatNPuzzle implements NPuzzle{
     }
 
     public void setConfig(int[] conf) throws CorruptedPuzzleException{
+        if(conf.length != this.puzzle.length){
+            throw new CorruptedPuzzleException("Attempting to change the puzzle size. Setting to " +
+              conf.length + " but should be " + this.puzzle.length);
+        }
         LinkedList<Integer> confList = new LinkedList<Integer>();
         for(int i = 0; i < conf.length; i++){
             confList.add(conf[i]);
         }
         HashMultiset<Integer> counter = HashMultiset.create(confList);
 
-        if(counter.count(0) > 1){
+        if(counter.count(0) != 1){
             throw new CorruptedPuzzleException("Attempting to set more than one blank tile.");
         }
 
