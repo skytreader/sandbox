@@ -5,7 +5,7 @@ import com.google.common.collect.HashMultiset;
 import java.awt.Point;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedList;
 
 import net.skytreader.kode.npuzzle.NPuzzle.Direction;
 import net.skytreader.kode.npuzzle.exceptions.CorruptedPuzzleException;
@@ -48,7 +48,10 @@ public class FlatNPuzzle implements NPuzzle{
     }
 
     public void setConfig(int[] conf) throws CorruptedPuzzleException{
-        List<Integer> confList = Arrays.asList(**conf);
+        LinkedList<Integer> confList = new LinkedList<Integer>();
+        for(int i = 0; i < conf.length; i++){
+            confList.add(conf[i]);
+        }
         HashMultiset<Integer> counter = HashMultiset.create(confList);
 
         if(counter.count(0) > 1){
