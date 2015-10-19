@@ -8,6 +8,8 @@ import java.awt.Point;
 import net.skytreader.kode.npuzzle.FlatNPuzzle;
 import net.skytreader.kode.npuzzle.NPuzzle;
 
+import net.skytreader.kode.npuzzle.exceptions.CorruptedPuzzleException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -33,12 +35,27 @@ public class FlatNPuzzleTest{
     }
 
     @Test
-    public void testSetConfig(){
-        int[] superInversion = Ints.toArray((new ImmutableList.Builder<Integer>())
-          .add(15).add(14).add(13).add(12).add(11).add(10).add(9).add(8).add(7)
-          .add(6).add(5).add(4).add(3).add(2).add(1).build());
+    public void testSetConfigHappy(){
+        int[] superInversion = new int[]{15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5,
+          4, 3, 2, 1};
 
         fnp.setConfig(superInversion);
+    }
+
+    @Test
+    public void testSetConfigMoreBlanks(){
+        exception.expect(CorruptedPuzzleException.class);
+        int[] superBlank = new int[]{0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+          12, 13, 14};
+
+        fnp.setConfig(superBlank);
+    }
+
+    @Test
+    public void testSetConfigSmallerSize(){
+        exception.expect(CorruptedPuzzleException.class);
+        int[] small = new int[]{1, 2};
+        fnp.setConfig(small);
     }
 
     @Test
