@@ -14,9 +14,8 @@ public class Algorithms{
         int[] listClone = Arrays.copyOf(numlist, limit);
         int inversionCount = 0;
         
-        for(int i = 1; i < limit; i++){
+        for(int i = 1; i < limit; i *= 2){
             inversionCount += mockMerge(listClone, i);
-            i *= 2;
         }
 
         return inversionCount;
@@ -31,7 +30,6 @@ public class Algorithms{
     }
 
     private static int mockMerge(int[] num, int skipCount){
-        System.out.println("Merge " + Arrays.toString(num) + " on skipcount " + skipCount);
         int limit = num.length;
         int l2Count = 0;
 
@@ -50,19 +48,15 @@ public class Algorithms{
             }
 
             int j = i;
-            System.out.println("p1 " + partition1.toString());
-            System.out.println("p2 " + partition2.toString());
-            System.out.println("");
+            int sublimit = i + (2 * skipCount);
 
             // Perform merge sort.
-            while(j < p2Limit && !partition1.empty() && !partition2.empty()){
-                System.out.println("Compare " + partition1.peek() + " and " + partition2.peek());
+            while(j < sublimit && !partition1.empty() && !partition2.empty()){
                 if(partition1.peek() <= partition2.peek()){
                     num[j] = partition1.pop();
                 } else{
                     num[j] = partition2.pop();
                     l2Count += partition1.size();
-                    System.out.println("partition2 wins, l2Count now " + l2Count);
                 }
                 j++;
             }
@@ -75,7 +69,7 @@ public class Algorithms{
                 num[j] = partition2.pop();
             }
 
-            i = p2Limit;
+            i = sublimit;
         }
 
         int leftover = limit % skipCount;
