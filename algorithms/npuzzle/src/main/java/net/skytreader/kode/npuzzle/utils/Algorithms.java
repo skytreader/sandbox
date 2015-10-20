@@ -36,7 +36,17 @@ public class Algorithms{
 
         for(int i = 0; i < limit;){
             Stack<Integer> partition1 = stackify(Arrays.copyOfRange(num, i, i + skipCount));
-            Stack<Integer> partition2 = stackify(Arrays.copyOfRange(num, i + skipCount, i + (2 * skipCount)));
+            int p2Limit = i + (2 * skipCount);
+
+            if(p2Limit > limit){
+                p2Limit = limit;
+            }
+
+            Stack<Integer> partition2 = new Stack<Integer>();
+
+            if((i + skipCount) < limit){
+                partition2 = stackify(Arrays.copyOfRange(num, i + skipCount, p2Limit));
+            }
 
             int j = i;
             int sublimit = i + (2 * skipCount);
@@ -59,7 +69,7 @@ public class Algorithms{
                 num[j] = partition2.pop();
             }
 
-            i = sublimit;
+            i = p2Limit;
         }
 
         int leftover = limit % skipCount;
