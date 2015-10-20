@@ -15,16 +15,13 @@ public class AlgorithmsTest{
 
     @Test
     public void testCountInversions(){
-        int[] oddversion = Ints.toArray((new ImmutableList.Builder<Integer>())
-          .add(7).add(6).add(8).add(4).add(4).add(2).add(1).add(3).build());
+        int[] oddversion = new int[]{7, 6, 8, 4, 4, 2, 1, 3};
         Assert.assertEquals(23, Algorithms.countInversions(oddversion));
 
-        int[] eversion = Ints.toArray((new ImmutableList.Builder<Integer>())
-          .add(4).add(2).add(1).add(3).add(9).add(6).add(8).add(7).build());
+        int[] eversion = new int[]{4, 2, 1, 3, 9, 6, 8, 7};
         Assert.assertEquals(8, Algorithms.countInversions(eversion));
 
-        int[] neinversion = Ints.toArray((new ImmutableList.Builder<Integer>())
-          .add(1).add(2).add(3).add(4).add(6).add(7).add(8).build());
+        int[] neinversion = new int[]{1, 2, 3, 4, 5, 6, 7, 8};
         Assert.assertEquals(0, Algorithms.countInversions(neinversion));
 
         int[] noneAtAll = new int[0];
