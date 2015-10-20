@@ -49,23 +49,23 @@ public class Algorithms{
             }
 
             int j = i;
-            int sublimit = i + (2 * skipCount);
 
             // Perform merge sort.
-            while(j < sublimit && !partition1.empty() && !partition2.empty()){
+            while(j < p2Limit && !partition1.empty() && !partition2.empty()){
                 if(partition1.peek() <= partition2.peek()){
                     num[j] = partition1.pop();
                 } else{
                     num[j] = partition2.pop();
                     l2Count++;
                 }
+                j++;
             }
 
-            for(;j < sublimit && !partition1.empty(); j++){
+            for(;j < p2Limit && !partition1.empty(); j++){
                 num[j] = partition1.pop();
             }
 
-            for(;j < sublimit && !partition2.empty(); j++){
+            for(;j < p2Limit && !partition2.empty(); j++){
                 num[j] = partition2.pop();
             }
 
