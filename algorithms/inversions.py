@@ -157,6 +157,10 @@ class FunctionsTest(unittest.TestCase):
         self.assertEqual(0, merge_inversion_count([1]))
         self.assertEqual(0, merge_inversion_count([1, 2, 3]))
 
+        spam = [2, 3, 8, 6, 1]
+        self.assertEqual(5, merge_inversion_count(spam))
+        self.assertEqual([2, 3, 8, 6, 1], spam)
+
 
 if __name__ == "__main__":
     unittest.main()
