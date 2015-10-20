@@ -31,6 +31,7 @@ public class Algorithms{
     }
 
     private static int mockMerge(int[] num, int skipCount){
+        System.out.println("Merge " + Arrays.toString(num) + " on skipcount " + skipCount);
         int limit = num.length;
         int l2Count = 0;
 
@@ -49,14 +50,19 @@ public class Algorithms{
             }
 
             int j = i;
+            System.out.println("p1 " + partition1.toString());
+            System.out.println("p2 " + partition2.toString());
+            System.out.println("");
 
             // Perform merge sort.
             while(j < p2Limit && !partition1.empty() && !partition2.empty()){
+                System.out.println("Compare " + partition1.peek() + " and " + partition2.peek());
                 if(partition1.peek() <= partition2.peek()){
                     num[j] = partition1.pop();
                 } else{
                     num[j] = partition2.pop();
-                    l2Count++;
+                    l2Count += partition1.size();
+                    System.out.println("partition2 wins, l2Count now " + l2Count);
                 }
                 j++;
             }
@@ -75,7 +81,7 @@ public class Algorithms{
         int leftover = limit % skipCount;
 
         if(leftover > 0){
-            int cutpoint = limit = leftover;
+            int cutpoint = limit - leftover;
             Stack<Integer> partition1 = stackify(Arrays.copyOfRange(num, 0, cutpoint));
             Stack<Integer> partition2 = stackify(Arrays.copyOfRange(num, cutpoint, limit));
 
