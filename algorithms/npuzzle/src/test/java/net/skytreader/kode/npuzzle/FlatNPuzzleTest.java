@@ -1,14 +1,13 @@
 package net.skytreader.kode.npuzzle;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.primitives.Ints;
-
 import java.awt.Point;
 
 import net.skytreader.kode.npuzzle.FlatNPuzzle;
 import net.skytreader.kode.npuzzle.NPuzzle;
 
 import net.skytreader.kode.npuzzle.exceptions.CorruptedPuzzleException;
+
+import net.skytreader.kode.npuzzle.utils.Algorithms;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,7 +30,9 @@ public class FlatNPuzzleTest{
 
     @Test
     public void testInitialize(){
-        // Test the even instance
+        // FIXME The initialize should be randomized
+        fnp.initialize();
+        Assert.assertTrue(Algorithms.isSolvable(fnp));
     }
 
     @Test
