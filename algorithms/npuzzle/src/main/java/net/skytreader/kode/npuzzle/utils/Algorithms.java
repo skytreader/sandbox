@@ -1,5 +1,7 @@
 package net.skytreader.kode.npuzzle.utils;
 
+import java.awt.Point;
+
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -93,6 +95,19 @@ public class Algorithms{
     }
 
     public static boolean isSolvable(NPuzzle np){
-        return true;
+        int puzzleSize = np.getSize();
+        boolean isGridOdd = (puzzleSize % 2) != 0;
+        boolean areInversionsEven = (Algorithms.countInversions(np.toArray()) % 2) == 0;
+
+        if(isGridOdd){
+            return areInversionsEven;
+        } else{
+            int blankRow = (np.getBlankPos()).x;
+            if((blankRow % 2) == (puzzleSize % 2)){
+                return areInversionsEven;
+            } else{
+                return !areInversionsEven;
+            }
+        }
     }
 }
