@@ -65,8 +65,23 @@ public class FlatNPuzzle implements NPuzzle{
         this.puzzle = conf;
     }
 
-    public int[] toArray(){
-        return this.puzzle;
+    public int[] toArray(boolean includeBlank){
+        if(includeBlank){
+            return this.puzzle;
+        } else{
+            int puzzleLength = this.puzzle.length;
+            int[] nonblank = new int[puzzleLength - 1];
+            int nonblankIndex = 0;
+
+            for(int i = 0; i < puzzleLength; i++){
+                if(this.puzzle[i] != 0){
+                    nonblank[nonblankIndex] = this.puzzle[i];
+                    nonblankIndex++;
+                }
+            }
+
+            return nonblank;
+        }
     }
 
     public int getEntropyFactor(){

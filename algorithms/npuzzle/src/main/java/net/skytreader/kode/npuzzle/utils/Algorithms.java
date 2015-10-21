@@ -97,12 +97,12 @@ public class Algorithms{
     public static boolean isSolvable(NPuzzle np){
         int puzzleSize = np.getSize();
         boolean isGridOdd = (puzzleSize % 2) != 0;
-        boolean areInversionsEven = (Algorithms.countInversions(np.toArray()) % 2) == 0;
+        boolean areInversionsEven = (Algorithms.countInversions(np.toArray(false)) % 2) == 0;
 
         if(isGridOdd){
             return areInversionsEven;
         } else{
-            int blankRow = (np.getBlankPos()).x;
+            int blankRow = (np.getBlankPos()).x + 1;
             if((blankRow % 2) == (puzzleSize % 2)){
                 return areInversionsEven;
             } else{

@@ -68,8 +68,11 @@ public interface NPuzzle{
     /**
     List out the current configuration as an array of integers. The configuration
     is assumed to be enumerated in row-major order.
+
+    @param includeBlank
+        If true, include the blank tile represented as 0. Otherwise, omit it.
     */
-    public int[] toArray();
+    public int[] toArray(boolean includeBlank);
 
     /**
     Move the blank tile to the specified direction (effectively swapping places

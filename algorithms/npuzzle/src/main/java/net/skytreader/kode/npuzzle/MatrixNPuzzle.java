@@ -36,7 +36,7 @@ public class MatrixNPuzzle implements NPuzzle{
         }
     }
 
-    public int[] toArray(){
+    public int[] toArray(boolean includeBlank){
         int sideLen = matrixPuzzle.length;
         int limit = sideLen * sideLen;
         int[] arrRep = new int[limit];
