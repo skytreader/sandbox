@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 import net.skytreader.kode.npuzzle.NPuzzle.Direction;
 import net.skytreader.kode.npuzzle.exceptions.CorruptedPuzzleException;
+import net.skytreader.kode.npuzzle.utils.Algorithms;
 
 /**
 For this class, the NPuzzle is represented as follows:
@@ -127,46 +128,21 @@ public class FlatNPuzzle implements NPuzzle{
     }
     
     /**
-    O(n^2) and you can definitely do better.
-    */
-    private int inversionCount(){
-        int inversionCount = 0;
-
-        for(int i = 0; i < size; i++){
-            for(int j = i + 1; j < size; j++){
-                if(puzzle[i] > puzzle[j] && puzzle[j] != 0){
-                    inversionCount++;
-                }
-            }
-        }
-
-        return inversionCount;
-    }
-    
-    /**
     Add a certain number of inversions in the puzzle (determined by entropyFactor).
-
-    @param isEven
-        If true, add an even number of inversions. Otherwise, add an odd number
-        of inversions.
     */
-    private void makeInversions(boolean isEven){
+    private void makeInversions(){
         boolean isEFEven = (entropyFactor % 2) == 0;
         int inversionAdd = 0;
 
-        if(isEven && isEFEven){
+        if(isEFEven){
             inversionAdd = entropyFactor;
-        } else if(isEven && !isEFEven){
-            inversionAdd = entropyFactor + 1;
-        } else if(!isEven && isEFEven){
-            inversionAdd = entropyFactor + 1;
         } else{
-            inversionAdd = entropyFactor;
+            inversionAdd = entropyFactor - 1;
         }
         
         int limit = puzzle.length;
 
-        while(inversionCount() < inversionAdd){
+        while(Algorithms.countInversions(this.toArray(false)) < inversionAdd){
             for(int i = 0; i < limit; i++){
                 for(int j = i + 1; j < limit; j++){
                     if((puzzle[i] != 0 || puzzle[j] != 0) && puzzle[i] < puzzle[j]){
@@ -188,20 +164,19 @@ public class FlatNPuzzle implements NPuzzle{
     and the number of inversions is (odd|even).
     */
     public void initialize(){
-        int inversionCount = inversionCount();
         if((size % 2) == 1){
             // Add an even number of inversions.
-            makeInversions(true);
+            makeInversions();
         } else{
             Point blankPosition = getBlankPos();
             int blankRow = blankPosition.x + 1; // Add 1 to translate from indices to "normal" counting
 
             if((blankRow % 2) == 0){
                 // Add an odd number of inversions.
-                makeInversions(false);
+                makeInversions();
             } else{
                 // Add an even number of inversions.
-                makeInversions(true);
+                makeInversions();
             }
         }
     }
