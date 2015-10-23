@@ -6,6 +6,7 @@ import java.awt.Point;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Random;
 
 import net.skytreader.kode.npuzzle.NPuzzle.Direction;
 import net.skytreader.kode.npuzzle.exceptions.CorruptedPuzzleException;
@@ -43,9 +44,12 @@ public class FlatNPuzzle implements NPuzzle{
         solvedInstance = new int[limit];
 
         for(int i = 0; i < limit; i++){
-            solvedInstance[i] = i;
-            puzzle[i] = i;
+            solvedInstance[i] = i + 1;
+            puzzle[i] = i + 1;
         }
+
+        solvedInstance[limit - 1] = 0;
+        puzzle[limit - 1] = 0;
     }
 
     public void setConfig(int[] conf) throws CorruptedPuzzleException{
@@ -154,6 +158,32 @@ public class FlatNPuzzle implements NPuzzle{
                 }
             }
         }
+    }
+
+    /**
+    Move the blank space to a random position in the puzzle.
+
+    @param evenRow
+        Boolean. If true, you are sure that the blank row is left in an even row
+        <i>from the bottom</i>.
+    */
+    private void moveBlankRandomly(boolean evenRow){
+        Random r = new Random();
+        int limit = this.puzzle.length;
+        int randomCol = r.nextInt(limit);
+        int randomRow = 0;
+
+        if(evenRow){
+            do{
+                randomRow = r.nextInt(limit);
+            } while((randomRow % 2) != 0);
+        } else{
+            do{
+                randomRow = r.nextInt(limit);
+            } while((randomRow % 2) != 1);
+        }
+
+
     }
 
     /**
