@@ -217,7 +217,8 @@ public class FlatNPuzzle implements NPuzzle{
 
     private int getBlankIndex(){
         int blankIndex = 0;
-        for(; blankIndex < size; blankIndex++){
+        int limit = this.puzzle.length;
+        for(; blankIndex < limit; blankIndex++){
             if(puzzle[blankIndex] == 0){
                 break;
             }
