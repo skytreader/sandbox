@@ -133,15 +133,27 @@ public class FlatNPuzzle implements NPuzzle{
     
     /**
     Add a certain number of inversions in the puzzle (determined by entropyFactor).
+
+    @param addEven
+        If true, add an even number of inversions. Otherwise, add aan odd number
+        of inversions.
     */
-    private void makeInversions(){
+    private void makeInversions(boolean addEven){
         boolean isEFEven = (entropyFactor % 2) == 0;
         int inversionAdd = 0;
 
         if(isEFEven){
-            inversionAdd = entropyFactor;
+            if(addEven){
+                inversionAdd = entropyFactor;
+            } else{
+                inversionAdd = entropyFactor - 1;
+            }
         } else{
-            inversionAdd = entropyFactor - 1;
+            if(addEven){
+                inversionAdd = entropyFactor - 1;
+            } else{
+                inversionAdd = entropyFactor;
+            }
         }
         
         int limit = puzzle.length;
@@ -169,7 +181,7 @@ public class FlatNPuzzle implements NPuzzle{
     */
     private void moveBlankRandomly(boolean evenRow){
         Random r = new Random();
-        int limit = this.puzzle.length;
+        int limit = this.size;
         int randomCol = r.nextInt(limit);
         int randomRow = 0;
 
@@ -182,8 +194,15 @@ public class FlatNPuzzle implements NPuzzle{
                 randomRow = r.nextInt(limit);
             } while((randomRow % 2) != 1);
         }
+        System.out.println("we are in row #" + randomRow);
 
+        for(int row = this.getBlankPos().x; row != randomRow; row = this.getBlankPos().x){
+            this.move(NPuzzle.Direction.UP);
+        }
 
+        for(int col = this.getBlankPos().y; col != randomCol; col = this.getBlankPos().y){
+            this.move(NPuzzle.Direction.LEFT);
+        }
     }
 
     /**
@@ -196,18 +215,12 @@ public class FlatNPuzzle implements NPuzzle{
     public void initialize(){
         if((size % 2) == 1){
             // Add an even number of inversions.
-            makeInversions();
+            makeInversions(true);
         } else{
-            Point blankPosition = getBlankPos();
-            int blankRow = blankPosition.x + 1; // Add 1 to translate from indices to "normal" counting
-
-            if((blankRow % 2) == 0){
-                // Add an odd number of inversions.
-                makeInversions();
-            } else{
-                // Add an even number of inversions.
-                makeInversions();
-            }
+            makeInversions(Math.random() > 0.5);
+            // TODO Why don't we have makeInversions return the number of inversions?
+            int inversionCount = Algorithms.countInversions(this.toArray(false));
+            moveBlankRandomly((inversionCount % 2) != 0);
         }
     }
     

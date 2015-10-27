@@ -32,6 +32,7 @@ public class FlatNPuzzleTest{
     public void testInitialize(){
         // FIXME The initialize should be randomized
         fnp.initialize();
+        System.out.println("We have " + Algorithms.countInversions(fnp.toArray(false)) + " inversions.");
         Assert.assertTrue(Algorithms.isSolvable(fnp));
     }
 
