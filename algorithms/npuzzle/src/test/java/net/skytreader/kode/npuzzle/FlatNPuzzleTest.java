@@ -146,7 +146,7 @@ public class FlatNPuzzleTest{
         Assert.assertTrue(fnp.equals(transitiveOther));
 
         // Move stuff around in another
-        another.move(NPuzzle.Direction.DOWN);
+        another.move(NPuzzle.Direction.UP);
         Assert.assertFalse(fnp.equals(another));
         Assert.assertFalse(another.equals(fnp));
     }
