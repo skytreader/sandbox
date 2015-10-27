@@ -36,6 +36,13 @@ public class FlatNPuzzleTest{
     }
 
     @Test
+    public void testInitializeOdd(){
+        FlatNPuzzle fnpOdd = new FlatNPuzzle(3);
+        fnpOdd.initialize();
+        Assert.assertTrue(Algorithms.isSolvable(fnpOdd));
+    }
+
+    @Test
     public void testSetConfigHappy(){
         int[] superInversion = new int[]{15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5,
           4, 3, 2, 1, 0};
