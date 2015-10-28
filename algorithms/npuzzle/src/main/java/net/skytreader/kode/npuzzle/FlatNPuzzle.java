@@ -221,11 +221,16 @@ public class FlatNPuzzle implements NPuzzle{
 
         for(int i = 0; i < this.entropyFactor; i++){
             NPuzzle.Direction d = directions[r.nextInt(dirLimit)];
+            Point blankPos = getBlankPos();
             
             if((hCount == 0 || hCount == 1) && d == NPuzzle.Direction.RIGHT){
                 d = NPuzzle.Direction.LEFT;
             } else if((vCount == 0 || vCount == 1) && d == NPuzzle.Direction.DOWN){
                 d = NPuzzle.Direction.UP;
+            } else if(blankPos.y == 0 && d == NPuzzle.Direction.LEFT){
+                d = NPuzzle.Direction.RIGHT;
+            } else if(blankPos.x == 0 && d == NPuzzle.Direction.UP){
+                d = NPuzzle.Direction.DOWN;
             }
 
             this.move(d);
