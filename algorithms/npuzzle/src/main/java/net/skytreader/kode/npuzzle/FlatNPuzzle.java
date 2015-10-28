@@ -5,6 +5,7 @@ import com.google.common.collect.HashMultiset;
 import java.awt.Point;
 
 import java.util.Arrays;
+import java.util.Formatter;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -309,6 +310,21 @@ public class FlatNPuzzle implements NPuzzle{
     */
     public int hashCode(){
         return Arrays.hashCode(puzzle);
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        Formatter f = new Formatter(sb);
+
+        for(int i = 0; i < puzzle.length; i++){
+            if(i != 0 && (i % size) == 0){
+                sb.append("\n");
+            }
+            f.format("%1$2s", puzzle[i]);
+        }
+
+        return sb.toString();
     }
 
 }

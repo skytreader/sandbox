@@ -161,4 +161,11 @@ public class FlatNPuzzleTest{
         Assert.assertFalse(fnp.equals(another));
         Assert.assertFalse(another.equals(fnp));
     }
+
+    @Test
+    public void testToString(){
+        String p = fnp.toString();
+        String[] parse = p.split("\n");
+        Assert.assertEquals(FlatNPuzzleTest.TEST_SIZE, parse.length);
+    }
 }
