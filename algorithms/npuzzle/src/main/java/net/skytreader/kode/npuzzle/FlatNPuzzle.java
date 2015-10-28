@@ -213,14 +213,37 @@ public class FlatNPuzzle implements NPuzzle{
     and the number of inversions is (odd|even).
     */
     public void initialize(){
-        if((size % 2) == 1){
-            // Add an even number of inversions.
-            makeInversions(true);
-        } else{
-            makeInversions(Math.random() > 0.5);
-            // TODO Why don't we have makeInversions return the number of inversions?
-            int inversionCount = Algorithms.countInversions(this.toArray(false));
-            moveBlankRandomly((inversionCount % 2) != 0);
+        NPuzzle.Direction[] directions = NPuzzle.Direction.values();
+        int dirLimit = directions.length;
+        Random r = new Random();
+        int hCount = 0;
+        int vCount = 0;
+
+        for(int i = 0; i < this.entropyFactor; i++){
+            NPuzzle.Direction d = directions[r.nextInt(dirLimit)];
+            
+            if((hCount == 0 || hCount == 1) && d == NPuzzle.Direction.RIGHT){
+                d = NPuzzle.Direction.LEFT;
+            } else if((vCount == 0 || vCount == 1) && d == NPuzzle.Direction.DOWN){
+                d = NPuzzle.Direction.UP;
+            }
+
+            this.move(d);
+
+            switch(d){
+                case UP:
+                    hCount++;
+                    break;
+                case DOWN:
+                    hCount--;
+                    break;
+                case LEFT:
+                    vCount++;
+                    break;
+                case RIGHT:
+                    vCount--;
+                    break;
+            }
         }
     }
     
@@ -249,6 +272,7 @@ public class FlatNPuzzle implements NPuzzle{
         Point blankPoint = translateIndex(blankIndex);
         int newRow = blankPoint.x + d.drow();
         int newCol = blankPoint.y + d.dcol();
+        System.out.println("new row and col " + newRow + " " + newCol);
 
         int moveIndex = translateRowCol(newRow, newCol);
 
