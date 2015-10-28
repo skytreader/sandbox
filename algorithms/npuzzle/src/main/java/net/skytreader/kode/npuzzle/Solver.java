@@ -1,6 +1,11 @@
 package net.skytreader.kode.npuzzle;
 
-public interface Solver{
-    public boolean isSolvable();
-    public void solve(int row, int col);
+public abstract class Solver{
+    protected NPuzzle npuzzle;
+
+    public Solver(NPuzzle np){
+        npuzzle = np;
+    }
+
+    public abstract void solve();
 }
