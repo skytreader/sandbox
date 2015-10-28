@@ -198,44 +198,44 @@ public class FlatNPuzzle implements NPuzzle{
     and the number of inversions is (odd|even).
     */
     public void initialize(){
-        this.moveBlankRandomly();
-        //NPuzzle.Direction[] directions = NPuzzle.Direction.values();
-        //int dirLimit = directions.length;
-        //Random r = new Random();
-        //int hCount = 0;
-        //int vCount = 0;
+        //this.moveBlankRandomly();
+        NPuzzle.Direction[] directions = NPuzzle.Direction.values();
+        int dirLimit = directions.length;
+        Random r = new Random();
+        int hCount = 0;
+        int vCount = 0;
 
-        //for(int i = 0; i < this.entropyFactor; i++){
-        //    NPuzzle.Direction d = directions[r.nextInt(dirLimit)];
-        //    Point blankPos = getBlankPos();
-        //    
-        //    if((hCount == 0 || hCount == 1) && d == NPuzzle.Direction.RIGHT){
-        //        d = NPuzzle.Direction.LEFT;
-        //    } else if((vCount == 0 || vCount == 1) && d == NPuzzle.Direction.DOWN){
-        //        d = NPuzzle.Direction.UP;
-        //    } else if(blankPos.y == 0 && d == NPuzzle.Direction.LEFT){
-        //        d = NPuzzle.Direction.RIGHT;
-        //    } else if(blankPos.x == 0 && d == NPuzzle.Direction.UP){
-        //        d = NPuzzle.Direction.DOWN;
-        //    }
+        for(int i = 0; i < this.entropyFactor; i++){
+            NPuzzle.Direction d = directions[r.nextInt(dirLimit)];
+            Point blankPos = getBlankPos();
+            
+            if((hCount == 0 || hCount == 1) && d == NPuzzle.Direction.RIGHT){
+                d = NPuzzle.Direction.LEFT;
+            } else if((vCount == 0 || vCount == 1) && d == NPuzzle.Direction.DOWN){
+                d = NPuzzle.Direction.UP;
+            } else if((blankPos.y == 0 || hCount == 4) && d == NPuzzle.Direction.LEFT){
+                d = NPuzzle.Direction.RIGHT;
+            } else if((blankPos.x == 0 || vCount == 4) && d == NPuzzle.Direction.UP){
+                d = NPuzzle.Direction.DOWN;
+            }
 
-        //    this.move(d);
+            this.move(d);
 
-        //    switch(d){
-        //        case UP:
-        //            hCount++;
-        //            break;
-        //        case DOWN:
-        //            hCount--;
-        //            break;
-        //        case LEFT:
-        //            vCount++;
-        //            break;
-        //        case RIGHT:
-        //            vCount--;
-        //            break;
-        //    }
-        //}
+            switch(d){
+                case UP:
+                    vCount++;
+                    break;
+                case DOWN:
+                    vCount--;
+                    break;
+                case LEFT:
+                    hCount++;
+                    break;
+                case RIGHT:
+                    hCount--;
+                    break;
+            }
+        }
     }
     
     public Point getBlankPos(){
