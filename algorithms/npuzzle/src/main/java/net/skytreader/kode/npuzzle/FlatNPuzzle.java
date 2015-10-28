@@ -174,27 +174,12 @@ public class FlatNPuzzle implements NPuzzle{
 
     /**
     Move the blank space to a random position in the puzzle.
-
-    @param evenRow
-        Boolean. If true, you are sure that the blank row is left in an even row
-        <i>from the bottom</i>.
     */
-    private void moveBlankRandomly(boolean evenRow){
+    private void moveBlankRandomly(){
         Random r = new Random();
         int limit = this.size;
         int randomCol = r.nextInt(limit);
         int randomRow = 0;
-
-        if(evenRow){
-            do{
-                randomRow = r.nextInt(limit);
-            } while((randomRow % 2) != 0);
-        } else{
-            do{
-                randomRow = r.nextInt(limit);
-            } while((randomRow % 2) != 1);
-        }
-        System.out.println("we are in row #" + randomRow);
 
         for(int row = this.getBlankPos().x; row != randomRow; row = this.getBlankPos().x){
             this.move(NPuzzle.Direction.UP);
@@ -213,43 +198,44 @@ public class FlatNPuzzle implements NPuzzle{
     and the number of inversions is (odd|even).
     */
     public void initialize(){
-        NPuzzle.Direction[] directions = NPuzzle.Direction.values();
-        int dirLimit = directions.length;
-        Random r = new Random();
-        int hCount = 0;
-        int vCount = 0;
+        this.moveBlankRandomly();
+        //NPuzzle.Direction[] directions = NPuzzle.Direction.values();
+        //int dirLimit = directions.length;
+        //Random r = new Random();
+        //int hCount = 0;
+        //int vCount = 0;
 
-        for(int i = 0; i < this.entropyFactor; i++){
-            NPuzzle.Direction d = directions[r.nextInt(dirLimit)];
-            Point blankPos = getBlankPos();
-            
-            if((hCount == 0 || hCount == 1) && d == NPuzzle.Direction.RIGHT){
-                d = NPuzzle.Direction.LEFT;
-            } else if((vCount == 0 || vCount == 1) && d == NPuzzle.Direction.DOWN){
-                d = NPuzzle.Direction.UP;
-            } else if(blankPos.y == 0 && d == NPuzzle.Direction.LEFT){
-                d = NPuzzle.Direction.RIGHT;
-            } else if(blankPos.x == 0 && d == NPuzzle.Direction.UP){
-                d = NPuzzle.Direction.DOWN;
-            }
+        //for(int i = 0; i < this.entropyFactor; i++){
+        //    NPuzzle.Direction d = directions[r.nextInt(dirLimit)];
+        //    Point blankPos = getBlankPos();
+        //    
+        //    if((hCount == 0 || hCount == 1) && d == NPuzzle.Direction.RIGHT){
+        //        d = NPuzzle.Direction.LEFT;
+        //    } else if((vCount == 0 || vCount == 1) && d == NPuzzle.Direction.DOWN){
+        //        d = NPuzzle.Direction.UP;
+        //    } else if(blankPos.y == 0 && d == NPuzzle.Direction.LEFT){
+        //        d = NPuzzle.Direction.RIGHT;
+        //    } else if(blankPos.x == 0 && d == NPuzzle.Direction.UP){
+        //        d = NPuzzle.Direction.DOWN;
+        //    }
 
-            this.move(d);
+        //    this.move(d);
 
-            switch(d){
-                case UP:
-                    hCount++;
-                    break;
-                case DOWN:
-                    hCount--;
-                    break;
-                case LEFT:
-                    vCount++;
-                    break;
-                case RIGHT:
-                    vCount--;
-                    break;
-            }
-        }
+        //    switch(d){
+        //        case UP:
+        //            hCount++;
+        //            break;
+        //        case DOWN:
+        //            hCount--;
+        //            break;
+        //        case LEFT:
+        //            vCount++;
+        //            break;
+        //        case RIGHT:
+        //            vCount--;
+        //            break;
+        //    }
+        //}
     }
     
     public Point getBlankPos(){
@@ -277,7 +263,6 @@ public class FlatNPuzzle implements NPuzzle{
         Point blankPoint = translateIndex(blankIndex);
         int newRow = blankPoint.x + d.drow();
         int newCol = blankPoint.y + d.dcol();
-        System.out.println("new row and col " + newRow + " " + newCol);
 
         int moveIndex = translateRowCol(newRow, newCol);
 
