@@ -110,4 +110,38 @@ public class Algorithms{
             }
         }
     }
+
+    public static int computeManhattanDistance(Point p1, Point p2){
+        return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
+    }
+
+    /**
+    Get a tile's solved position in a two-dimensional grid. For a puzzle of size
+    s, the solved position is the one where the blank (0) is at the bottom-right
+    corner (size - 1, size - 1) and the tiles 1 to s-1 is laid out in row-
+    major order from top to bottom.
+
+    @param tileNo
+        An integer specifying the label of the tile.
+    @param puzzleSize
+        An integer specifying the width/height of the puzzle instance.
+    @throws IllegalArgumentException
+        If the given tileNo is negative.
+    */
+    public static Point getSolvedPosition(int tileNo, int puzzleSize){
+        if(tileNo < 0){
+            throw new IllegalArgumentException("Tile numbers can't be negative.");
+        }
+
+        if(tileNo == 0){
+            return new Point(puzzleSize - 1, puzzleSize - 1);
+        } else{
+            tileNo--;
+            int row = tileNo / size;
+            int col = tileNo % size;
+
+            return new Point(row, col);
+        }
+    }
+    
 }
