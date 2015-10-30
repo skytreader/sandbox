@@ -15,5 +15,28 @@ public class StarSolver extends Solver{
 
     @Override
     public void solve(){
+        while(!this.np.isSolved()){
+            NPuzzle[] nps = generateNewStates();
+            for(int i = 0; i < 4; i++){
+                pq.add(nps[0]);
+            }
+
+            this.np = pq.remove();
+        }
+    }
+
+    private NPuzzle[] generateNewStates(){
+        NPuzzle[] nextStates = new NPuzzle[4];
+
+        for(int i = 0; i < 4; i++){
+            nextStates[i] = new FlatNPuzzle(this.np);
+        }
+
+        nextStates[0].move(NPuzzle.Direction.UP);
+        nextStates[1].move(NPuzzle.Direction.DOWN);
+        nextStates[2].move(NPuzzle.Direction.LEFT);
+        nextStates[3].move(NPuzzle.Direction.RIGHT);
+
+        return nextStates;
     }
 }
