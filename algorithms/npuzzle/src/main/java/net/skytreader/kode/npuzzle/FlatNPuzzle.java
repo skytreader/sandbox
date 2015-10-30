@@ -53,6 +53,19 @@ public class FlatNPuzzle implements NPuzzle{
         puzzle[limit - 1] = 0;
     }
 
+    public FlatNPuzzle(NPuzzle np){
+        this.puzzle = np.toArray(true);
+        this.size = np.getSize();
+        this.limit = this.size * this.size;
+        this.solvedInstance = new int[this.limit];
+
+        for(int i = 0; i < this.limit; i++){
+            this.solvedInstace[i] = i + 1;
+        }
+
+        this.solvedInstance[this.limit - 1] = 0;
+    }
+
     public void setConfig(int[] conf) throws CorruptedPuzzleException{
         if(conf.length != this.puzzle.length){
             throw new CorruptedPuzzleException("Attempting to change the puzzle size. Setting to " +
